@@ -1,6 +1,4 @@
 import requests
-#import sys
-#sys.path.append('C:/Users/Пользователь/PycharmProjects/HW_1/unixtime_packages')
 
 
 def get_time():
