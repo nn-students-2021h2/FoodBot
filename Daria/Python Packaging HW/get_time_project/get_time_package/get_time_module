@@ -1,0 +1,24 @@
+import requests
+
+
+def get_time():
+    url = 'http://worldtimeapi.org/api/timezone/Europe/Moscow'
+    resp = requests.get(url)
+    return resp.json()['unixtime']
+
+
+def print_time(unixtime):
+    try:
+        import get_time_pp_package.get_time_pp_module as pp
+        pp.get_time_pp(unixtime)
+    except ModuleNotFoundError:
+        print(f'Не удалось импортировать get_time_pp_module. Unix-время: {unixtime}')
+
+
+def main():
+    unixtime = get_time()
+    print_time(unixtime)
+
+
+if __name__ == '__main__':
+    main()
