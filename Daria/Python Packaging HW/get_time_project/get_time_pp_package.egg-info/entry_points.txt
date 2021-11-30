@@ -1,0 +1,2 @@
+[console_scripts]
+get_time = get_time_pp_package.get_time_pp_module:main
