@@ -1,0 +1,2 @@
+requests==2.26.0
+get_time_package==0.1
