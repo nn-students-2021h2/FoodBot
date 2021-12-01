@@ -8,14 +8,14 @@ setup(
     author='Alex',
     author_email='AlexVE36@yandex.ru',
     license='MIT',
-    packages=['my_namespace.get_unixtime_package'],
-    namespace_packages=['my_namespace'],
+    packages=['time_namespace.get_unixtime_package'],
+    namespace_packages=['time_namespace'],
     install_requires=[
         'requests==2.26.0',
     ],
     entry_points={
         'console_scripts': [
-            'get_time=my_namespace.get_unixtime_package.unixtime:main',
+            'get_time=time_namespace.get_unixtime_package.unixtime:main',
         ]
     }
 )

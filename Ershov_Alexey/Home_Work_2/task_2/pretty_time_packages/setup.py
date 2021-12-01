@@ -8,11 +8,11 @@ setup(
     author='Alex',
     author_email='AlexVE36@yandex.ru',
     license='MIT',
-    packages=['my_namespace.get_pretty_time_package'],
-namespace_packages=['my_namespace'],
+    packages=['time_namespace.get_pretty_time_package'],
+namespace_packages=['time_namespace'],
     entry_points={
         'console_scripts': [
-            'get_time_pp=my_namespace.get_pretty_time_package.pretty_time:main'
+            'get_time_pp=time_namespace.get_pretty_time_package.pretty_time:main'
         ]
     }
 )

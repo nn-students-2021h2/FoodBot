@@ -1,4 +1,4 @@
-from unixtime_packages.my_namespace.get_unixtime_package.unixtime import get_time
+from unixtime_packages.time_namespace.get_unixtime_package.unixtime import get_time
 
 from datetime import datetime
 
