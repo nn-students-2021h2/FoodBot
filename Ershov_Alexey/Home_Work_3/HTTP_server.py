@@ -10,7 +10,7 @@ def main_page():
 
 
 @app.route("/test_message", methods=['GET'])
-def get_fib():
+def get_test():
     return "test_message"
 
 
