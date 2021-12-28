@@ -47,11 +47,12 @@ class User:
             self.calorie_norm = round(88.36 + 13.4 * self.weight + 4.8 * self.height - 5.7 * self.age)
         self.calorie_norm *= activity_cf[self.activity]
 
-        # 1g protein = 4kcal, 1g carb = 4kcal, 1g fat = 9kcal
-        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal][0] / 4)
-        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal][1] / 9)
-        self.carbohydrate_norm = round(self.calorie_norm * goal_cf[self.goal][2] / 4)
-
+        PROTEIN_IN_KCAL, CARB_IN_KCAL, FAT_IN_KCAL = 4, 4, 9
+        
+        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal][0] / PROTEIN_IN_KCAL)
+        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal][1] / FAT_IN_KCAL)
+        self.carbohydrate_norm = round(self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL)
+        
         return f'{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n' \
                f'Белки: {self.protein_norm} г. \n' \
                f'Жиры: {self.fat_norm} г. \n' \
