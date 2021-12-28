@@ -1,89 +1,65 @@
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
+
 import logging
-from human_class import User
-from meal_class import Meal
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackContext, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
 
-updater = Updater(token='5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco', use_context=True)
-dispatcher = updater.dispatcher
+from setup import PROXY, TOKEN
+from telegram import Bot, Update
+from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
+# Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+
+# Define a few command handlers. These usually take the two arguments update and
+# context. Error handlers also receive the raised TelegramError object in error.
 
 
 def start(update: Update, context: CallbackContext):
     """Send a message when the command /start is issued."""
-    context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
     update.message.reply_text(f'Здравстуйте, {update.effective_user.first_name}! Вас приветствует FoodBot!\n'
                               f' Давайте вычислим вашу норму калорийности')
 
 
-def hello(update: Update, context: CallbackContext):
-    keyboard = [
-        [InlineKeyboardButton("Обновить персональные данные", callback_data='update_user_data')],
-        [InlineKeyboardButton("Вспомнить свою норму КБЖУ", callback_data='nutrients_norm')],
-        [InlineKeyboardButton("Зарегистрировать прием пищи", callback_data='add_meal')],
-        [InlineKeyboardButton("Посмотреть статистику", callback_data='statistics')]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text('И снова здравствуй! Чем займемся?', reply_markup=reply_markup)
+def chat_help(update: Update, context: CallbackContext):
+    """Send a message when the command /help is issued."""
+    update.message.reply_text('Введи команду /start для начала\n Введите команду /restart для перезапуска бота\n'
+                              'Введи команду /echo для просмотра последней команды\n')
 
 
-def buttons(update: Update, context: CallbackContext, user: User, meal: Meal) -> None:
-
-    query = update.callback_query
-    query.answer()
-    choice = query.data
-
-    if choice == 'acquaintance':
-        update.message.reply_text('Hello! Nothing here yet')
-        acquaintance(update, context)
-    elif choice == 'update_user_data':
-        update_user_data(update, context, user)
-    elif choice == 'nutrients_norm':
-        nutrients_norm(update, context, user)
-    elif choice == 'add_meal':
-        add_meal(update, context, user, meal)
-    elif choice == 'statistics':
-        statistics(update, context, user)
+def echo(update: Update, context: CallbackContext):
+    """Echo the user message."""
+    update.message.reply_text(update.message.text)
 
 
-def acquaintance(update: Update, context: CallbackContext) -> None:
-    """
-    username = input('Введите ваше имя: ')
-    user_age = int(input('Сколько вам лет? '))
-    user_sex = input('Укажите ваш пол: ')
-    user_height = int(input('Какой у вас рост? Введите число в сантиметрах: '))
-    user_weight = int(input('Какой у вас вес? Введите число в килограммах: '))
-    user_activity = input('Укажите ваш уровень активности (нулевая, слабая, средняя, высокая, экстремальная): ')
-    user_goal = input('Укажите вашу цель (поддержание формы, похудение, набор массы: ')
-
-    user = User(username, user_age, user_sex, user_height, user_weight, user_activity, user_goal)
-    """
-    # then add user to database
+def error(update: Update, context: CallbackContext):
+    """Log Errors caused by Updates."""
+    logger.warning(f'Update {update} caused error {context.error}')
 
 
-def update_user_data(update: Update, context: CallbackContext, user: User) -> None:
-    pass
+def eating(update: Update):
+    """Registers each dish"""
+    """Принимаем название блюда/массу, пишем - принял, сохраняем в базу"""
 
 
-def nutrients_norm(update: Update, context: CallbackContext, user: User):
-    pass
+def calorie_rate(update: Update):
+    """Calculate calorie rate"""
+    update.message.reply_text(f'Введите Ваш рост')
+    update.message.reply_text(f'Введите Ваш вес')
+    update.message.reply_text(f'Введите Ваш пол')
+    update.message.reply_text(f'Введите Ваш возраст')
+    calorie_norm = 0
+    return calorie_norm
 
 
-def add_meal(update: Update, context: CallbackContext, user: User, meal: Meal):
-    pass
+def statistics(update: Update):
+    """Get weekly statistics: calorie/proteins/fats/carbohydrates consumption"""
 
 
-def statistics(update: Update, context: CallbackContext, user: User):
-    pass
-
-
-# This handler MUST be added last. If you added it sooner,
-# it would be triggered before the CommandHandlers had a chance to look at the update
-def unknown(update: Update, context: CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id,
-                             text="Что-что? Я не понял :( ")
+def worning_massage(update: Update):
+    """You eat so much!!!"""
 
 
 def main():
@@ -105,24 +81,19 @@ def main():
         # }
     }
 
-    # call function every time the Bot receives a Telegram message that contains the corresponding command
-    start_handler = CommandHandler('start', start)
-    hello_handler = CommandHandler('hello', hello)
-    # meal_handler = CommandHandler('meal', add_meal)
-    # meal_button_handler = CallbackQueryHandler(add_meal)
-    unknown_handler = MessageHandler(Filters.command, unknown)
+    updater = Updater(TOKEN, request_kwargs=REQUEST_KWARGS, use_context=True)
 
-    # as soon as you add new handlers to dispatcher, they are in effect
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(hello_handler)
-    # dispatcher.add_handler(meal_handler)
-    # dispatcher.add_handler(meal_button_handler)
-    dispatcher.add_handler(unknown_handler)
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, hello))
-    dispatcher.add_handler(CallbackQueryHandler(buttons))
+    # on different commands - answer in Telegram
+    updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(CommandHandler('help', chat_help))
 
-    # launch the bot
+    # on noncommand i.e message - echo the message on Telegram
+    updater.dispatcher.add_handler(MessageHandler(Filters.text, echo))
+
+    # log all errors
+    updater.dispatcher.add_error_handler(error)
+
+    # Start the Bot
     updater.start_polling()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
@@ -132,4 +103,5 @@ def main():
 
 
 if __name__ == '__main__':
+    logger.info('Start Bot')
     main()
