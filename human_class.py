@@ -63,16 +63,3 @@ class User:
         adds user data to user_database
         """
         pass
-
-
-# just for check
-username = input('Введите ваше имя: ')
-user_age = int(input('Сколько вам лет? '))
-user_sex = input('Укажите ваш пол: ')
-user_height = int(input('Какой у вас рост? Введите число в сантиметрах: '))
-user_weight = int(input('Какой у вас вес? Введите число в килограммах: '))
-user_activity = input('Укажите ваш уровень активности (нулевая, слабая, средняя, высокая, экстремальная): ')
-user_goal = input('Укажите вашу цель (поддержание формы, похудение, набор массы: ')
-
-user = User(username, user_age, user_sex, user_height, user_weight, user_activity, user_goal)
-print(user.count_norm())

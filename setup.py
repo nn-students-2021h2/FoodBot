@@ -15,7 +15,7 @@ setup(
     license='',
     packages=[''],
     install_requires=[
-        '',
+        'telegram',
     ],
     entry_points={
         'console_scripts': [
