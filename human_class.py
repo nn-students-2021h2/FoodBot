@@ -1,13 +1,13 @@
-#import logging
-
-#from telegram import Bot, Update
+from user_database import *
+from telegram import Update
 #from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
 
 class User:
 
-    def __init__(self, name, age, sex, height, weight, activity, goal):
+    def __init__(self, user_id, name, age, sex, height, weight, activity, goal):
         """Constructor"""
+        self.user_id = user_id
         self.name = name
         self.age = age
         self.sex = sex
@@ -59,7 +59,6 @@ class User:
                f'Углеводы: {self.carbohydrate_norm} г.'
 
     def user_to_database(self):
-        """
-        adds user data to user_database
-        """
+        add_note(self.user_id, self.name, self.age, self.sex, self.height, self.weight, self.activity,
+                 self.goal, self.calorie_norm, self.protein_norm, self.fat_norm, self.carbohydrate_norm)
         pass

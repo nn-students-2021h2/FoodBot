@@ -53,18 +53,17 @@ def buttons(update: Update, context: CallbackContext) -> None:
 
 
 def acquaintance(update: Update, context: CallbackContext) -> None:
-    """
-    username = input('Введите ваше имя: ')
+    user_id = update.effective_chat.id
+    user_name = input('Введите ваше имя: ')
     user_age = int(input('Сколько вам лет? '))
-    user_sex = input('Укажите ваш пол: ')
+    user_sex = input('Укажите ваш пол(мужской, женский): ')
     user_height = int(input('Какой у вас рост? Введите число в сантиметрах: '))
     user_weight = int(input('Какой у вас вес? Введите число в килограммах: '))
     user_activity = input('Укажите ваш уровень активности (нулевая, слабая, средняя, высокая, экстремальная): ')
-    user_goal = input('Укажите вашу цель (поддержание формы, похудение, набор массы: ')
+    user_goal = input('Укажите вашу цель (поддержание формы, похудение, набор массы): ')
 
-    user = User(username, user_age, user_sex, user_height, user_weight, user_activity, user_goal)
-    """
-    # then add user to database
+    user = User(user_id, user_name, user_age, user_sex, user_height, user_weight, user_activity, user_goal)
+    user.user_to_database()
 
 
 def update_user_data(update: Update, context: CallbackContext, user: User) -> None:
