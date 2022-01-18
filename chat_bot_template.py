@@ -1,14 +1,9 @@
 import logging
+from user_database import *
 from human_class import User
 from meal_class import Meal
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CallbackContext, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
-
-updater = Updater(token='5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco', use_context=True)
-dispatcher = updater.dispatcher
-
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
 
 
 def start(update: Update, context: CallbackContext):
@@ -21,10 +16,11 @@ def start(update: Update, context: CallbackContext):
 
 def hello(update: Update, context: CallbackContext):
     keyboard = [
-        [InlineKeyboardButton("Обновить персональные данные", callback_data='update_user_data')],
-        [InlineKeyboardButton("Вспомнить свою норму КБЖУ", callback_data='nutrients_norm')],
         [InlineKeyboardButton("Зарегистрировать прием пищи", callback_data='add_meal')],
-        [InlineKeyboardButton("Посмотреть статистику", callback_data='statistics')]
+        [InlineKeyboardButton("Вспомнить свою норму КБЖУ", callback_data='nutrients_norm')],
+        [InlineKeyboardButton("Посмотреть статистику", callback_data='statistics')],
+        [InlineKeyboardButton("Обновить персональные данные", callback_data='update_user_data')],
+        [InlineKeyboardButton("Сбросить и переопределить все данные", callback_data='acquaintance')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('И снова здравствуй! Чем займемся?', reply_markup=reply_markup)
@@ -39,9 +35,8 @@ def buttons(update: Update, context: CallbackContext) -> None:
     user = get_current_user()
 
     if choice == 'acquaintance':
-        update.message.reply_text('Hello! Nothing here yet')
+        delete_note_with_id(update.effective_chat.id)
         acquaintance(update, context)
-    #     удаление записи из базы данных
     elif choice == 'update_user_data':
         update_user_data(update, context, user)
     elif choice == 'nutrients_norm':
@@ -63,6 +58,8 @@ def acquaintance(update: Update, context: CallbackContext) -> None:
     user_goal = input('Укажите вашу цель (поддержание формы, похудение, набор массы): ')
 
     user = User(user_id, user_name, user_age, user_sex, user_height, user_weight, user_activity, user_goal)
+    # print(user_id)
+    # user = User(user_id, "Иван", 30, "мужской", 180, 120, "слабая", "похудение")
     user.user_to_database()
 
 
@@ -104,6 +101,11 @@ def take_user_meal() -> Meal:
 
 
 def main():
+    updater = Updater(token='5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco', use_context=True)
+    dispatcher = updater.dispatcher
+
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        level=logging.INFO)
     # bot = Bot(
     #     token=TOKEN,
     #     base_url=PROXY,  # delete it if connection via VPN
