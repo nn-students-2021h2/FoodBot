@@ -143,6 +143,74 @@ def update_user_goal(user_id: int, user_goal: str) -> None:
     con.close()
 
 
+def update_user_calorie_norm(user_id: int, user_calorie_norm: float) -> None:
+    con = pymysql.connect(host='localhost', user='foodbot',
+                          password='FoodBot1234', database='telegram_user')
+
+    cursor = con.cursor()
+    sql = f"UPDATE user SET user_calorie_norm={user_calorie_norm} WHERE user_id={user_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print('user_calorie_norm updated')
+    except:
+        con.rollback()
+        print('error of user_calorie_norm updating')
+    cursor.close()
+    con.close()
+
+
+def update_user_protein_norm(user_id: int, user_protein_norm: float) -> None:
+    con = pymysql.connect(host='localhost', user='foodbot',
+                          password='FoodBot1234', database='telegram_user')
+
+    cursor = con.cursor()
+    sql = f"UPDATE user SET user_protein_norm={user_protein_norm} WHERE user_id={user_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print('user_protein_norm updated')
+    except:
+        con.rollback()
+        print('error of user_protein_norm updating')
+    cursor.close()
+    con.close()
+
+
+def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
+    con = pymysql.connect(host='localhost', user='foodbot',
+                          password='FoodBot1234', database='telegram_user')
+
+    cursor = con.cursor()
+    sql = f"UPDATE user SET user_fat_norm={user_fat_norm} WHERE user_id={user_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print('user_fat_norm updated')
+    except:
+        con.rollback()
+        print('error of user_fat_norm updating')
+    cursor.close()
+    con.close()
+
+
+def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -> None:
+    con = pymysql.connect(host='localhost', user='foodbot',
+                          password='FoodBot1234', database='telegram_user')
+
+    cursor = con.cursor()
+    sql = f"UPDATE user SET user_carbohydrate_norm={user_carbohydrate_norm} WHERE user_id={user_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print('user_carbohydrate_norm updated')
+    except:
+        con.rollback()
+        print('error of user_carbohydrate_norm updating')
+    cursor.close()
+    con.close()
+
+
 def get_user_object(user_id: int) -> dict:
     con = pymysql.connect(host='localhost', user='foodbot',
                           password='FoodBot1234', database='telegram_user')
