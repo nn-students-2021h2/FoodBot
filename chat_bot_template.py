@@ -13,9 +13,10 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def start(update: Update, context: CallbackContext):
     """Send a message when the command /start is issued."""
-    context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
-    update.message.reply_text(f'Здравстуйте, {update.effective_user.first_name}! Вас приветствует FoodBot!\n'
-                              f' Давайте вычислим вашу норму калорийности')
+    context.bot.send_message(chat_id=update.effective_chat.id, text=f'Здравстуйте, {update.effective_user.first_name}!'
+                                                                    f' Вас приветствует FoodBot!\n'
+                                                                    f' Давайте вычислим вашу норму калорийности')
+    acquaintance(update, context)
 
 
 def hello(update: Update, context: CallbackContext):
@@ -29,21 +30,24 @@ def hello(update: Update, context: CallbackContext):
     update.message.reply_text('И снова здравствуй! Чем займемся?', reply_markup=reply_markup)
 
 
-def buttons(update: Update, context: CallbackContext, user: User, meal: Meal) -> None:
+def buttons(update: Update, context: CallbackContext) -> None:
 
     query = update.callback_query
     query.answer()
     choice = query.data
 
+    user = get_current_user()
+
     if choice == 'acquaintance':
         update.message.reply_text('Hello! Nothing here yet')
         acquaintance(update, context)
+    #     удаление записи из базы данных
     elif choice == 'update_user_data':
         update_user_data(update, context, user)
     elif choice == 'nutrients_norm':
         nutrients_norm(update, context, user)
     elif choice == 'add_meal':
-        add_meal(update, context, user, meal)
+        add_meal(update, context, user)
     elif choice == 'statistics':
         statistics(update, context, user)
 
@@ -64,19 +68,19 @@ def acquaintance(update: Update, context: CallbackContext) -> None:
 
 
 def update_user_data(update: Update, context: CallbackContext, user: User) -> None:
-    pass
+    print('update_user_data')
 
 
 def nutrients_norm(update: Update, context: CallbackContext, user: User):
-    pass
+    print('nutrients_norm')
 
 
-def add_meal(update: Update, context: CallbackContext, user: User, meal: Meal):
-    pass
+def add_meal(update: Update, context: CallbackContext, user: User):
+    print('add_meal')
 
 
 def statistics(update: Update, context: CallbackContext, user: User):
-    pass
+    print('statistics')
 
 
 # This handler MUST be added last. If you added it sooner,
@@ -84,6 +88,20 @@ def statistics(update: Update, context: CallbackContext, user: User):
 def unknown(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text="Что-что? Я не понял :( ")
+
+# additional functions
+
+
+def get_current_user() -> User:
+    """
+    return user object
+    """
+
+
+def take_user_meal() -> Meal:
+    """
+    return meal object
+    """
 
 
 def main():
@@ -118,8 +136,6 @@ def main():
     # dispatcher.add_handler(meal_handler)
     # dispatcher.add_handler(meal_button_handler)
     dispatcher.add_handler(unknown_handler)
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, hello))
     dispatcher.add_handler(CallbackQueryHandler(buttons))
 
     # launch the bot
