@@ -16,6 +16,7 @@ setup(
     packages=[''],
     install_requires=[
         'telegram',
+        'pymysql',
     ],
     entry_points={
         'console_scripts': [
