@@ -245,3 +245,8 @@ def get_all_meals(user_id: int) -> dict:
     con.close()
 
     return result
+
+
+def generate_meal_id(user_id: int) -> int:
+    meal_id = get_number_of_user_meals(user_id) + 1
+    return meal_id
