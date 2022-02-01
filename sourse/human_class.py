@@ -1,4 +1,6 @@
 from user_database import *
+from telegram import Update
+#from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
 
 class User:
@@ -25,23 +27,23 @@ class User:
         """
 
         activity_cf = {
-            'Нулевая': 1.2,
-            'Слабая': 1.375,
-            'Средняя': 1.55,
-            'Высокая': 1.7,
-            'Экстремальная': 1.9
+            'нулевая': 1.2,
+            'слабая': 1.375,
+            'средняя': 1.55,
+            'высокая': 1.7,
+            'экстремальная': 1.9
         }
 
         # (proteins, fats, carbs) aka (б, ж, у)
         goal_cf = {
-            'Поддержание формы': (0.3, 0.3, 0.4),
-            'Похудение': (0.25, 0.25, 0.5),
-            'Набор массы': (0.35, 0.3, 0.55)
+            'поддержание формы': (0.3, 0.3, 0.4),
+            'похудение': (0.25, 0.25, 0.5),
+            'набор массы': (0.35, 0.3, 0.55)
         }
 
-        if self.sex == 'Женский':
+        if self.sex == 'женский':
             self.calorie_norm = round(447.6 + 9.2 * self.weight + 3.1 * self.height - 4.3 * self.age)
-        elif self.sex == 'Мужской':
+        elif self.sex == 'мужской':
             self.calorie_norm = round(88.36 + 13.4 * self.weight + 4.8 * self.height - 5.7 * self.age)
         self.calorie_norm *= activity_cf[self.activity]
 
@@ -59,3 +61,4 @@ class User:
     def user_to_database(self):
         add_note(self.user_id, self.name, self.age, self.sex, self.height, self.weight, self.activity,
                  self.goal, self.calorie_norm, self.protein_norm, self.fat_norm, self.carbohydrate_norm)
+        pass
