@@ -1,10 +1,10 @@
 from user_database import *
 from telegram import Update
-#from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
+
+# from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler, Updater
 
 
 class User:
-
     def __init__(self, user_id, name, age, sex, height, weight, activity, goal):
         """Constructor"""
         self.user_id = user_id
@@ -27,38 +27,60 @@ class User:
         """
 
         activity_cf = {
-            'нулевая': 1.2,
-            'слабая': 1.375,
-            'средняя': 1.55,
-            'высокая': 1.7,
-            'экстремальная': 1.9
+            "нулевая": 1.2,
+            "слабая": 1.375,
+            "средняя": 1.55,
+            "высокая": 1.7,
+            "экстремальная": 1.9,
         }
 
         # (proteins, fats, carbs) aka (б, ж, у)
         goal_cf = {
-            'поддержание формы': (0.3, 0.3, 0.4),
-            'похудение': (0.25, 0.25, 0.5),
-            'набор массы': (0.35, 0.3, 0.55)
+            "поддержание формы": (0.3, 0.3, 0.4),
+            "похудение": (0.25, 0.25, 0.5),
+            "набор массы": (0.35, 0.3, 0.55),
         }
 
-        if self.sex == 'женский':
-            self.calorie_norm = round(447.6 + 9.2 * self.weight + 3.1 * self.height - 4.3 * self.age)
-        elif self.sex == 'мужской':
-            self.calorie_norm = round(88.36 + 13.4 * self.weight + 4.8 * self.height - 5.7 * self.age)
+        if self.sex == "женский":
+            self.calorie_norm = round(
+                447.6 + 9.2 * self.weight + 3.1 * self.height - 4.3 * self.age
+            )
+        elif self.sex == "мужской":
+            self.calorie_norm = round(
+                88.36 + 13.4 * self.weight + 4.8 * self.height - 5.7 * self.age
+            )
         self.calorie_norm *= activity_cf[self.activity]
 
         PROTEIN_IN_KCAL, CARB_IN_KCAL, FAT_IN_KCAL = 4, 4, 9
-        
-        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal][0] / PROTEIN_IN_KCAL)
+
+        self.protein_norm = round(
+            self.calorie_norm * goal_cf[self.goal][0] / PROTEIN_IN_KCAL
+        )
         self.fat_norm = round(self.calorie_norm * goal_cf[self.goal][1] / FAT_IN_KCAL)
-        self.carbohydrate_norm = round(self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL)
-        
-        return f'{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n' \
-               f'Белки: {self.protein_norm} г. \n' \
-               f'Жиры: {self.fat_norm} г. \n' \
-               f'Углеводы: {self.carbohydrate_norm} г.'
+        self.carbohydrate_norm = round(
+            self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL
+        )
+
+        return (
+            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
+            f"Белки: {self.protein_norm} г. \n"
+            f"Жиры: {self.fat_norm} г. \n"
+            f"Углеводы: {self.carbohydrate_norm} г."
+        )
 
     def user_to_database(self):
-        add_note(self.user_id, self.name, self.age, self.sex, self.height, self.weight, self.activity,
-                 self.goal, self.calorie_norm, self.protein_norm, self.fat_norm, self.carbohydrate_norm)
+        add_note(
+            self.user_id,
+            self.name,
+            self.age,
+            self.sex,
+            self.height,
+            self.weight,
+            self.activity,
+            self.goal,
+            self.calorie_norm,
+            self.protein_norm,
+            self.fat_norm,
+            self.carbohydrate_norm,
+        )
         pass
