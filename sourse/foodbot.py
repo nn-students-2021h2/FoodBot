@@ -48,9 +48,10 @@ def main():
                 MessageHandler(Filters.regex("У меня уже есть дневник"), existing_user)
             ],
             states={
-                "update_data": [
+                "update_existing_user_data": [
                     MessageHandler(
-                        Filters.regex("Изменить персональные данные"), update_data
+                        Filters.regex("Изменить персональные данные"),
+                        update_existing_user_data,
                     )
                 ],
             },

@@ -1,7 +1,8 @@
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup
-from utils import keyboards
+from utils import initial_keyboard, existing_user_keyboard
 from time import sleep
 from user_class import User
+from user_database import get_user_object
 
 
 def start(bot, update):
@@ -10,7 +11,7 @@ def start(bot, update):
         f"{bot.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
         f"Давайте познакомимся!",
-        reply_markup=keyboards(),
+        reply_markup=initial_keyboard(),
     )
 
 
@@ -89,7 +90,7 @@ def get_user_goal(bot, update):
         goal=update.user_data["goal"],
     )
     bot.message.reply_text(user.count_norm())
-    user.to_database()
+    user.user_to_database()
 
 
 def existing_user(bot, update):
@@ -98,4 +99,12 @@ def existing_user(bot, update):
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
         reply_markup=existing_user_keyboard(),
     )
-    return "user_data"
+    return "update_existing_user_data"
+
+
+def update_existing_user_data(bot, update):
+    reply_keyboard = [["Имя", "Возраст", "Пол"], ["Уровень активности", "Цель"]]
+    bot.message.reply_text(
+        "Какую информацию ты хочешь изменить?",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
