@@ -34,9 +34,9 @@ def add_note(
         cursor.execute(sql)
         con.commit()
         print("note added")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user adding")
+        print(f"could not add note error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -55,9 +55,9 @@ def delete_note_with_id(user_id: int) -> None:
         cursor.execute(sql)
         con.commit()
         print("note deleted")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user deleting")
+        print(f"could not delete user error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -76,9 +76,9 @@ def update_user_name(user_id: int, new_user_name: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_name updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_name updating")
+        print(f"could not update user_name error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -97,9 +97,9 @@ def update_user_age(user_id: int, new_user_age: int) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_age updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_age updating")
+        print(f"could not update user_age error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -118,9 +118,9 @@ def update_user_height(user_id: int, user_height: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_height updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_height updating")
+        print(f"could not update user_height error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -139,9 +139,9 @@ def update_user_weight(user_id: int, user_weight: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_weight updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_weight updating")
+        print(f"could not update user_weight error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -160,9 +160,9 @@ def update_user_activity(user_id: int, user_activity: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_activity updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_activity updating")
+        print(f"could not update user_activity error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -181,9 +181,9 @@ def update_user_goal(user_id: int, user_goal: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_goal updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_goal updating")
+        print(f"could not update user_goal error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -204,9 +204,11 @@ def update_user_calorie_norm(user_id: int, user_calorie_norm: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_calorie_norm updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_calorie_norm updating")
+        print(
+            f"could not update user_calorie_norm error pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -227,9 +229,11 @@ def update_user_protein_norm(user_id: int, user_protein_norm: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_protein_norm updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_protein_norm updating")
+        print(
+            f"could not update user_protein_norm error pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -248,9 +252,9 @@ def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("user_fat_norm updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_fat_norm updating")
+        print(f"could not update user_fat_norm error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -269,9 +273,11 @@ def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -
         cursor.execute(sql)
         con.commit()
         print("user_carbohydrate_norm updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user_carbohydrate_norm updating")
+        print(
+            f"could not update user_carbohydrate_norm error pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -306,8 +312,8 @@ def get_user_object(user_id: int) -> dict:
             user_carbohydrate_norm=database_result[0][11],
         )
         print("record received")
-    except:
-        print("error of record receiving")
+    except pymysql.Error as e:
+        print(f"could not receive record error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
