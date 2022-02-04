@@ -31,6 +31,18 @@ def main():
                             },
                             fallbacks=[]
                             ))
+    dispatcher.add_handler(
+        ConversationHandler(entry_points=[MessageHandler(Filters.regex('У меня уже есть дневник'), existing_user)],
+                            states={
+                                'update_data': [
+                                    MessageHandler(
+                                        Filters.regex('Изменить персональные данные'),
+                                        update_data
+                                    )
+                                ],
+                                    },
+                            fallbacks=[]
+                            ))
 
     bot.start_polling()
     bot.idle()

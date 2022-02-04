@@ -80,3 +80,11 @@ def get_user_goal(bot, update):
     )
     bot.message.reply_text(user.count_norm())
     user.to_database()
+
+
+def existing_user(bot, update):
+    user_name = get_user_object(user_id=bot.message.chat.id)['user_name']
+    bot.message.reply_text(
+        f'{user_name}, я рад тебя видеть! Чем я могу тебе помочь?',
+        reply_markup=existing_user_keyboard())
+    return 'user_data'
