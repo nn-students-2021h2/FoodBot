@@ -89,7 +89,7 @@ def get_user_goal(bot, update):
         activity=update.user_data["activity"],
         goal=update.user_data["goal"],
     )
-    bot.message.reply_text(user.count_norm())
+    bot.message.reply_text(user.get_short_info())
     user.user_to_database()
 
 

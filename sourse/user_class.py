@@ -58,13 +58,6 @@ class User:
             self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL
         )
 
-        return (
-            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
-            f"Белки: {self.protein_norm} г. \n"
-            f"Жиры: {self.fat_norm} г. \n"
-            f"Углеводы: {self.carbohydrate_norm} г."
-        )
-
     def user_to_database(self):
         add_note(
             self.user_id,
@@ -79,4 +72,12 @@ class User:
             self.protein_norm,
             self.fat_norm,
             self.carbohydrate_norm,
+        )
+
+    def get_short_info(self) -> str:
+        return (
+            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
+            f"Белки: {self.protein_norm} г. \n"
+            f"Жиры: {self.fat_norm} г. \n"
+            f"Углеводы: {self.carbohydrate_norm} г."
         )
