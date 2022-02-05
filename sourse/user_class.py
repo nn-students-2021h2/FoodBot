@@ -2,14 +2,14 @@ from user_database import *
 
 
 class User:
-    def __init__(self, user_id, name, age, sex, height, weight, activity, goal):
+    def __init__(self, user_id: int, name: str, age: int, sex: str, height: int, weight: int, activity: str, goal: str):
         """Constructor"""
         self.user_id = user_id
         self.name = name
-        self.age = age
+        self.age = int(age)
         self.sex = sex
-        self.height = height
-        self.weight = weight
+        self.height = int(height)
+        self.weight = int(weight)
         self.activity = activity
         self.goal = goal
         self.calorie_norm = 0
@@ -17,7 +17,7 @@ class User:
         self.fat_norm = 0
         self.carbohydrate_norm = 0
 
-    def count_norm(self):
+    def count_norm(self) -> str:
         """
         Counts daily norm of nutrients according to user's attributes
         Source: https://edatop.ru/252-raschet-bzhu.html#hmenu-10
@@ -65,7 +65,7 @@ class User:
             f"Углеводы: {self.carbohydrate_norm} г."
         )
 
-    def user_to_database(self):
+    def user_to_database(self) -> None:
         add_note(
             self.user_id,
             self.name,

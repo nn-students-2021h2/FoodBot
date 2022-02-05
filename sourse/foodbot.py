@@ -45,7 +45,8 @@ def main():
     dispatcher.add_handler(
         ConversationHandler(
             entry_points=[
-                MessageHandler(Filters.regex("У меня уже есть дневник"), existing_user)
+                MessageHandler(Filters.regex("Go"), existing_user),
+                MessageHandler(Filters.regex("Начнем"), existing_user),
             ],
             states={
                 "update_existing_user_data": [
