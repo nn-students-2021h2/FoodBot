@@ -1,5 +1,5 @@
 class Meal:
-    def __init__(self, dish, portion_size, measure_units, date=None, time=None):
+    def __init__(self, dish: str, portion_size: int, measure_units: str, date: str = None, time: str = None):
         self.dish = dish
         self.portion_size = portion_size
         self.measure_units = measure_units
