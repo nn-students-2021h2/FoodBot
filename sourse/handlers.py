@@ -1,11 +1,9 @@
-from telegram import (ReplyKeyboardRemove, ReplyKeyboardMarkup, Update)
+from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from time import sleep
 from user_class import User
-from user_database import (delete_note_with_id, get_user_object)
-from telegram.ext import (
-    CallbackContext
-)
+from user_database import delete_note_with_id, get_user_object
+from telegram.ext import CallbackContext
 
 
 def start(update: Update, context: CallbackContext) -> None:

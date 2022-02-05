@@ -2,7 +2,17 @@ from user_database import *
 
 
 class User:
-    def __init__(self, user_id: int, name: str, age: int, sex: str, height: int, weight: int, activity: str, goal: str):
+    def __init__(
+        self,
+        user_id: int,
+        name: str,
+        age: int,
+        sex: str,
+        height: int,
+        weight: int,
+        activity: str,
+        goal: str,
+    ):
         """Constructor"""
         self.user_id = user_id
         self.name = name
@@ -17,7 +27,7 @@ class User:
         self.fat_norm = 0
         self.carbohydrate_norm = 0
 
-    def count_norm(self) -> str:
+    def count_norm(self) -> None:
         """
         Counts daily norm of nutrients according to user's attributes
         Source: https://edatop.ru/252-raschet-bzhu.html#hmenu-10
@@ -58,13 +68,6 @@ class User:
             self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL
         )
 
-        return (
-            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
-            f"Белки: {self.protein_norm} г. \n"
-            f"Жиры: {self.fat_norm} г. \n"
-            f"Углеводы: {self.carbohydrate_norm} г."
-        )
-
     def user_to_database(self) -> None:
         add_note(
             self.user_id,
@@ -79,4 +82,12 @@ class User:
             self.protein_norm,
             self.fat_norm,
             self.carbohydrate_norm,
+        )
+
+    def get_short_info(self) -> str:
+        return (
+            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
+            f"Белки: {self.protein_norm} г. \n"
+            f"Жиры: {self.fat_norm} г. \n"
+            f"Углеводы: {self.carbohydrate_norm} г."
         )
