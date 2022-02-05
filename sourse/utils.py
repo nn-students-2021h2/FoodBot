@@ -1,12 +1,12 @@
 from telegram import ReplyKeyboardMarkup, KeyboardButton
 
 
-def initial_keyboard():
+def initial_keyboard() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup([["Познакомиться"]], resize_keyboard=True)
     return keyboard
 
 
-def existing_user_keyboard():
+def existing_user_keyboard() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(
         [
             ["Внести прием пищи"],
