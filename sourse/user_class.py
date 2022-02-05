@@ -6,10 +6,10 @@ class User:
         """Constructor"""
         self.user_id = user_id
         self.name = name
-        self.age = age
+        self.age = int(age)
         self.sex = sex
-        self.height = height
-        self.weight = weight
+        self.height = int(height)
+        self.weight = int(weight)
         self.activity = activity
         self.goal = goal
         self.calorie_norm = 0

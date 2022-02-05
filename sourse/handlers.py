@@ -2,11 +2,13 @@ from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup
 from utils import initial_keyboard, existing_user_keyboard
 from time import sleep
 from user_class import User
-from user_database import get_user_object
+from user_database import delete_note_with_id, get_user_object
 
 
 def start(bot, update):
     print("Кто-то запустил бота!")
+    print("Удаляю имеющуюся запись")
+    delete_note_with_id(bot.effective_chat.id)
     bot.message.reply_text(
         f"{bot.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
