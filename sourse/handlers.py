@@ -92,6 +92,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> None:
         activity=context.user_data["activity"],
         goal=context.user_data["goal"],
     )
+    user.count_norm()
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
 
