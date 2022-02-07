@@ -74,7 +74,7 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     return "user_goal"
 
 
-def get_user_goal(update: Update, context: CallbackContext) -> str:
+def get_user_goal(update: Update, context: CallbackContext) -> None:
     context.user_data["goal"] = update.message.text
     update.message.reply_text(
         f'Отлично, {context.user_data["name"].capitalize()}! '
@@ -92,7 +92,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> str:
         activity=context.user_data["activity"],
         goal=context.user_data["goal"],
     )
-    update.message.reply_text(user.count_norm())
+    update.message.reply_text(user.get_short_info())
     user.user_to_database()
 
 
