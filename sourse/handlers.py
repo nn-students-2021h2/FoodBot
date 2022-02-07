@@ -1,8 +1,8 @@
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from time import sleep
-from user_class import User
-from user_database import delete_note_with_id, get_user_object
+from user_class import User, user_from_dict
+from user_database import *
 from telegram.ext import CallbackContext
 
 
@@ -106,9 +106,139 @@ def existing_user(update: Update, context: CallbackContext) -> str:
     return "update_existing_user_data"
 
 
-def update_existing_user_data(update: Update, context: CallbackContext) -> None:
-    reply_keyboard = [["Имя", "Возраст", "Пол"], ["Уровень активности", "Цель"]]
+def update_existing_user_data(update: Update, context: CallbackContext) -> str:
+    reply_keyboard = [["Имя", "Возраст", "Пол"], ["Вес", "Рост"], ["Уровень активности", "Цель"]]
     update.message.reply_text(
         "Какую информацию ты хочешь изменить?",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
+    return "update_existing_user_data_continue"
+
+
+def update_existing_user_data_continue(update: Update, context: CallbackContext) -> str:
+    user_choice = update.message.text
+    if user_choice == "Имя":
+        update.message.reply_text("Укажите новое имя")
+        return "update_exiting_user_name"
+    elif user_choice == "Возраст":
+        update.message.reply_text("Укажите новый возраст")
+        return "update_exiting_user_age"
+    elif user_choice == "Пол":
+        reply_keyboard = [["Мужской", "Женский"]]
+        update.message.reply_text(
+            "Укажите новый пол:",
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        )
+        return "update_exiting_user_sex"
+    elif user_choice == "Рост":
+        update.message.reply_text("Укажите новый рост")
+        return "update_exiting_user_height"
+    elif user_choice == "Вес":
+        update.message.reply_text("Укажите новый вес")
+        return "update_exiting_user_weight"
+    elif user_choice == "Уровень активности":
+        reply_keyboard = [["Нулевая", "Слабая", "Средняя", "Высокая", "Экстремальная"]]
+        update.message.reply_text(
+            "Укажите новый уровень активности",
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        )
+        return "update_exiting_user_activity"
+    elif user_choice == "Цель":
+        reply_keyboard = [["Похудение", "Поддержание формы", "Набор массы"]]
+        update.message.reply_text(
+            "Укажите новую цель",
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        )
+        return "update_exiting_user_goal"
+
+
+def update_exiting_user_name(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_name(update.effective_chat.id, user_enter)
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_age(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_age(update.effective_chat.id, int(user_enter))
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_sex(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_sex(update.effective_chat.id, user_enter)
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_height(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_height(update.effective_chat.id, float(user_enter))
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_weight(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_weight(update.effective_chat.id, float(user_enter))
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_activity(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_activity(update.effective_chat.id, user_enter)
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
+    user_enter = update.message.text
+    update_user_goal(update.effective_chat.id, user_enter)
+    reply_keyboard = [["Пересчитать норму каллорий"]]
+    update.message.reply_text(
+        "Изменения внесены",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "update_exiting_user_norm"
+
+
+def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
+    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user.count_norm()
+    update_user_calorie_norm(update.effective_chat.id, user.calorie_norm)
+    update_user_protein_norm(update.effective_chat.id, user.protein_norm)
+    update_user_fat_norm(update.effective_chat.id, user.fat_norm)
+    update_user_carbohydrate_norm(update.effective_chat.id, user.carbohydrate_norm)
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        "Для продолжения взаимодестаия с ботом нажмите \"Продолжить\"",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "origin_state"

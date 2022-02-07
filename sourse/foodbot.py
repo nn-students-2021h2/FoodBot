@@ -49,12 +49,22 @@ def main():
                 MessageHandler(Filters.regex("Начнем"), existing_user),
             ],
             states={
+                "origin_state": [MessageHandler(Filters.text, existing_user)],
                 "update_existing_user_data": [
                     MessageHandler(
                         Filters.regex("Изменить персональные данные"),
                         update_existing_user_data,
                     )
                 ],
+                "update_existing_user_data_continue": [MessageHandler(Filters.text, update_existing_user_data_continue)],
+                "update_exiting_user_name": [MessageHandler(Filters.text, update_exiting_user_name)],
+                "update_exiting_user_age": [MessageHandler(Filters.text, update_exiting_user_age)],
+                "update_exiting_user_sex": [MessageHandler(Filters.text, update_exiting_user_sex)],
+                "update_exiting_user_height": [MessageHandler(Filters.text, update_exiting_user_height)],
+                "update_exiting_user_weight": [MessageHandler(Filters.text, update_exiting_user_weight)],
+                "update_exiting_user_activity": [MessageHandler(Filters.text, update_exiting_user_activity)],
+                "update_exiting_user_goal": [MessageHandler(Filters.text, update_exiting_user_goal)],
+                "update_exiting_user_norm": [MessageHandler(Filters.text, update_exiting_user_norm)]
             },
             fallbacks=[],
         )
