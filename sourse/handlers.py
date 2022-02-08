@@ -1,11 +1,9 @@
-from telegram import (ReplyKeyboardRemove, ReplyKeyboardMarkup, Update)
+from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from time import sleep
 from user_class import User
-from user_database import (delete_note_with_id, get_user_object)
-from telegram.ext import (
-    CallbackContext
-)
+from user_database import delete_note_with_id, get_user_object
+from telegram.ext import CallbackContext
 
 
 def start(update: Update, context: CallbackContext) -> None:
@@ -76,7 +74,7 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     return "user_goal"
 
 
-def get_user_goal(update: Update, context: CallbackContext) -> str:
+def get_user_goal(update: Update, context: CallbackContext) -> None:
     context.user_data["goal"] = update.message.text
     update.message.reply_text(
         f'Отлично, {context.user_data["name"].capitalize()}! '
@@ -94,7 +92,8 @@ def get_user_goal(update: Update, context: CallbackContext) -> str:
         activity=context.user_data["activity"],
         goal=context.user_data["goal"],
     )
-    update.message.reply_text(user.count_norm())
+    user.count_norm()
+    update.message.reply_text(user.get_short_info())
     user.user_to_database()
 
 
