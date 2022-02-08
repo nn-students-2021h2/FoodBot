@@ -15,7 +15,7 @@ class User:
         calorie_norm: int = 0,
         protein_norm: int = 0,
         fat_norm: int = 0,
-        carbohydrate_norm: int = 0
+        carbohydrate_norm: int = 0,
     ):
         """Constructor"""
         self.user_id = user_id
@@ -110,6 +110,6 @@ def user_from_dict(user_data: dict) -> User:
         calorie_norm=user_data["user_calorie_norm"],
         protein_norm=user_data["user_protein_norm"],
         fat_norm=user_data["user_fat_norm"],
-        carbohydrate_norm=user_data["user_carbohydrate_norm"]
+        carbohydrate_norm=user_data["user_carbohydrate_norm"],
     )
     return user

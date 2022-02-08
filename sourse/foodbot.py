@@ -49,28 +49,61 @@ def main():
                 MessageHandler(Filters.regex("Начнем"), existing_user),
             ],
             states={
-                "main_state": [MessageHandler(Filters.regex("Продолжить"), existing_user),
-                               MessageHandler(Filters.regex("Вспомнить свою норму КБЖУ"), get_cpfc_norm),
-                               MessageHandler(Filters.regex("Изменить персональные данные"), update_existing_user_data),
-                               ],
-                "update_existing_user_data": [MessageHandler(Filters.regex("Имя"), pre_update_exiting_user_name),
-                                              MessageHandler(Filters.regex("Возраст"), pre_update_exiting_user_age),
-                                              MessageHandler(Filters.regex("Пол"), pre_update_exiting_user_sex),
-                                              MessageHandler(Filters.regex("Рост"), pre_update_exiting_user_height),
-                                              MessageHandler(Filters.regex("Вес"), pre_update_exiting_user_weight),
-                                              MessageHandler(Filters.regex("Уровень активности"), pre_update_exiting_user_activity),
-                                              MessageHandler(Filters.regex("Цель"), pre_update_exiting_user_goal),
-                                              MessageHandler(Filters.regex("Вернуться в основное меню"), return_to_main_state)],
-
-                "update_exiting_user_name": [MessageHandler(Filters.text, update_exiting_user_name)],
-                "update_exiting_user_age": [MessageHandler(Filters.text, update_exiting_user_age)],
-                "update_exiting_user_sex": [MessageHandler(Filters.text, update_exiting_user_sex)],
-                "update_exiting_user_height": [MessageHandler(Filters.text, update_exiting_user_height)],
-                "update_exiting_user_weight": [MessageHandler(Filters.text, update_exiting_user_weight)],
-                "update_exiting_user_activity": [MessageHandler(Filters.text, update_exiting_user_activity)],
-                "update_exiting_user_goal": [MessageHandler(Filters.text, update_exiting_user_goal)],
-
-                "update_exiting_user_norm": [MessageHandler(Filters.text, update_exiting_user_norm)]
+                "main_state": [
+                    MessageHandler(Filters.regex("Продолжить"), existing_user),
+                    MessageHandler(
+                        Filters.regex("Вспомнить свою норму КБЖУ"), get_cpfc_norm
+                    ),
+                    MessageHandler(
+                        Filters.regex("Изменить персональные данные"),
+                        update_existing_user_data,
+                    ),
+                ],
+                "update_existing_user_data": [
+                    MessageHandler(Filters.regex("Имя"), pre_update_exiting_user_name),
+                    MessageHandler(
+                        Filters.regex("Возраст"), pre_update_exiting_user_age
+                    ),
+                    MessageHandler(Filters.regex("Пол"), pre_update_exiting_user_sex),
+                    MessageHandler(
+                        Filters.regex("Рост"), pre_update_exiting_user_height
+                    ),
+                    MessageHandler(
+                        Filters.regex("Вес"), pre_update_exiting_user_weight
+                    ),
+                    MessageHandler(
+                        Filters.regex("Уровень активности"),
+                        pre_update_exiting_user_activity,
+                    ),
+                    MessageHandler(Filters.regex("Цель"), pre_update_exiting_user_goal),
+                    MessageHandler(
+                        Filters.regex("Вернуться в основное меню"), return_to_main_state
+                    ),
+                ],
+                "update_exiting_user_name": [
+                    MessageHandler(Filters.text, update_exiting_user_name)
+                ],
+                "update_exiting_user_age": [
+                    MessageHandler(Filters.text, update_exiting_user_age)
+                ],
+                "update_exiting_user_sex": [
+                    MessageHandler(Filters.text, update_exiting_user_sex)
+                ],
+                "update_exiting_user_height": [
+                    MessageHandler(Filters.text, update_exiting_user_height)
+                ],
+                "update_exiting_user_weight": [
+                    MessageHandler(Filters.text, update_exiting_user_weight)
+                ],
+                "update_exiting_user_activity": [
+                    MessageHandler(Filters.text, update_exiting_user_activity)
+                ],
+                "update_exiting_user_goal": [
+                    MessageHandler(Filters.text, update_exiting_user_goal)
+                ],
+                "update_exiting_user_norm": [
+                    MessageHandler(Filters.text, update_exiting_user_norm)
+                ],
             },
             fallbacks=[],
         )
