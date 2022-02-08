@@ -107,7 +107,11 @@ def existing_user(update: Update, context: CallbackContext) -> str:
 
 
 def update_existing_user_data(update: Update, context: CallbackContext) -> str:
-    reply_keyboard = [["Имя", "Возраст", "Пол"], ["Вес", "Рост"], ["Уровень активности", "Цель"]]
+    reply_keyboard = [
+        ["Имя", "Возраст", "Пол"],
+        ["Вес", "Рост"],
+        ["Уровень активности", "Цель", "Вернуться в основное меню"],
+    ]
     update.message.reply_text(
         "Какую информацию ты хочешь изменить?",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
@@ -150,6 +154,13 @@ def update_existing_user_data_continue(update: Update, context: CallbackContext)
             reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
         )
         return "update_exiting_user_goal"
+    elif user_choice == "Вернуться в основное меню":
+        reply_keyboard = [["Продолжить"]]
+        update.message.reply_text(
+            'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        )
+        return "origin_state"
 
 
 def update_exiting_user_name(update: Update, context: CallbackContext) -> str:
@@ -238,7 +249,7 @@ def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
     update_user_carbohydrate_norm(update.effective_chat.id, user.carbohydrate_norm)
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
-        "Для продолжения взаимодестаия с ботом нажмите \"Продолжить\"",
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
     return "origin_state"
