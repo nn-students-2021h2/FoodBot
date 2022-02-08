@@ -12,6 +12,10 @@ class User:
         weight: int,
         activity: str,
         goal: str,
+        calorie_norm: int = 0,
+        protein_norm: int = 0,
+        fat_norm: int = 0,
+        carbohydrate_norm: int = 0
     ):
         """Constructor"""
         self.user_id = user_id
@@ -22,10 +26,10 @@ class User:
         self.weight = int(weight)
         self.activity = activity
         self.goal = goal
-        self.calorie_norm = 0
-        self.protein_norm = 0
-        self.fat_norm = 0
-        self.carbohydrate_norm = 0
+        self.calorie_norm = calorie_norm
+        self.protein_norm = protein_norm
+        self.fat_norm = fat_norm
+        self.carbohydrate_norm = carbohydrate_norm
 
     def count_norm(self) -> None:
         """
@@ -103,5 +107,9 @@ def user_from_dict(user_data: dict) -> User:
         weight=user_data["user_weight"],
         activity=user_data["user_activity"],
         goal=user_data["user_goal"],
+        calorie_norm=user_data["user_calorie_norm"],
+        protein_norm=user_data["user_protein_norm"],
+        fat_norm=user_data["user_fat_norm"],
+        carbohydrate_norm=user_data["user_carbohydrate_norm"]
     )
     return user
