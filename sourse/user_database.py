@@ -104,6 +104,27 @@ def update_user_age(user_id: int, new_user_age: int) -> None:
     con.close()
 
 
+def update_user_sex(user_id: int, new_user_sex: str) -> None:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"UPDATE user SET user_sex='{new_user_sex}' WHERE user_id={user_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print("user_sex updated")
+    except pymysql.Error as e:
+        con.rollback()
+        print(f"could not update user_sex error pymysql {e.args[0]}: {e.args[1]}")
+    cursor.close()
+    con.close()
+
+
 def update_user_height(user_id: int, user_height: float) -> None:
     con = pymysql.connect(
         host="localhost",
