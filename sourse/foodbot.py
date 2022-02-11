@@ -22,19 +22,19 @@ def main():
                 "user_name": [MessageHandler(Filters.text, get_user_name)],
                 "user_birth_date": [MessageHandler(Filters.text, get_user_birth_date)],
                 "user_sex": [
-                    MessageHandler(Filters.regex("Мужской|Женский"), get_user_sex)
+                    MessageHandler(Filters.regex("мужской|женский"), get_user_sex)
                 ],
                 "user_height": [MessageHandler(Filters.text, get_user_height)],
                 "user_weight": [MessageHandler(Filters.text, get_user_weight)],
                 "user_activity": [
                     MessageHandler(
-                        Filters.regex("Нулевая|Слабая|Средняя|Высокая|Экстремальная"),
+                        Filters.regex("нулевая|слабая|средняя|высокая|экстремальная"),
                         get_user_activity,
                     )
                 ],
                 "user_goal": [
                     MessageHandler(
-                        Filters.regex("Похудение|Поддержание формы|Набор массы"),
+                        Filters.regex("похудение|поддержание формы|набор массы"),
                         get_user_goal,
                     )
                 ],

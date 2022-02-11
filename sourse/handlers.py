@@ -34,7 +34,7 @@ def get_user_name(update: Update, context: CallbackContext) -> str:
 
 def get_user_birth_date(update: Update, context: CallbackContext) -> str:
     context.user_data["birth_date"] = update.message.text
-    reply_keyboard = [["Мужской", "Женский"]]
+    reply_keyboard = [["мужской", "женский"]]
     update.message.reply_text(
         "Укажите свой пол:",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
@@ -56,7 +56,7 @@ def get_user_height(update: Update, context: CallbackContext) -> str:
 
 def get_user_weight(update: Update, context: CallbackContext) -> str:
     context.user_data["weight"] = update.message.text
-    reply_keyboard = [["Нулевая", "Слабая", "Средняя", "Высокая", "Экстремальная"]]
+    reply_keyboard = [["нулевая", "слабая", "средняя", "высокая", "экстремальная"]]
     update.message.reply_text(
         "Какой у Вас уровень активности? <добавить пояснения>",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
@@ -66,7 +66,7 @@ def get_user_weight(update: Update, context: CallbackContext) -> str:
 
 def get_user_activity(update: Update, context: CallbackContext) -> str:
     context.user_data["activity"] = update.message.text
-    reply_keyboard = [["Похудение", "Поддержание формы", "Набор массы"]]
+    reply_keyboard = [["похудение", "поддержание формы", "набор массы"]]
     update.message.reply_text(
         "Какая у вас цель? <добавить пояснения>",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
