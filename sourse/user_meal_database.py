@@ -6,6 +6,10 @@ def add_meal_note(
     meal_id: int,
     meal_dish: str,
     meal_mass: float,
+    meal_average_calories: int,
+    meal_average_proteins: int,
+    meal_average_fats: int,
+    meal_average_carbohydrates: int,
     meal_date: str,
     meal_time: str,
 ) -> None:
@@ -17,8 +21,8 @@ def add_meal_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_mass, meal_date, meal_time) VALUES ({user_id},"
-        f" {meal_id}, '{meal_dish}', {meal_mass}, '{meal_date}', '{meal_time}')"
+        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_mass, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
+        f" {meal_id}, '{meal_dish}', {meal_mass}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
     )
     try:
         cursor.execute(sql)
@@ -138,6 +142,90 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
     con.close()
 
 
+def update_meal_average_calories(user_id: int, meal_id: int, meal_average_calories: int) -> None:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"UPDATE meal SET meal_average_calories={meal_average_calories} WHERE user_id={user_id} AND meal_id={meal_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print("meal_average_calories updated")
+    except:
+        con.rollback()
+        print("error of meal_average_calories updating")
+    cursor.close()
+    con.close()
+
+
+def update_meal_average_proteins(user_id: int, meal_id: int, meal_average_proteins: int) -> None:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"UPDATE meal SET meal_average_proteins={meal_average_proteins} WHERE user_id={user_id} AND meal_id={meal_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print("meal_average_proteins updated")
+    except:
+        con.rollback()
+        print("error of meal_average_proteins updating")
+    cursor.close()
+    con.close()
+
+
+def update_meal_average_fats(user_id: int, meal_id: int, meal_average_fats: int) -> None:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"UPDATE meal SET meal_average_fats={meal_average_fats} WHERE user_id={user_id} AND meal_id={meal_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print("meal_average_fats updated")
+    except:
+        con.rollback()
+        print("error of meal_average_fats updating")
+    cursor.close()
+    con.close()
+
+
+def update_meal_average_carbohydrates(user_id: int, meal_id: int, meal_average_carbohydrates: int) -> None:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"UPDATE meal SET meal_average_carbohydrates={meal_average_carbohydrates} WHERE user_id={user_id} AND meal_id={meal_id}"
+    try:
+        cursor.execute(sql)
+        con.commit()
+        print("meal_average_carbohydrates updated")
+    except:
+        con.rollback()
+        print("error of meal_average_carbohydrates updating")
+    cursor.close()
+    con.close()
+
+
 def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
     con = pymysql.connect(
         host="localhost",
@@ -200,8 +288,12 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
             meal_id=database_result[0][1],
             meal_dish=database_result[0][2],
             meal_mass=database_result[0][3],
-            meal_date=database_result[0][4],
-            meal_time=database_result[0][5],
+            meal_average_calories=database_result[0][4],
+            meal_average_proteins=database_result[0][5],
+            meal_average_fats=database_result[0][6],
+            meal_average_carbohydrates=database_result[0][7],
+            meal_date=database_result[0][8],
+            meal_time=database_result[0][9]
         )
         print("record received")
     except:
@@ -229,12 +321,16 @@ def get_all_meals(user_id: int) -> dict:
         database_result = cursor.fetchall()
         result = {
             i: dict(
-                user_id=database_result[i][0],
-                meal_id=database_result[i][1],
+                user_id=database_result[0][0],
+                meal_id=database_result[0][1],
                 meal_dish=database_result[0][2],
-                meal_mass=database_result[i][3],
-                meal_date=database_result[i][4],
-                meal_time=database_result[i][5],
+                meal_mass=database_result[0][3],
+                meal_average_calories=database_result[0][4],
+                meal_average_proteins=database_result[0][5],
+                meal_average_fats=database_result[0][6],
+                meal_average_carbohydrates=database_result[0][7],
+                meal_date=database_result[0][8],
+                meal_time=database_result[0][9],
             )
             for i in range(len(database_result))
         }

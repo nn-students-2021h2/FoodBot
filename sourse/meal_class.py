@@ -16,10 +16,10 @@ class Meal:
         self.meal_id = meal_id
         self.dish = dish
         self.meal_size = meal_size
-        self._calories = (average_calories/100)*meal_size
-        self._proteins = (average_proteins/100)*meal_size
-        self._fats = (average_fats/100)*meal_size
-        self._carbohydrates = (average_carbohydrates/100)*meal_size
+        self._calories = (average_calories / 100) * meal_size
+        self._proteins = (average_proteins / 100) * meal_size
+        self._fats = (average_fats / 100) * meal_size
+        self._carbohydrates = (average_carbohydrates / 100) * meal_size
         self.date = date
         self.time = time
 
