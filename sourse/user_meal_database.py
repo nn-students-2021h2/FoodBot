@@ -142,7 +142,9 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
     con.close()
 
 
-def update_meal_average_calories(user_id: int, meal_id: int, meal_average_calories: int) -> None:
+def update_meal_average_calories(
+    user_id: int, meal_id: int, meal_average_calories: int
+) -> None:
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -163,7 +165,9 @@ def update_meal_average_calories(user_id: int, meal_id: int, meal_average_calori
     con.close()
 
 
-def update_meal_average_proteins(user_id: int, meal_id: int, meal_average_proteins: int) -> None:
+def update_meal_average_proteins(
+    user_id: int, meal_id: int, meal_average_proteins: int
+) -> None:
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -184,7 +188,9 @@ def update_meal_average_proteins(user_id: int, meal_id: int, meal_average_protei
     con.close()
 
 
-def update_meal_average_fats(user_id: int, meal_id: int, meal_average_fats: int) -> None:
+def update_meal_average_fats(
+    user_id: int, meal_id: int, meal_average_fats: int
+) -> None:
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -205,7 +211,9 @@ def update_meal_average_fats(user_id: int, meal_id: int, meal_average_fats: int)
     con.close()
 
 
-def update_meal_average_carbohydrates(user_id: int, meal_id: int, meal_average_carbohydrates: int) -> None:
+def update_meal_average_carbohydrates(
+    user_id: int, meal_id: int, meal_average_carbohydrates: int
+) -> None:
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -293,7 +301,7 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
             meal_average_fats=database_result[0][6],
             meal_average_carbohydrates=database_result[0][7],
             meal_date=database_result[0][8],
-            meal_time=database_result[0][9]
+            meal_time=database_result[0][9],
         )
         print("record received")
     except:

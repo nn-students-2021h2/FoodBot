@@ -1,3 +1,4 @@
+import user_meal_database as umd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from time import sleep

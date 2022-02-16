@@ -1,3 +1,7 @@
+import user_meal_database as umd
+import datetime
+
+
 class Meal:
     def __init__(
         self,
@@ -16,12 +20,12 @@ class Meal:
         self.meal_id = meal_id
         self.dish = dish
         self.meal_size = meal_size
-        self._calories = (average_calories / 100) * meal_size
-        self._proteins = (average_proteins / 100) * meal_size
-        self._fats = (average_fats / 100) * meal_size
-        self._carbohydrates = (average_carbohydrates / 100) * meal_size
-        self.date = date
-        self.time = time
+        self.average_calories = average_calories
+        self.average_proteins = average_proteins
+        self.average_fats = average_fats
+        self.average_carbohydrates = average_carbohydrates
+        self.date = get_current_date() if (date is None) else date
+        self.time = get_current_time() if (time is None) else time
 
     def count_nutrients(self):
         """
@@ -29,8 +33,47 @@ class Meal:
         """
         pass
 
-    def meal_to_database(self):
-        """
-        Adds each dish to a database
-        """
-        pass
+    def meal_to_database(self) -> None:
+        umd.add_meal_note(
+            self.user_id,
+            self.meal_id,
+            self.dish,
+            self.meal_size,
+            self.average_calories,
+            self.average_proteins,
+            self.average_fats,
+            self.average_carbohydrates,
+            self.date,
+            self.time,
+        )
+
+
+def get_current_date() -> str:
+    date = datetime.date.today()
+    return str(date)
+
+
+def get_current_time() -> str:
+    time = datetime.datetime.now().time()
+    return str(time)[:8]
+
+
+def meal_from_dict(meal_data: dict) -> Meal:
+    meal = Meal(
+        user_id=meal_data["user_id"],
+        meal_id=meal_data["meal_id"],
+        dish=meal_data["meal_dish"],
+        meal_size=meal_data["meal_size"],
+        average_calories=meal_data["meal_average_calories"],
+        average_proteins=meal_data["meal_average_proteins"],
+        average_fats=meal_data["meal_average_fats"],
+        average_carbohydrates=meal_data["meal_average_carbohydrates"],
+        date=meal_data["meal_date"],
+        time=meal_data["meal_time"],
+    )
+    return meal
+
+
+if __name__ == "__main__":
+    print(get_current_date())
+    print(get_current_time())
