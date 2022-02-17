@@ -58,6 +58,7 @@ def main():
                         Filters.regex("Изменить персональные данные"),
                         update_existing_user_data,
                     ),
+                    MessageHandler(Filters.regex("Внести прием пищи"), add_new_meal),
                 ],
                 "update_existing_user_data": [
                     MessageHandler(Filters.regex("Имя"), pre_update_exiting_user_name),
@@ -103,6 +104,14 @@ def main():
                 ],
                 "update_exiting_user_norm": [
                     MessageHandler(Filters.text, update_exiting_user_norm)
+                ],
+                "get_meal_dish": [MessageHandler(Filters.text, get_meal_dish)],
+                "get_meal_size": [MessageHandler(Filters.text, get_meal_size)],
+                "get_meal_calories": [MessageHandler(Filters.text, get_meal_calories)],
+                "get_meal_proteins": [MessageHandler(Filters.text, get_meal_proteins)],
+                "get_meal_fats": [MessageHandler(Filters.text, get_meal_fats)],
+                "get_meal_carbohydrates": [
+                    MessageHandler(Filters.text, get_meal_carbohydrates)
                 ],
             },
             fallbacks=[],

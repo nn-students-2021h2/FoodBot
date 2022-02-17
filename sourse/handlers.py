@@ -1,8 +1,8 @@
 import user_meal_database as umd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
-from time import sleep
 from user_class import User, user_from_dict
+from meal_class import Meal
 from user_database import *
 from telegram.ext import CallbackContext
 
@@ -82,7 +82,6 @@ def get_user_goal(update: Update, context: CallbackContext) -> None:
         f"Теперь я могу подсчитать вашу норму калорий и нутриентов. "
         f"Дайте мне секунду..."
     )
-    sleep(1)
     user = User(
         user_id=update.message.chat.id,
         name=context.user_data["name"],
@@ -265,6 +264,70 @@ def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
 
 
 def return_to_main_state(update: Update, context: CallbackContext) -> str:
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "main_state"
+
+
+def add_new_meal(update: Update, context: CallbackContext) -> str:
+    update.message.reply_text(
+        "Введите название съеденного блюда",
+        reply_markup=ReplyKeyboardRemove(),
+    )
+    return "get_meal_dish"
+
+
+def get_meal_dish(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_dish"] = update.message.text
+    update.message.reply_text("Введите размер съеденной порции (в граммах)")
+    return "get_meal_size"
+
+
+def get_meal_size(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_size"] = update.message.text
+    update.message.reply_text("Введите калорийность 100г этого блюда (в ккал)")
+    return "get_meal_calories"
+
+
+def get_meal_calories(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_calories"] = update.message.text
+    update.message.reply_text("Введите количество белков в 100г этого блюда (в граммах)")
+    return "get_meal_proteins"
+
+
+def get_meal_proteins(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_proteins"] = update.message.text
+    update.message.reply_text("Введите количество жиров в 100г этого блюда (в граммах)")
+    return "get_meal_fats"
+
+
+def get_meal_fats(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_fats"] = update.message.text
+    update.message.reply_text("Введите количество углеводов в 100г этого блюда (в граммах)")
+    return "get_meal_carbohydrates"
+
+
+def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_carbohydrates"] = update.message.text
+    user_name = get_user_object(user_id=update.message.chat.id)["user_name"]
+    update.message.reply_text(
+        f"Отлично, {user_name}! " f"Запоминаю эту информацию... "
+    )
+    meal = Meal(
+        user_id=update.effective_chat.id,
+        meal_id=umd.generate_meal_id(update.effective_chat.id),
+        dish=context.user_data["meal_dish"],
+        meal_size=float(context.user_data["meal_size"]),
+        average_calories=float(context.user_data["meal_calories"]),
+        average_proteins=float(context.user_data["meal_proteins"]),
+        average_fats=float(context.user_data["meal_fats"]),
+        average_carbohydrates=float(context.user_data["meal_carbohydrates"]),
+    )
+    meal.meal_to_database()
+    update.message.reply_text(meal.get_short_meal_info())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',

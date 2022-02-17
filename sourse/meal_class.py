@@ -8,11 +8,11 @@ class Meal:
         user_id: int,
         meal_id: int,
         dish: str,
-        meal_size: int,
-        average_calories: int = 0,
-        average_proteins: int = 0,
-        average_fats: int = 0,
-        average_carbohydrates: int = 0,
+        meal_size: float,
+        average_calories: float = 0,
+        average_proteins: float = 0,
+        average_fats: float = 0,
+        average_carbohydrates: float = 0,
         date: str = None,
         time: str = None,
     ):
@@ -45,6 +45,15 @@ class Meal:
             self.average_carbohydrates,
             self.date,
             self.time,
+        )
+
+    def get_short_meal_info(self) -> str:
+        return (
+            f"Ваше блюдо '{self.dish}' массой {self.meal_size} г. содержит:\n"
+            f"{(self.average_calories/100) * self.meal_size} ккал,\n"
+            f"{(self.average_proteins/100) * self.meal_size} г. белков,\n"
+            f"{(self.average_fats/100) * self.meal_size} г. жиров,\n"
+            f"{(self.average_carbohydrates/100) * self.meal_size} г. углеводов"
         )
 
 

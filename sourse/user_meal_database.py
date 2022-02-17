@@ -5,11 +5,11 @@ def add_meal_note(
     user_id: int,
     meal_id: int,
     meal_dish: str,
-    meal_mass: float,
-    meal_average_calories: int,
-    meal_average_proteins: int,
-    meal_average_fats: int,
-    meal_average_carbohydrates: int,
+    meal_size: float,
+    meal_average_calories: float,
+    meal_average_proteins: float,
+    meal_average_fats: float,
+    meal_average_carbohydrates: float,
     meal_date: str,
     meal_time: str,
 ) -> None:
@@ -21,8 +21,8 @@ def add_meal_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_mass, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
-        f" {meal_id}, '{meal_dish}', {meal_mass}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
+        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
+        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
     )
     try:
         cursor.execute(sql)
@@ -90,7 +90,7 @@ def get_number_of_user_meals(user_id: int) -> int:
     result = -1
     try:
         cursor.execute(sql)
-        result = cursor.fetchall()
+        result = cursor.fetchall()[0][0]
         print("number of entries received")
     except:
         print("error getting record count")
@@ -354,3 +354,8 @@ def get_all_meals(user_id: int) -> dict:
 def generate_meal_id(user_id: int) -> int:
     meal_id = get_number_of_user_meals(user_id) + 1
     return meal_id
+
+
+if __name__ == "__main__":
+    print(get_number_of_user_meals(1983880200))
+    add_meal_note(1983880200, 1, "молоко", 200, 55, 3, 2.5, 4.7, "2022-02-17", "17:48:00")
