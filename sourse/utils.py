@@ -1,5 +1,4 @@
-from telegram import ReplyKeyboardMarkup, KeyboardButton
-
+from telegram import ReplyKeyboardMarkup
 
 def initial_keyboard() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup([["Познакомиться"]], resize_keyboard=True)
@@ -18,3 +17,4 @@ def existing_user_keyboard() -> ReplyKeyboardMarkup:
         resize_keyboard=True,
     )
     return keyboard
+

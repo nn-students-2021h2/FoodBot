@@ -83,6 +83,42 @@ def meal_from_dict(meal_data: dict) -> Meal:
     return meal
 
 
+def calculate_calories_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    calories_for_day = 0
+    for i in range(len(raw_info)):
+        calories_for_day += (raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100)
+    return calories_for_day
+
+
+def calculate_proteins_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    proteins_for_day = 0
+    for i in range(len(raw_info)):
+        proteins_for_day += (raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100)
+    return proteins_for_day
+
+
+def calculate_fats_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    fats_for_day = 0
+    for i in range(len(raw_info)):
+        fats_for_day += (raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100)
+    return fats_for_day
+
+
+def calculate_carbohydrates_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    carbohydrates_for_day = 0
+    for i in range(len(raw_info)):
+        carbohydrates_for_day += (raw_info[i]["meal_average_carbohydrates"] * raw_info[i]["meal_mass"] / 100)
+    return carbohydrates_for_day
+
+
+def get_meal_statistic_for_day(user_id: int) -> str:
+    return ""
+
+
 if __name__ == "__main__":
     print(get_current_date())
     print(get_current_time())

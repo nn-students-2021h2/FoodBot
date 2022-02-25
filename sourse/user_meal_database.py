@@ -1,4 +1,5 @@
 import pymysql
+import datetime
 
 
 def add_meal_note(
@@ -356,6 +357,46 @@ def generate_meal_id(user_id: int) -> int:
     return meal_id
 
 
+def get_user_meal_for_day(user_id: int) -> dict:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"SELECT * FROM meal WHERE user_id={user_id} AND meal_date='{datetime.date.today()}'"
+
+    result = {}
+    try:
+        cursor.execute(sql)
+        database_result = cursor.fetchall()
+        result = {
+            i: dict(
+                user_id=database_result[0][0],
+                meal_id=database_result[0][1],
+                meal_dish=database_result[0][2],
+                meal_mass=database_result[0][3],
+                meal_average_calories=database_result[0][4],
+                meal_average_proteins=database_result[0][5],
+                meal_average_fats=database_result[0][6],
+                meal_average_carbohydrates=database_result[0][7],
+                meal_date=database_result[0][8],
+                meal_time=database_result[0][9],
+            )
+            for i in range(len(database_result))
+        }
+        print("time successfully taken")
+    except:
+        print("timing error")
+    cursor.close()
+    con.close()
+
+    return result
+
+
 if __name__ == "__main__":
-    print(get_number_of_user_meals(1983880200))
-    add_meal_note(1983880200, 1, "молоко", 200, 55, 3, 2.5, 4.7, "2022-02-17", "17:48:00")
+    # print(get_number_of_user_meals(1983880200))
+    # add_meal_note(1983880200, 1, "молоко", 200, 55, 3, 2.5, 4.7, "2022-02-17", "17:48:00")
+    print(get_user_meal_for_day(1983880200))
