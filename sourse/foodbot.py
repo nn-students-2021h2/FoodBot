@@ -116,6 +116,9 @@ def main():
                 "get_meal_carbohydrates": [
                     MessageHandler(Filters.text, get_meal_carbohydrates)
                 ],
+                "get_statistic_for": [MessageHandler(Filters.regex("За текущий день"), get_statistic_for_day),
+                                      MessageHandler(Filters.regex("За последние 7 дней"), get_statistic_for_week),
+                                      MessageHandler(Filters.regex("За последний месяц"), get_statistic_for_month)],
             },
             fallbacks=[],
         )

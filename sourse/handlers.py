@@ -336,6 +336,43 @@ def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
     return "main_state"
 
 
-def get_statistic(update: Update, context: CallbackContext) -> None:
+def get_statistic(update: Update, context: CallbackContext) -> str:
+    reply_keyboard = [["За текущий день"], ["За последние 7 дней"], ["За последний месяц"]]
+    update.message.reply_text(
+        'Выберите за какой промежуток времени получить статистику',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "get_statistic_for"
+
+
+def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
     user = user_from_dict(get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_day())
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "main_state"
+
+
+def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
+    user = user_from_dict(get_user_object(update.effective_chat.id))
+    update.message.reply_text(user.get_meal_statistic_for_week())
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "main_state"
+
+
+def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
+    user = user_from_dict(get_user_object(update.effective_chat.id))
+    update.message.reply_text(user.get_meal_statistic_for_month())
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "main_state"
