@@ -54,9 +54,7 @@ def main():
                     MessageHandler(
                         Filters.regex("Вспомнить свою норму КБЖУ"), get_cpfc_norm
                     ),
-                    MessageHandler(
-                        Filters.regex("Получить статистику"), get_statistic
-                    ),
+                    MessageHandler(Filters.regex("Получить статистику"), get_statistic),
                     MessageHandler(
                         Filters.regex("Изменить персональные данные"),
                         update_existing_user_data,
@@ -116,9 +114,17 @@ def main():
                 "get_meal_carbohydrates": [
                     MessageHandler(Filters.text, get_meal_carbohydrates)
                 ],
-                "get_statistic_for": [MessageHandler(Filters.regex("За текущий день"), get_statistic_for_day),
-                                      MessageHandler(Filters.regex("За последние 7 дней"), get_statistic_for_week),
-                                      MessageHandler(Filters.regex("За последний месяц"), get_statistic_for_month)],
+                "get_statistic_for": [
+                    MessageHandler(
+                        Filters.regex("За текущий день"), get_statistic_for_day
+                    ),
+                    MessageHandler(
+                        Filters.regex("За последние 7 дней"), get_statistic_for_week
+                    ),
+                    MessageHandler(
+                        Filters.regex("За последний месяц"), get_statistic_for_month
+                    ),
+                ],
             },
             fallbacks=[],
         )

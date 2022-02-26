@@ -101,7 +101,9 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_day(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_day(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_day(self.user_id))
-        calculated_carbohydrates = round(mc.calculate_carbohydrates_for_day(self.user_id))
+        calculated_carbohydrates = round(
+            mc.calculate_carbohydrates_for_day(self.user_id)
+        )
         calories_balans = round(self.calorie_norm - calculated_calories)
         proteins_balans = round(self.protein_norm - calculated_proteins)
         fats_balans = round(self.fat_norm - calculated_fats)
@@ -122,11 +124,15 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_week(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_week(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_week(self.user_id))
-        calculated_carbohydrates = round(mc.calculate_carbohydrates_for_week(self.user_id))
+        calculated_carbohydrates = round(
+            mc.calculate_carbohydrates_for_week(self.user_id)
+        )
         calories_balans = round(((self.calorie_norm * 7) - calculated_calories) / 7)
         proteins_balans = round(((self.protein_norm * 7) - calculated_proteins) / 7)
         fats_balans = round(((self.fat_norm * 7) - calculated_fats) / 7)
-        carbohydrates_balans = round(((self.carbohydrate_norm * 7) - calculated_carbohydrates) / 7)
+        carbohydrates_balans = round(
+            ((self.carbohydrate_norm * 7) - calculated_carbohydrates) / 7
+        )
         return (
             f"{self.name.title()}, за неделю вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
@@ -143,11 +149,15 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_month(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_month(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_month(self.user_id))
-        calculated_carbohydrates = round(mc.calculate_carbohydrates_for_month(self.user_id))
+        calculated_carbohydrates = round(
+            mc.calculate_carbohydrates_for_month(self.user_id)
+        )
         calories_balans = round(((self.calorie_norm * 31) - calculated_calories) / 31)
         proteins_balans = round(((self.protein_norm * 31) - calculated_proteins) / 31)
         fats_balans = round(((self.fat_norm * 31) - calculated_fats) / 31)
-        carbohydrates_balans = round(((self.carbohydrate_norm * 31) - calculated_carbohydrates) / 31)
+        carbohydrates_balans = round(
+            ((self.carbohydrate_norm * 31) - calculated_carbohydrates) / 31
+        )
         return (
             f"{self.name.title()}, за месяц вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"

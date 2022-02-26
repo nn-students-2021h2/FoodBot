@@ -405,9 +405,11 @@ def get_user_meal_for_week(user_id: int) -> dict:
     )
 
     cursor = con.cursor()
-    sql = f"SELECT * FROM meal WHERE user_id={user_id} AND" \
-          f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=7)}' AND" \
-          f" meal_date < '{datetime.date.today()}'"
+    sql = (
+        f"SELECT * FROM meal WHERE user_id={user_id} AND"
+        f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=7)}' AND"
+        f" meal_date < '{datetime.date.today()}'"
+    )
 
     result = {}
     try:
@@ -446,9 +448,11 @@ def get_user_meal_for_month(user_id: int) -> dict:
     )
 
     cursor = con.cursor()
-    sql = f"SELECT * FROM meal WHERE user_id={user_id} AND" \
-          f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=31)}' AND" \
-          f" meal_date < '{datetime.date.today()}'"
+    sql = (
+        f"SELECT * FROM meal WHERE user_id={user_id} AND"
+        f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=31)}' AND"
+        f" meal_date < '{datetime.date.today()}'"
+    )
 
     result = {}
     try:
