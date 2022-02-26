@@ -334,3 +334,8 @@ def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
     return "main_state"
+
+
+def get_statistic(update: Update, context: CallbackContext) -> None:
+    user = user_from_dict(get_user_object(update.effective_chat.id))
+    update.message.reply_text(user.get_meal_statistic_for_day())

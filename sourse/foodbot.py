@@ -55,6 +55,9 @@ def main():
                         Filters.regex("Вспомнить свою норму КБЖУ"), get_cpfc_norm
                     ),
                     MessageHandler(
+                        Filters.regex("Получить статистику"), get_statistic
+                    ),
+                    MessageHandler(
                         Filters.regex("Изменить персональные данные"),
                         update_existing_user_data,
                     ),

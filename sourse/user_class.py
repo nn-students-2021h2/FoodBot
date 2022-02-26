@@ -1,4 +1,6 @@
 from user_database import *
+from meal_class import calculate_calories_for_day,\
+    calculate_proteins_for_day, calculate_fats_for_day, calculate_carbohydrates_for_day
 
 
 class User:
@@ -94,6 +96,27 @@ class User:
             f"Белки: {self.protein_norm} г. \n"
             f"Жиры: {self.fat_norm} г. \n"
             f"Углеводы: {self.carbohydrate_norm} г."
+        )
+
+    def get_meal_statistic_for_day(self) -> str:
+        calculated_calories = calculate_calories_for_day(self.user_id)
+        calculated_proteins = calculate_proteins_for_day(self.user_id)
+        calculated_fats = calculate_fats_for_day(self.user_id)
+        calculated_carbohydrates = calculate_carbohydrates_for_day(self.user_id)
+        calories_balans = self.calorie_norm - calculated_calories
+        proteins_balans = self.protein_norm - calculated_proteins
+        fats_balans = self.fat_norm - calculated_fats
+        carbohydrates_balans = self.carbohydrate_norm - calculated_carbohydrates
+        return (
+            f"{self.name.title()}, за день вами поглащено {calculated_calories} ккал. \n"
+            f"{calculated_proteins} г. белков, \n"
+            f"{calculated_fats} г. жиров, \n"
+            f"{calculated_carbohydrates} г. углеводов. \n"
+            f"Для покрытия дневной нормы необходимо еще: \n"
+            f"{calories_balans if calories_balans > 0 else 0} ккал. \n"
+            f"{proteins_balans if proteins_balans > 0 else 0} г. белков \n"
+            f"{fats_balans if fats_balans > 0 else 0} г. жиров \n"
+            f"{carbohydrates_balans if carbohydrates_balans > 0 else 0} г. углеводов \n"
         )
 
 

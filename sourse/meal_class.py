@@ -27,12 +27,6 @@ class Meal:
         self.date = get_current_date() if (date is None) else date
         self.time = get_current_time() if (time is None) else time
 
-    def count_nutrients(self):
-        """
-        counts nutrition facts based on dish data stored in dish_database
-        """
-        pass
-
     def meal_to_database(self) -> None:
         umd.add_meal_note(
             self.user_id,
@@ -113,10 +107,6 @@ def calculate_carbohydrates_for_day(user_id: int) -> float:
     for i in range(len(raw_info)):
         carbohydrates_for_day += (raw_info[i]["meal_average_carbohydrates"] * raw_info[i]["meal_mass"] / 100)
     return carbohydrates_for_day
-
-
-def get_meal_statistic_for_day(user_id: int) -> str:
-    return ""
 
 
 if __name__ == "__main__":
