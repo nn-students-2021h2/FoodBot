@@ -382,3 +382,8 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
     return "main_state"
+
+
+def delete_last_meal_note(update: Update, context: CallbackContext) -> None:
+    umd.delete_meal_note(update.effective_chat.id, umd.generate_meal_id(update.effective_chat.id)-1)
+    update.message.reply_text('Последняя запись о приеме пищи успешно удалена')
