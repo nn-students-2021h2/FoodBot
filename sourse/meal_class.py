@@ -27,12 +27,6 @@ class Meal:
         self.date = get_current_date() if (date is None) else date
         self.time = get_current_time() if (time is None) else time
 
-    def count_nutrients(self):
-        """
-        counts nutrition facts based on dish data stored in dish_database
-        """
-        pass
-
     def meal_to_database(self) -> None:
         umd.add_meal_note(
             self.user_id,
@@ -83,6 +77,128 @@ def meal_from_dict(meal_data: dict) -> Meal:
     return meal
 
 
+def calculate_calories_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    calories_for_day = 0
+    for i in range(len(raw_info)):
+        calories_for_day += (
+            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+        )
+    return calories_for_day
+
+
+def calculate_proteins_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    proteins_for_day = 0
+    for i in range(len(raw_info)):
+        proteins_for_day += (
+            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+        )
+    return proteins_for_day
+
+
+def calculate_fats_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    fats_for_day = 0
+    for i in range(len(raw_info)):
+        fats_for_day += (
+            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+        )
+    return fats_for_day
+
+
+def calculate_carbohydrates_for_day(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_day(user_id)
+    carbohydrates_for_day = 0
+    for i in range(len(raw_info)):
+        carbohydrates_for_day += (
+            raw_info[i]["meal_average_carbohydrates"] * raw_info[i]["meal_mass"] / 100
+        )
+    return carbohydrates_for_day
+
+
+def calculate_calories_for_week(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_week(user_id)
+    calories_for_week = 0
+    for i in range(len(raw_info)):
+        calories_for_week += (
+            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+        )
+    return calories_for_week
+
+
+def calculate_proteins_for_week(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_week(user_id)
+    proteins_for_week = 0
+    for i in range(len(raw_info)):
+        proteins_for_week += (
+            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+        )
+    return proteins_for_week
+
+
+def calculate_fats_for_week(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_week(user_id)
+    fats_for_week = 0
+    for i in range(len(raw_info)):
+        fats_for_week += (
+            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+        )
+    return fats_for_week
+
+
+def calculate_carbohydrates_for_week(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_week(user_id)
+    carbohydrates_for_week = 0
+    for i in range(len(raw_info)):
+        carbohydrates_for_week += (
+            raw_info[i]["meal_average_carbohydrates"] * raw_info[i]["meal_mass"] / 100
+        )
+    return carbohydrates_for_week
+
+
+def calculate_calories_for_month(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_month(user_id)
+    calories_for_month = 0
+    for i in range(len(raw_info)):
+        calories_for_month += (
+            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+        )
+    return calories_for_month
+
+
+def calculate_proteins_for_month(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_month(user_id)
+    proteins_for_month = 0
+    for i in range(len(raw_info)):
+        proteins_for_month += (
+            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+        )
+    return proteins_for_month
+
+
+def calculate_fats_for_month(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_month(user_id)
+    fats_for_month = 0
+    for i in range(len(raw_info)):
+        fats_for_month += (
+            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+        )
+    return fats_for_month
+
+
+def calculate_carbohydrates_for_month(user_id: int) -> float:
+    raw_info = umd.get_user_meal_for_month(user_id)
+    carbohydrates_for_month = 0
+    for i in range(len(raw_info)):
+        carbohydrates_for_month += (
+            raw_info[i]["meal_average_carbohydrates"] * raw_info[i]["meal_mass"] / 100
+        )
+    return carbohydrates_for_month
+
+
 if __name__ == "__main__":
-    print(get_current_date())
-    print(get_current_time())
+    # print(get_current_date())
+    # print(get_current_time())
+    print(calculate_calories_for_week(1983880200))
+    print(calculate_calories_for_month(1983880200))

@@ -1,4 +1,5 @@
 import pymysql
+import datetime
 
 
 def add_meal_note(
@@ -356,6 +357,140 @@ def generate_meal_id(user_id: int) -> int:
     return meal_id
 
 
+def get_user_meal_for_day(user_id: int) -> dict:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = f"SELECT * FROM meal WHERE user_id={user_id} AND meal_date='{datetime.date.today()}'"
+
+    result = {}
+    try:
+        cursor.execute(sql)
+        database_result = cursor.fetchall()
+        result = {
+            i: dict(
+                user_id=database_result[0][0],
+                meal_id=database_result[0][1],
+                meal_dish=database_result[0][2],
+                meal_mass=database_result[0][3],
+                meal_average_calories=database_result[0][4],
+                meal_average_proteins=database_result[0][5],
+                meal_average_fats=database_result[0][6],
+                meal_average_carbohydrates=database_result[0][7],
+                meal_date=database_result[0][8],
+                meal_time=database_result[0][9],
+            )
+            for i in range(len(database_result))
+        }
+        print("time successfully taken")
+    except:
+        print("timing error")
+    cursor.close()
+    con.close()
+
+    return result
+
+
+def get_user_meal_for_week(user_id: int) -> dict:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = (
+        f"SELECT * FROM meal WHERE user_id={user_id} AND"
+        f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=7)}' AND"
+        f" meal_date < '{datetime.date.today()}'"
+    )
+
+    result = {}
+    try:
+        cursor.execute(sql)
+        database_result = cursor.fetchall()
+        result = {
+            i: dict(
+                user_id=database_result[i][0],
+                meal_id=database_result[i][1],
+                meal_dish=database_result[i][2],
+                meal_mass=database_result[i][3],
+                meal_average_calories=database_result[i][4],
+                meal_average_proteins=database_result[i][5],
+                meal_average_fats=database_result[i][6],
+                meal_average_carbohydrates=database_result[i][7],
+                meal_date=database_result[i][8],
+                meal_time=database_result[i][9],
+            )
+            for i in range(len(database_result))
+        }
+        print("time successfully taken")
+    except:
+        print("timing error")
+    cursor.close()
+    con.close()
+
+    return result
+
+
+def get_user_meal_for_month(user_id: int) -> dict:
+    con = pymysql.connect(
+        host="localhost",
+        user="foodbot",
+        password="FoodBot1234",
+        database="telegram_user",
+    )
+
+    cursor = con.cursor()
+    sql = (
+        f"SELECT * FROM meal WHERE user_id={user_id} AND"
+        f" meal_date >= '{datetime.date.today()-datetime.timedelta(days=31)}' AND"
+        f" meal_date < '{datetime.date.today()}'"
+    )
+
+    result = {}
+    try:
+        cursor.execute(sql)
+        database_result = cursor.fetchall()
+        result = {
+            i: dict(
+                user_id=database_result[i][0],
+                meal_id=database_result[i][1],
+                meal_dish=database_result[i][2],
+                meal_mass=database_result[i][3],
+                meal_average_calories=database_result[i][4],
+                meal_average_proteins=database_result[i][5],
+                meal_average_fats=database_result[i][6],
+                meal_average_carbohydrates=database_result[i][7],
+                meal_date=database_result[i][8],
+                meal_time=database_result[i][9],
+            )
+            for i in range(len(database_result))
+        }
+        print("time successfully taken")
+    except:
+        print("timing error")
+    cursor.close()
+    con.close()
+
+    return result
+
+
 if __name__ == "__main__":
-    print(get_number_of_user_meals(1983880200))
-    add_meal_note(1983880200, 1, "молоко", 200, 55, 3, 2.5, 4.7, "2022-02-17", "17:48:00")
+    # print(get_number_of_user_meals(1983880200))
+    # add_meal_note(1983880200, 1, "молоко", 200, 55, 3, 2.5, 4.7, "2022-02-17", "17:48:00")
+    # print(get_user_meal_for_day(1983880200))
+    # print(datetime.date.today()-datetime.timedelta(days=31))
+    # print(len(get_user_meal_for_day(1983880200)))
+    print(f"количество блюд за неделю {len(get_user_meal_for_week(1983880200))}")
+    for i, j in get_user_meal_for_week(1983880200).items():
+        print(j)
+    print(f"количество блюд за месяц {len(get_user_meal_for_month(1983880200))}")
+    for i, j in get_user_meal_for_month(1983880200).items():
+        print(j)
