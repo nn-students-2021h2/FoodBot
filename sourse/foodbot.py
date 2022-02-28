@@ -60,6 +60,10 @@ def main():
                         update_existing_user_data,
                     ),
                     MessageHandler(Filters.regex("Внести прием пищи"), add_new_meal),
+                    MessageHandler(
+                        Filters.regex("Удалить запись о последнем приеме пищи"),
+                        delete_last_meal_note,
+                    ),
                 ],
                 "update_existing_user_data": [
                     MessageHandler(Filters.regex("Имя"), pre_update_exiting_user_name),
