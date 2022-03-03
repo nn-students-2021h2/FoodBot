@@ -1,3 +1,4 @@
+import schedule
 from telegram.ext import (
     Updater,
     CommandHandler,
@@ -6,6 +7,7 @@ from telegram.ext import (
     Filters,
 )
 from handlers import *
+from utils import send_every_day_info
 
 
 def main():
@@ -135,6 +137,12 @@ def main():
     )
 
     bot.start_polling()
+
+    # def schedule_info() -> None:
+    #     bot.job_queue.run_repeating(send_every_day_info, interval=1440)
+    #
+    # schedule.every().day.at("14:20").do(schedule_info)
+
     bot.idle()
 
 
