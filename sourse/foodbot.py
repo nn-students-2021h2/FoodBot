@@ -1,4 +1,5 @@
-import schedule
+import datetime
+import pytz
 from telegram.ext import (
     Updater,
     CommandHandler,
@@ -15,7 +16,6 @@ def main():
         token="5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco", use_context=True
     )
     dispatcher = bot.dispatcher
-
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(
         ConversationHandler(
@@ -138,10 +138,8 @@ def main():
 
     bot.start_polling()
 
-    # def schedule_info() -> None:
-    #     bot.job_queue.run_repeating(send_every_day_info, interval=1440)
-    #
-    # schedule.every().day.at("14:20").do(schedule_info)
+    bot.job_queue.run_daily(send_every_day_info, datetime.time(11, 5, 0, 0, tzinfo=pytz.timezone('Europe/Moscow')),
+                            days=(0, 1, 2, 3, 4, 5, 6))
 
     bot.idle()
 
