@@ -198,7 +198,8 @@ def calculate_carbohydrates_for_month(user_id: int) -> float:
 
 
 if __name__ == "__main__":
-    # print(get_current_date())
-    # print(get_current_time())
-    print(calculate_calories_for_week(1983880200))
-    print(calculate_calories_for_month(1983880200))
+    print(get_current_date())
+    print(get_current_time())
+    # print(calculate_calories_for_week(1983880200))
+    # print(calculate_calories_for_month(1983880200))
+    print(datetime.time(10, 50, 0, 0))
