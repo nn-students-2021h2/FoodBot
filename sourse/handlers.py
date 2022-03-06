@@ -378,7 +378,7 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     update.message.reply_text(user.get_meal_statistic_for_month())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        'Для продолжения взаимодействия с ботом нажмите "Продолжить"',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
     return "main_state"
