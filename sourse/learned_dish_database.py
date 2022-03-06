@@ -83,5 +83,6 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
 
 
 if __name__ == "__main__":
-    add_learned_dish_note("творог", 169, 18, 9, 3)
-    print(get_learned_dish_note("творог"))
+    delete_learned_dish_note(
+        "<built-in method lower of str object at 0x000001AB56086070>"
+    )

@@ -123,6 +123,9 @@ def main():
                 ],
                 "get_meal_dish": [MessageHandler(Filters.text, get_meal_dish)],
                 "get_meal_size": [MessageHandler(Filters.text, get_meal_size)],
+                "get_meal_size_alternative": [
+                    MessageHandler(Filters.text, get_meal_size_alternative)
+                ],
                 "get_meal_calories": [MessageHandler(Filters.text, get_meal_calories)],
                 "get_meal_proteins": [MessageHandler(Filters.text, get_meal_proteins)],
                 "get_meal_fats": [MessageHandler(Filters.text, get_meal_fats)],
