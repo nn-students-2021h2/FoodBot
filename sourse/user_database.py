@@ -356,20 +356,23 @@ def get_all_user_info() -> dict:
     try:
         cursor.execute(sql)
         database_result = cursor.fetchall()
-        result = {i: dict(
-            user_id=database_result[i][0],
-            user_name=database_result[i][1],
-            user_age=database_result[i][2],
-            user_sex=database_result[i][3],
-            user_height=database_result[i][4],
-            user_weight=database_result[i][5],
-            user_activity=database_result[i][6],
-            user_goal=database_result[i][7],
-            user_calorie_norm=database_result[i][8],
-            user_protein_norm=database_result[i][9],
-            user_fat_norm=database_result[i][10],
-            user_carbohydrate_norm=database_result[i][11],
-        ) for i in range(len(database_result))}
+        result = {
+            i: dict(
+                user_id=database_result[i][0],
+                user_name=database_result[i][1],
+                user_age=database_result[i][2],
+                user_sex=database_result[i][3],
+                user_height=database_result[i][4],
+                user_weight=database_result[i][5],
+                user_activity=database_result[i][6],
+                user_goal=database_result[i][7],
+                user_calorie_norm=database_result[i][8],
+                user_protein_norm=database_result[i][9],
+                user_fat_norm=database_result[i][10],
+                user_carbohydrate_norm=database_result[i][11],
+            )
+            for i in range(len(database_result))
+        }
         print("record received")
     except pymysql.Error as e:
         print(f"could not receive record error pymysql {e.args[0]}: {e.args[1]}")
