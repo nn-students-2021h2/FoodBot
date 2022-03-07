@@ -2,6 +2,7 @@ import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
+from telegram.ext import ConversationHandler
 from utils import initial_keyboard, existing_user_keyboard
 from user_class import User, user_from_dict
 from meal_class import Meal
@@ -12,6 +13,7 @@ def start(update: Update, context: CallbackContext) -> None:
     print("Кто-то запустил бота!")
     print("Удаляю имеющуюся запись")
     ud.delete_note_with_id(update.effective_chat.id)
+    umd.delete_all_meal_notes(update.effective_chat.id)
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
@@ -76,7 +78,7 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     return "user_goal"
 
 
-def get_user_goal(update: Update, context: CallbackContext) -> None:
+def get_user_goal(update: Update, context: CallbackContext) -> int:
     context.user_data["goal"] = update.message.text
     update.message.reply_text(
         f'Отлично, {context.user_data["name"].capitalize()}! '
@@ -96,6 +98,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> None:
     user.count_norm()
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
+    return ConversationHandler.END
 
 
 def existing_user(update: Update, context: CallbackContext) -> str:
@@ -428,3 +431,7 @@ def delete_last_meal_note(update: Update, context: CallbackContext) -> None:
         update.effective_chat.id, umd.generate_meal_id(update.effective_chat.id) - 1
     )
     update.message.reply_text("Последняя запись о приеме пищи успешно удалена")
+
+
+if __name__ == "__main__":
+    print(type(ConversationHandler.END))

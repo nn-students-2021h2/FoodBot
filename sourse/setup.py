@@ -1,13 +1,13 @@
 from setuptools import setup
 
 # -*- coding: utf-8 -*-
-TOKEN = ""  # Insert your bot token here - required!
+TOKEN = "5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco"  # Insert your bot token here - required!
 # Optionally use an anonymizing proxy (SOCKS/HTTPS) if you encounter Telegram access issues in your region
 PROXY = ""
 
 setup(
-    name="food_bot",
-    version="0.1",
+    name="Food_bot",
+    version="0.9",
     description="",
     url="",
     author="",
