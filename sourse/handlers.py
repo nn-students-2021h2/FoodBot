@@ -98,6 +98,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     user.count_norm()
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
+    update.message.reply_text("Для продолжения взаимодействия с ботом напишите 'Go'")
     return ConversationHandler.END
 
 
