@@ -139,7 +139,7 @@ def update_exiting_user_name(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -175,7 +175,7 @@ def update_exiting_user_sex(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -191,7 +191,7 @@ def update_exiting_user_height(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -207,7 +207,7 @@ def update_exiting_user_weight(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -227,7 +227,7 @@ def update_exiting_user_activity(update: Update, context: CallbackContext) -> st
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -247,7 +247,7 @@ def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -262,7 +262,7 @@ def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -271,7 +271,7 @@ def return_to_main_state(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -316,7 +316,7 @@ def get_meal_size_alternative(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -375,7 +375,7 @@ def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -388,7 +388,7 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     ]
     update.message.reply_text(
         "Выберите за какой промежуток времени получить статистику",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "get_statistic_for"
 
@@ -399,7 +399,7 @@ def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -410,7 +410,7 @@ def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -421,7 +421,7 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодействия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
