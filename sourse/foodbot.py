@@ -1,5 +1,8 @@
 import datetime
 import pytz
+import json
+from pathlib import Path
+from jsonschema import validate
 from telegram.ext import (
     Updater,
     CommandHandler,
@@ -12,9 +15,15 @@ from utils import send_every_day_info
 
 
 def main():
-    bot = Updater(
-        token="5038288042:AAHIZfCj2HqCmUlTrVMt5oQU5TmHAL9Fcco", use_context=True
-    )
+    schema = {
+        "type": "object",
+        "properties": {"TOKEN": {"type": "string", "minLenght": 46, "maxLenght": 46}},
+        "additionalProperties": False,
+    }
+    token = json.load(open(Path(__file__).parent.parent.parent / "token.json"))
+    validate(instance=token, schema=schema)
+
+    bot = Updater(token=token["TOKEN"], use_context=True)
     dispatcher = bot.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(
@@ -138,8 +147,11 @@ def main():
 
     bot.start_polling()
 
-    bot.job_queue.run_daily(send_every_day_info, datetime.time(11, 5, 0, 0, tzinfo=pytz.timezone('Europe/Moscow')),
-                            days=(0, 1, 2, 3, 4, 5, 6))
+    bot.job_queue.run_daily(
+        send_every_day_info,
+        datetime.time(21, 0, 0, 0, tzinfo=pytz.timezone("Europe/Moscow")),
+        days=(0, 1, 2, 3, 4, 5, 6),
+    )
 
     bot.idle()
 
