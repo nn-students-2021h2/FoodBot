@@ -1,17 +1,17 @@
+import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from user_class import User, user_from_dict
 from meal_class import Meal
-from user_database import *
 from telegram.ext import CallbackContext
 
 
 def start(update: Update, context: CallbackContext) -> None:
     print("Кто-то запустил бота!")
     print("Удаляю имеющуюся запись")
-    delete_note_with_id(update.effective_chat.id)
+    ud.delete_note_with_id(update.effective_chat.id)
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
@@ -99,7 +99,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> None:
 
 
 def existing_user(update: Update, context: CallbackContext) -> str:
-    user_name = get_user_object(user_id=update.message.chat.id)["user_name"]
+    user_name = ud.get_user_object(user_id=update.message.chat.id)["user_name"]
     update.message.reply_text(
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
         reply_markup=existing_user_keyboard(),
@@ -108,7 +108,7 @@ def existing_user(update: Update, context: CallbackContext) -> str:
 
 
 def get_cpfc_norm(update: Update, context: CallbackContext) -> None:
-    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_short_info())
 
 
@@ -132,7 +132,7 @@ def pre_update_exiting_user_name(update: Update, context: CallbackContext) -> st
 
 def update_exiting_user_name(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_name(update.effective_chat.id, user_enter)
+    ud.update_user_name(update.effective_chat.id, user_enter)
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
@@ -148,7 +148,7 @@ def pre_update_exiting_user_age(update: Update, context: CallbackContext) -> str
 
 def update_exiting_user_age(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_age(update.effective_chat.id, int(user_enter))
+    ud.update_user_age(update.effective_chat.id, int(user_enter))
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -168,7 +168,7 @@ def pre_update_exiting_user_sex(update: Update, context: CallbackContext) -> str
 
 def update_exiting_user_sex(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_sex(update.effective_chat.id, user_enter)
+    ud.update_user_sex(update.effective_chat.id, user_enter)
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -184,7 +184,7 @@ def pre_update_exiting_user_height(update: Update, context: CallbackContext) -> 
 
 def update_exiting_user_height(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_height(update.effective_chat.id, float(user_enter))
+    ud.update_user_height(update.effective_chat.id, float(user_enter))
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -200,7 +200,7 @@ def pre_update_exiting_user_weight(update: Update, context: CallbackContext) -> 
 
 def update_exiting_user_weight(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_weight(update.effective_chat.id, float(user_enter))
+    ud.update_user_weight(update.effective_chat.id, float(user_enter))
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -220,7 +220,7 @@ def pre_update_exiting_user_activity(update: Update, context: CallbackContext) -
 
 def update_exiting_user_activity(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_activity(update.effective_chat.id, user_enter)
+    ud.update_user_activity(update.effective_chat.id, user_enter)
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -240,7 +240,7 @@ def pre_update_exiting_user_goal(update: Update, context: CallbackContext) -> st
 
 def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
     user_enter = update.message.text
-    update_user_goal(update.effective_chat.id, user_enter)
+    ud.update_user_goal(update.effective_chat.id, user_enter)
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
@@ -250,12 +250,12 @@ def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
 
 
 def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
-    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     user.count_norm()
-    update_user_calorie_norm(update.effective_chat.id, user.calorie_norm)
-    update_user_protein_norm(update.effective_chat.id, user.protein_norm)
-    update_user_fat_norm(update.effective_chat.id, user.fat_norm)
-    update_user_carbohydrate_norm(update.effective_chat.id, user.carbohydrate_norm)
+    ud.update_user_calorie_norm(update.effective_chat.id, user.calorie_norm)
+    ud.update_user_protein_norm(update.effective_chat.id, user.protein_norm)
+    ud.update_user_fat_norm(update.effective_chat.id, user.fat_norm)
+    ud.update_user_carbohydrate_norm(update.effective_chat.id, user.carbohydrate_norm)
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
@@ -293,7 +293,7 @@ def get_meal_dish(update: Update, context: CallbackContext) -> str:
 
 def get_meal_size_alternative(update: Update, context: CallbackContext) -> str:
     context.user_data["meal_size"] = update.message.text
-    user_name = get_user_object(user_id=update.message.chat.id)["user_name"]
+    user_name = ud.get_user_object(user_id=update.message.chat.id)["user_name"]
     update.message.reply_text(
         f"Отлично, {user_name}! " f"Я уже знаю пищевую ценность этого блюда... "
     )
@@ -348,7 +348,7 @@ def get_meal_fats(update: Update, context: CallbackContext) -> str:
 
 def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
     context.user_data["meal_carbohydrates"] = update.message.text
-    user_name = get_user_object(user_id=update.message.chat.id)["user_name"]
+    user_name = ud.get_user_object(user_id=update.message.chat.id)["user_name"]
     update.message.reply_text(f"Отлично, {user_name}! " f"Запоминаю эту информацию... ")
     meal = Meal(
         user_id=update.effective_chat.id,
@@ -391,7 +391,7 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
 
 
 def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
-    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_day())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
@@ -402,7 +402,7 @@ def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
 
 
 def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
-    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_week())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
@@ -413,7 +413,7 @@ def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
 
 
 def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
-    user = user_from_dict(get_user_object(update.effective_chat.id))
+    user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_month())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
