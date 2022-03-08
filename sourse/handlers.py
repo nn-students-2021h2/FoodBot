@@ -1,4 +1,5 @@
 import user_meal_database as umd
+import learned_dish_database as ldd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from utils import initial_keyboard, existing_user_keyboard
 from user_class import User, user_from_dict
@@ -282,8 +283,39 @@ def add_new_meal(update: Update, context: CallbackContext) -> str:
 
 def get_meal_dish(update: Update, context: CallbackContext) -> str:
     context.user_data["meal_dish"] = update.message.text
+    dish_info = ldd.get_learned_dish_note(context.user_data["meal_dish"].lower())
     update.message.reply_text("Введите размер съеденной порции (в граммах)")
-    return "get_meal_size"
+    if dish_info != {}:
+        return "get_meal_size_alternative"
+    else:
+        return "get_meal_size"
+
+
+def get_meal_size_alternative(update: Update, context: CallbackContext) -> str:
+    context.user_data["meal_size"] = update.message.text
+    user_name = get_user_object(user_id=update.message.chat.id)["user_name"]
+    update.message.reply_text(
+        f"Отлично, {user_name}! " f"Я уже знаю пищевую ценность этого блюда... "
+    )
+    dish_info = ldd.get_learned_dish_note(context.user_data["meal_dish"])
+    meal = Meal(
+        user_id=update.effective_chat.id,
+        meal_id=umd.generate_meal_id(update.effective_chat.id),
+        dish=context.user_data["meal_dish"],
+        meal_size=float(context.user_data["meal_size"]),
+        average_calories=float(dish_info["learned_dish_average_calories"]),
+        average_proteins=float(dish_info["learned_dish_average_proteins"]),
+        average_fats=float(dish_info["learned_dish_average_fats"]),
+        average_carbohydrates=float(dish_info["learned_dish_average_carbohydrates"]),
+    )
+    meal.meal_to_database()
+    update.message.reply_text(meal.get_short_meal_info())
+    reply_keyboard = [["Продолжить"]]
+    update.message.reply_text(
+        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+    )
+    return "main_state"
 
 
 def get_meal_size(update: Update, context: CallbackContext) -> str:
@@ -330,6 +362,13 @@ def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
     )
     meal.meal_to_database()
     update.message.reply_text(meal.get_short_meal_info())
+    ldd.add_learned_dish_note(
+        context.user_data["meal_dish"].lower(),
+        float(context.user_data["meal_calories"]),
+        float(context.user_data["meal_proteins"]),
+        float(context.user_data["meal_fats"]),
+        float(context.user_data["meal_carbohydrates"]),
+    )
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
@@ -378,7 +417,7 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     update.message.reply_text(user.get_meal_statistic_for_month())
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
+        'Для продолжения взаимодействия с ботом нажмите "Продолжить"',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
     )
     return "main_state"
