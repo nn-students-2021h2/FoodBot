@@ -1,5 +1,5 @@
 import meal_class as mc
-from user_database import *
+import user_database as ud
 
 
 class User:
@@ -74,7 +74,7 @@ class User:
         )
 
     def user_to_database(self) -> None:
-        add_note(
+        ud.add_note(
             self.user_id,
             self.name,
             self.age,

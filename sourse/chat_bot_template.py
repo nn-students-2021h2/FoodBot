@@ -1,6 +1,5 @@
 import logging
 from user_database import *
-from human_class import User
 from meal_class import Meal
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
