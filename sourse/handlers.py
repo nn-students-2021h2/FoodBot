@@ -2,6 +2,7 @@ import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
+from telegram.ext import ConversationHandler
 from utils import initial_keyboard, existing_user_keyboard
 from user_class import User, user_from_dict
 from meal_class import Meal
@@ -12,6 +13,7 @@ def start(update: Update, context: CallbackContext) -> None:
     print("Кто-то запустил бота!")
     print("Удаляю имеющуюся запись")
     ud.delete_note_with_id(update.effective_chat.id)
+    umd.delete_all_meal_notes(update.effective_chat.id)
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
@@ -76,7 +78,7 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     return "user_goal"
 
 
-def get_user_goal(update: Update, context: CallbackContext) -> None:
+def get_user_goal(update: Update, context: CallbackContext) -> int:
     context.user_data["goal"] = update.message.text
     update.message.reply_text(
         f'Отлично, {context.user_data["name"].capitalize()}! '
@@ -96,6 +98,8 @@ def get_user_goal(update: Update, context: CallbackContext) -> None:
     user.count_norm()
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
+    update.message.reply_text("Для продолжения взаимодействия с ботом напишите 'Go'")
+    return ConversationHandler.END
 
 
 def existing_user(update: Update, context: CallbackContext) -> str:
@@ -136,7 +140,7 @@ def update_exiting_user_name(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -172,7 +176,7 @@ def update_exiting_user_sex(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -188,7 +192,7 @@ def update_exiting_user_height(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -204,7 +208,7 @@ def update_exiting_user_weight(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -224,7 +228,7 @@ def update_exiting_user_activity(update: Update, context: CallbackContext) -> st
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -244,7 +248,7 @@ def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text(
         "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "update_exiting_user_norm"
 
@@ -259,7 +263,7 @@ def update_exiting_user_norm(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -268,7 +272,7 @@ def return_to_main_state(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -313,7 +317,7 @@ def get_meal_size_alternative(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -372,7 +376,7 @@ def get_meal_carbohydrates(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -385,7 +389,7 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     ]
     update.message.reply_text(
         "Выберите за какой промежуток времени получить статистику",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "get_statistic_for"
 
@@ -396,7 +400,7 @@ def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -407,7 +411,7 @@ def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -418,7 +422,7 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     reply_keyboard = [["Продолжить"]]
     update.message.reply_text(
         'Для продолжения взаимодействия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return "main_state"
 
@@ -428,3 +432,7 @@ def delete_last_meal_note(update: Update, context: CallbackContext) -> None:
         update.effective_chat.id, umd.generate_meal_id(update.effective_chat.id) - 1
     )
     update.message.reply_text("Последняя запись о приеме пищи успешно удалена")
+
+
+if __name__ == "__main__":
+    print(type(ConversationHandler.END))
