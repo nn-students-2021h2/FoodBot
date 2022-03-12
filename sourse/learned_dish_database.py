@@ -8,6 +8,9 @@ def add_learned_dish_note(
     learned_dish_average_fats: float,
     learned_dish_average_carbohydrates: float,
 ) -> None:
+    """
+    Adds one dish entry to learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -16,8 +19,10 @@ def add_learned_dish_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO learned_dish (learned_dish_dish, learned_dish_average_calories, learned_dish_average_proteins, learned_dish_average_fats, learned_dish_average_carbohydrates) "
-        f"VALUES ('{learned_dish_dish}', {learned_dish_average_calories}, {learned_dish_average_proteins}, {learned_dish_average_fats}, {learned_dish_average_carbohydrates})"
+        f"INSERT INTO learned_dish (learned_dish_dish, learned_dish_average_calories, learned_dish_average_proteins,"
+        f" learned_dish_average_fats, learned_dish_average_carbohydrates) "
+        f"VALUES ('{learned_dish_dish}', {learned_dish_average_calories}, {learned_dish_average_proteins},"
+        f" {learned_dish_average_fats}, {learned_dish_average_carbohydrates})"
     )
     try:
         cursor.execute(sql)
@@ -31,6 +36,9 @@ def add_learned_dish_note(
 
 
 def delete_learned_dish_note(learned_dish_dish: str) -> None:
+    """
+    Deletes one dish entry in learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -52,6 +60,9 @@ def delete_learned_dish_note(learned_dish_dish: str) -> None:
 
 
 def get_learned_dish_note(learned_dish_dish: str) -> dict:
+    """
+    Returns all data about a dish from learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",

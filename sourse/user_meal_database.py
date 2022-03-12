@@ -14,6 +14,9 @@ def add_meal_note(
     meal_date: str,
     meal_time: str,
 ) -> None:
+    """
+    Adds one meal entry to meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -22,8 +25,10 @@ def add_meal_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
-        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
+        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins,"
+        f" meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
+        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins},"
+        f" {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
     )
     try:
         cursor.execute(sql)
@@ -37,6 +42,9 @@ def add_meal_note(
 
 
 def delete_all_meal_notes(user_id: int) -> None:
+    """
+    Deletes all meal entries for a single user from the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -58,6 +66,9 @@ def delete_all_meal_notes(user_id: int) -> None:
 
 
 def delete_meal_note(user_id: int, meal_id: int) -> None:
+    """
+    Deletes one meal entry for a single user from the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -79,6 +90,9 @@ def delete_meal_note(user_id: int, meal_id: int) -> None:
 
 
 def get_number_of_user_meals(user_id: int) -> int:
+    """
+    Returns the number of meal entries for single user in the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -102,6 +116,9 @@ def get_number_of_user_meals(user_id: int) -> int:
 
 
 def update_meal_dish(user_id: int, meal_id: int, meal_dish: str) -> None:
+    """
+    Updates the name of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -123,6 +140,9 @@ def update_meal_dish(user_id: int, meal_id: int, meal_dish: str) -> None:
 
 
 def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
+    """
+    Updates the mass of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -146,6 +166,9 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
 def update_meal_average_calories(
     user_id: int, meal_id: int, meal_average_calories: int
 ) -> None:
+    """
+    Updates average calories of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -169,6 +192,9 @@ def update_meal_average_calories(
 def update_meal_average_proteins(
     user_id: int, meal_id: int, meal_average_proteins: int
 ) -> None:
+    """
+    Updates average proteins of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -192,6 +218,9 @@ def update_meal_average_proteins(
 def update_meal_average_fats(
     user_id: int, meal_id: int, meal_average_fats: int
 ) -> None:
+    """
+    Updates average fats of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -215,6 +244,9 @@ def update_meal_average_fats(
 def update_meal_average_carbohydrates(
     user_id: int, meal_id: int, meal_average_carbohydrates: int
 ) -> None:
+    """
+    Updates average carbohydrates of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -236,6 +268,9 @@ def update_meal_average_carbohydrates(
 
 
 def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
+    """
+    Updates date of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -257,6 +292,9 @@ def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
 
 
 def update_meal_time(user_id: int, meal_id: int, meal_time: str) -> None:
+    """
+    Updates time of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -278,6 +316,9 @@ def update_meal_time(user_id: int, meal_id: int, meal_time: str) -> None:
 
 
 def get_meal_object(user_id: int, meal_id: int) -> dict:
+    """
+    Returns all data about meal of single user from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -314,6 +355,9 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
 
 
 def get_all_meals(user_id: int) -> dict:
+    """
+    Returns all data about all meals of single user from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -353,11 +397,17 @@ def get_all_meals(user_id: int) -> dict:
 
 
 def generate_meal_id(user_id: int) -> int:
+    """
+    Returns unique generated id for new meal of single user
+    """
     meal_id = get_number_of_user_meals(user_id) + 1
     return meal_id
 
 
 def get_user_meal_for_day(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for 1 day from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -397,6 +447,9 @@ def get_user_meal_for_day(user_id: int) -> dict:
 
 
 def get_user_meal_for_week(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for last 7 days from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -440,6 +493,9 @@ def get_user_meal_for_week(user_id: int) -> dict:
 
 
 def get_user_meal_for_month(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for last 31 days from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
