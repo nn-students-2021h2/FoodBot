@@ -280,7 +280,7 @@ def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
     con.close()
 
 
-def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -> None:
+def update_user_carb_norm(user_id: int, user_carb_norm: float) -> None:
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -289,16 +289,14 @@ def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -
     )
 
     cursor = con.cursor()
-    sql = f"UPDATE user SET user_carbohydrate_norm={user_carbohydrate_norm} WHERE user_id={user_id}"
+    sql = f"UPDATE user SET user_carb_norm={user_carb_norm} WHERE user_id={user_id}"
     try:
         cursor.execute(sql)
         con.commit()
-        print("user_carbohydrate_norm updated")
+        print("user_carb_norm updated")
     except pymysql.Error as e:
         con.rollback()
-        print(
-            f"could not update user_carbohydrate_norm error pymysql {e.args[0]}: {e.args[1]}"
-        )
+        print(f"could not update user_carb_norm error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -330,7 +328,7 @@ def get_user_object(user_id: int) -> dict:
             user_calorie_norm=database_result[0][8],
             user_protein_norm=database_result[0][9],
             user_fat_norm=database_result[0][10],
-            user_carbohydrate_norm=database_result[0][11],
+            user_carb_norm=database_result[0][11],
         )
         print("record received")
     except pymysql.Error as e:
@@ -369,7 +367,7 @@ def get_all_user_info() -> dict:
                 user_calorie_norm=database_result[i][8],
                 user_protein_norm=database_result[i][9],
                 user_fat_norm=database_result[i][10],
-                user_carbohydrate_norm=database_result[i][11],
+                user_carb_norm=database_result[i][11],
             )
             for i in range(len(database_result))
         }

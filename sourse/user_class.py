@@ -16,21 +16,21 @@ class User:
         calorie_norm: int = 0,
         protein_norm: int = 0,
         fat_norm: int = 0,
-        carbohydrate_norm: int = 0,
+        carb_norm: int = 0,
     ):
         """Constructor"""
         self.user_id = user_id
         self.name = name
         self.age = int(age)
-        self.sex = sex
+        self.sex = sex.lower()
         self.height = int(height)
         self.weight = int(weight)
-        self.activity = activity
-        self.goal = goal
+        self.activity = activity.lower()
+        self.goal = goal.lower()
         self.calorie_norm = calorie_norm
         self.protein_norm = protein_norm
         self.fat_norm = fat_norm
-        self.carbohydrate_norm = carbohydrate_norm
+        self.carb_norm = carb_norm
 
     def count_norm(self) -> None:
         """
@@ -69,9 +69,7 @@ class User:
             self.calorie_norm * goal_cf[self.goal][0] / PROTEIN_IN_KCAL
         )
         self.fat_norm = round(self.calorie_norm * goal_cf[self.goal][1] / FAT_IN_KCAL)
-        self.carbohydrate_norm = round(
-            self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL
-        )
+        self.carb_norm = round(self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL)
 
     def user_to_database(self) -> None:
         ud.add_note(
@@ -86,7 +84,7 @@ class User:
             self.calorie_norm,
             self.protein_norm,
             self.fat_norm,
-            self.carbohydrate_norm,
+            self.carb_norm,
         )
 
     def get_short_info(self) -> str:
@@ -94,80 +92,70 @@ class User:
             f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
             f"Белки: {self.protein_norm} г. \n"
             f"Жиры: {self.fat_norm} г. \n"
-            f"Углеводы: {self.carbohydrate_norm} г."
+            f"Углеводы: {self.carb_norm} г."
         )
 
     def get_meal_statistic_for_day(self) -> str:
         calculated_calories = round(mc.calculate_calories_for_day(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_day(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_day(self.user_id))
-        calculated_carbohydrates = round(
-            mc.calculate_carbohydrates_for_day(self.user_id)
-        )
-        calories_balans = round(self.calorie_norm - calculated_calories)
-        proteins_balans = round(self.protein_norm - calculated_proteins)
-        fats_balans = round(self.fat_norm - calculated_fats)
-        carbohydrates_balans = round(self.carbohydrate_norm - calculated_carbohydrates)
+        calculated_carbs = round(mc.calculate_carbs_for_day(self.user_id))
+        calories_balance = round(self.calorie_norm - calculated_calories)
+        proteins_balance = round(self.protein_norm - calculated_proteins)
+        fats_balance = round(self.fat_norm - calculated_fats)
+        carbs_balance = round(self.carb_norm - calculated_carbs)
         return (
-            f"{self.name.title()}, за день вами поглащено {calculated_calories} ккал. \n"
+            f"{self.name.title()}, за день вы употребили {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
             f"{calculated_fats} г. жиров, \n"
-            f"{calculated_carbohydrates} г. углеводов. \n"
+            f"{calculated_carbs} г. углеводов. \n"
             f"Для покрытия дневной нормы необходимо еще: \n"
-            f"{calories_balans if calories_balans > 0 else 0} ккал. \n"
-            f"{proteins_balans if proteins_balans > 0 else 0} г. белков \n"
-            f"{fats_balans if fats_balans > 0 else 0} г. жиров \n"
-            f"{carbohydrates_balans if carbohydrates_balans > 0 else 0} г. углеводов \n"
+            f"{calories_balance if calories_balance > 0 else 0} ккал. \n"
+            f"{proteins_balance if proteins_balance > 0 else 0} г. белков \n"
+            f"{fats_balance if fats_balance > 0 else 0} г. жиров \n"
+            f"{carbs_balance if carbs_balance > 0 else 0} г. углеводов \n"
         )
 
     def get_meal_statistic_for_week(self) -> str:
         calculated_calories = round(mc.calculate_calories_for_week(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_week(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_week(self.user_id))
-        calculated_carbohydrates = round(
-            mc.calculate_carbohydrates_for_week(self.user_id)
-        )
-        calories_balans = round(((self.calorie_norm * 7) - calculated_calories) / 7)
-        proteins_balans = round(((self.protein_norm * 7) - calculated_proteins) / 7)
-        fats_balans = round(((self.fat_norm * 7) - calculated_fats) / 7)
-        carbohydrates_balans = round(
-            ((self.carbohydrate_norm * 7) - calculated_carbohydrates) / 7
-        )
+        calculated_carbs = round(mc.calculate_carbs_for_week(self.user_id))
+        calories_balance = round(((self.calorie_norm * 7) - calculated_calories) / 7)
+        proteins_balance = round(((self.protein_norm * 7) - calculated_proteins) / 7)
+        fats_balance = round(((self.fat_norm * 7) - calculated_fats) / 7)
+        carbs_balance = round(((self.carb_norm * 7) - calculated_carbs) / 7)
         return (
             f"{self.name.title()}, за неделю вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
             f"{calculated_fats} г. жиров, \n"
-            f"{calculated_carbohydrates} г. углеводов. \n"
+            f"{calculated_carbs} г. углеводов. \n"
             f"Для покрытия нормы в среднем в день вам не хватало: \n"
-            f"{calories_balans if calories_balans > 0 else 0} ккал. \n"
-            f"{proteins_balans if proteins_balans > 0 else 0} г. белков \n"
-            f"{fats_balans if fats_balans > 0 else 0} г. жиров \n"
-            f"{carbohydrates_balans if carbohydrates_balans > 0 else 0} г. углеводов\n"
+            f"{calories_balance if calories_balance > 0 else 0} ккал. \n"
+            f"{proteins_balance if proteins_balance > 0 else 0} г. белков \n"
+            f"{fats_balance if fats_balance > 0 else 0} г. жиров \n"
+            f"{carbs_balance if carbs_balance > 0 else 0} г. углеводов\n"
         )
 
     def get_meal_statistic_for_month(self) -> str:
         calculated_calories = round(mc.calculate_calories_for_month(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_month(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_month(self.user_id))
-        calculated_carbohydrates = round(
-            mc.calculate_carbohydrates_for_month(self.user_id)
-        )
-        calories_balans = round(((self.calorie_norm * 31) - calculated_calories) / 31)
-        proteins_balans = round(((self.protein_norm * 31) - calculated_proteins) / 31)
-        fats_balans = round(((self.fat_norm * 31) - calculated_fats) / 31)
-        carbohydrates_balans = round(
-            ((self.carbohydrate_norm * 31) - calculated_carbohydrates) / 31
-        )
+        calculated_carbs = round(mc.calculate_carbs_for_month(self.user_id))
+        calories_balance = round(((self.calorie_norm * 31) - calculated_calories) / 31)
+        proteins_balance = round(((self.protein_norm * 31) - calculated_proteins) / 31)
+        fats_balance = round(((self.fat_norm * 31) - calculated_fats) / 31)
+        carbs_balance = round(((self.carb_norm * 31) - calculated_carbs) / 31)
         return (
             f"{self.name.title()}, за месяц вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
             f"{calculated_fats} г. жиров, \n"
-            f"{calculated_carbohydrates} г. углеводов. \n"
+            f"{calculated_carbs} г. углеводов. \n"
             f"Для покрытия нормы в среднем в день вам не хватало: \n"
-            f"{calories_balans if calories_balans > 0 else 0} ккал. \n"
-            f"{proteins_balans if proteins_balans > 0 else 0} г. белков \n"
-            f"{fats_balans if fats_balans > 0 else 0} г. жиров \n"
-            f"{carbohydrates_balans if carbohydrates_balans > 0 else 0} г. углеводов\n"
+            f"{calories_balance if calories_balance > 0 else 0} ккал. \n"
+            f"{proteins_balance if proteins_balance > 0 else 0} г. белков \n"
+            f"{fats_balance if fats_balance > 0 else 0} г. жиров \n"
+            f"{carbs_balance if carbs_balance > 0 else 0} г. углеводов\n"
         )
 
 
@@ -184,6 +172,6 @@ def user_from_dict(user_data: dict) -> User:
         calorie_norm=user_data["user_calorie_norm"],
         protein_norm=user_data["user_protein_norm"],
         fat_norm=user_data["user_fat_norm"],
-        carbohydrate_norm=user_data["user_carbohydrate_norm"],
+        carb_norm=user_data["user_carb_norm"],
     )
     return user
