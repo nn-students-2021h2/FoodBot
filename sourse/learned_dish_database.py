@@ -28,9 +28,9 @@ def add_learned_dish_note(
         cursor.execute(sql)
         con.commit()
         print("learned_dish added")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of learned_dish adding")
+        print(f"error of learned_dish adding error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -52,9 +52,9 @@ def delete_learned_dish_note(learned_dish_dish: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("learned_dish_note deleted")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of learned_dish_note deleting")
+        print(f"error of learned_dish_note deleting error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -85,8 +85,8 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
             learned_dish_average_carbohydrates=database_result[0][4],
         )
         print("record received")
-    except:
-        print("error of record receiving")
+    except pymysql.Error as e:
+        print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
