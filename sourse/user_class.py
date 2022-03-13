@@ -3,6 +3,11 @@ import user_database as ud
 
 
 class User:
+    """
+    Auxiliary class that contains information about the norm of nutrients and
+    allows you to add a user to the database
+    """
+
     def __init__(
         self,
         user_id: int,
@@ -18,7 +23,6 @@ class User:
         fat_norm: int = 0,
         carbohydrate_norm: int = 0,
     ):
-        """Constructor"""
         self.user_id = user_id
         self.name = name
         self.age = int(age)
@@ -74,6 +78,9 @@ class User:
         )
 
     def user_to_database(self) -> None:
+        """
+        Adds a user class object to the user database
+        """
         ud.add_note(
             self.user_id,
             self.name,
@@ -90,6 +97,9 @@ class User:
         )
 
     def get_short_info(self) -> str:
+        """
+        Returns a message with a summary of daily calories and nutrients
+        """
         return (
             f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
             f"Белки: {self.protein_norm} г. \n"
@@ -98,6 +108,9 @@ class User:
         )
 
     def get_meal_statistic_for_day(self) -> str:
+        """
+        Returns message with user statistic for 1 day
+        """
         calculated_calories = round(mc.calculate_calories_for_day(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_day(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_day(self.user_id))
@@ -121,6 +134,9 @@ class User:
         )
 
     def get_meal_statistic_for_week(self) -> str:
+        """
+        Returns message with user statistic for last 7 days
+        """
         calculated_calories = round(mc.calculate_calories_for_week(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_week(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_week(self.user_id))
@@ -146,6 +162,9 @@ class User:
         )
 
     def get_meal_statistic_for_month(self) -> str:
+        """
+        Returns message with user statistic for last 31 days
+        """
         calculated_calories = round(mc.calculate_calories_for_month(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_month(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_month(self.user_id))
@@ -172,6 +191,9 @@ class User:
 
 
 def user_from_dict(user_data: dict) -> User:
+    """
+    Returns user object created from user database data
+    """
     user = User(
         user_id=user_data["user_id"],
         name=user_data["user_name"],

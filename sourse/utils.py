@@ -5,11 +5,17 @@ from user_database import get_user_object, get_all_user_info
 
 
 def initial_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for the first user initialization
+    """
     keyboard = ReplyKeyboardMarkup([["Познакомиться"]], resize_keyboard=True)
     return keyboard
 
 
 def existing_user_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for standard interaction with the bot
+    """
     keyboard = ReplyKeyboardMarkup(
         [
             ["Внести прием пищи"],
@@ -24,6 +30,9 @@ def existing_user_keyboard() -> ReplyKeyboardMarkup:
 
 
 def send_every_day_info(context: CallbackContext) -> None:
+    """
+    Sends all users their daily statistics
+    """
     all_data = get_all_user_info()
     for i in all_data:
         user = user_from_dict(get_user_object(all_data[i]["user_id"]))
