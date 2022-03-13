@@ -1,0 +1,5 @@
+setuptools~=57.0.0
+telegram~=0.0.1
+pytz~=2021.3
+jsonschema~=4.4.0
+PyMySQL~=1.0.2
