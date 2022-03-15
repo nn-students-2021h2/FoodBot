@@ -29,6 +29,62 @@ def existing_user_keyboard() -> ReplyKeyboardMarkup:
     return keyboard
 
 
+def sex_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for sex types
+    """
+    keyboard = ReplyKeyboardMarkup([["мужской", "женский"]], one_time_keyboard=True)
+    return keyboard
+
+
+def activity_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for activity types
+    """
+    keyboard = ReplyKeyboardMarkup([["нулевая", "слабая", "средняя", "высокая", "экстремальная"]], one_time_keyboard=True)
+    return keyboard
+
+
+def goal_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for goal types
+    """
+    keyboard = ReplyKeyboardMarkup([["похудение", "поддержание формы", "набор массы"]], one_time_keyboard=True)
+    return keyboard
+
+
+def update_user_data_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for fields which need to be changed
+    """
+    keyboard = ReplyKeyboardMarkup([
+        ["Имя", "Возраст", "Пол"],
+        ["Вес", "Рост"],
+        ["Уровень активности", "Цель", "Вернуться в основное меню"]
+    ], one_time_keyboard=True)
+    return keyboard
+
+
+def nutrients_norm_recount_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for nutrients norm recount
+    """
+    keyboard = ReplyKeyboardMarkup([["Пересчитать норму КБЖУ"]], one_time_keyboard=True)
+    return keyboard
+
+
+def get_statistic_keyboard() -> ReplyKeyboardMarkup:
+    """
+    Returns the virtual keyboard for time spans which get statistics for
+    """
+    keyboard = ReplyKeyboardMarkup([
+        ["За текущий день"],
+        ["За последние 7 дней"],
+        ["За последний месяц"],
+    ], one_time_keyboard=True, resize_keyboard=True)
+    return keyboard
+
+
 def send_every_day_info(context: CallbackContext) -> None:
     """
     Sends all users their daily statistics

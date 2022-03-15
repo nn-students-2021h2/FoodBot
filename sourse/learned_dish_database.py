@@ -6,7 +6,7 @@ def add_learned_dish_note(
     learned_dish_average_calories: float,
     learned_dish_average_proteins: float,
     learned_dish_average_fats: float,
-    learned_dish_average_carbohydrates: float,
+    learned_dish_average_carbs: float,
 ) -> None:
     """
     Adds one dish entry to learned_dish database
@@ -20,9 +20,9 @@ def add_learned_dish_note(
     cursor = con.cursor()
     sql = (
         f"INSERT INTO learned_dish (learned_dish_dish, learned_dish_average_calories, learned_dish_average_proteins,"
-        f" learned_dish_average_fats, learned_dish_average_carbohydrates) "
+        f" learned_dish_average_fats, learned_dish_average_carbs) "
         f"VALUES ('{learned_dish_dish}', {learned_dish_average_calories}, {learned_dish_average_proteins},"
-        f" {learned_dish_average_fats}, {learned_dish_average_carbohydrates})"
+        f" {learned_dish_average_fats}, {learned_dish_average_carbs})"
     )
     try:
         cursor.execute(sql)
@@ -82,7 +82,7 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
             learned_dish_average_calories=database_result[0][1],
             learned_dish_average_proteins=database_result[0][2],
             learned_dish_average_fats=database_result[0][3],
-            learned_dish_average_carbohydrates=database_result[0][4],
+            learned_dish_average_ccarbs=database_result[0][4],
         )
         print("record received")
     except pymysql.Error as e:
