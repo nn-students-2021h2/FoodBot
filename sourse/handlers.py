@@ -124,7 +124,7 @@ def go(update: Update, context: CallbackContext) -> str:
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
         reply_markup=utils.existing_user_keyboard(),
     )
-    return "main_go"
+    return "menu"
 
 
 def get_nutrients_norm(update: Update, context: CallbackContext) -> str:
