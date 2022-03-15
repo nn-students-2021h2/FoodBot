@@ -20,9 +20,7 @@ def start(update: Update, context: CallbackContext) -> str:
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
-        f"Давайте познакомимся!",
-        reply_markup=utils.initial_keyboard(),
-    )
+        f"Давайте познакомимся!")
     update.message.reply_text("Как к вам обращаться? Введите имя или псевдоним.")
     return "user_name"
 
