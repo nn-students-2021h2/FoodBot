@@ -17,7 +17,7 @@ class FoodBotFilters(UpdateFilter):
                       "get_meal_proteins", "get_meal_fats", "get_meal_carbs")
 
         str_states = ("user_sex", "user_goal", "user_activity", "get_nutrients_norm", "get_statistic",
-                      "update_user_data", "add_new_meal", "delete_last_meal_note", "return_to_main_go",
+                      "update_user_data", "add_new_meal", "delete_last_meal_note", "return_to_menu",
                       "get_statistic_day", "get_statistic_week", "get_statistic_month", "update_name",
                       "update_age", "update_sex", "update_height", "update_weight", "update_activity",
                       "update_goal", "nutrients_recount")
@@ -33,7 +33,7 @@ class FoodBotFilters(UpdateFilter):
             "update_user_data": "изменить персональные данные",
             "add_new_meal": "внести прием пищи",
             "delete_last_meal_note": "удалить запись о последнем приеме пищи",
-            "return_to_main_go": "вернуться в основное меню",
+            "return_to_menu": "вернуться в основное меню",
             "update_name": "имя",
             "update_age": "возраст",
             "update_sex": "пол",
@@ -157,8 +157,8 @@ class FoodBotFilters(UpdateFilter):
                     if self.user_response.lower() == correct_buttons["delete_last_meal_note"]:
                         return True
 
-                elif self.state == "return_to_main_go":
-                    if self.user_response.lower() == correct_buttons["return_to_main_go"]:
+                elif self.state == "return_to_menu":
+                    if self.user_response.lower() == correct_buttons["return_to_menu"]:
                         return True
 
                 elif self.state == "get_statistic_day":
@@ -205,8 +205,8 @@ class FoodBotFilters(UpdateFilter):
                     if self.user_response.lower() == correct_buttons["update_goal"]:
                         return True
 
-                elif self.state == "return_to_main_go":
-                    if self.user_response.lower() == correct_buttons["return_to_main_go"]:
+                elif self.state == "return_to_menu":
+                    if self.user_response.lower() == correct_buttons["return_to_menu"]:
                         return True
 
         return False
