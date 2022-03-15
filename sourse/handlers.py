@@ -3,7 +3,7 @@ import user_meal_database as umd
 import learned_dish_database as ldd
 from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
 from telegram.ext import ConversationHandler
-from utils import initial_keyboard, existing_user_keyboard
+import utils
 from user_class import User, user_from_dict
 from meal_class import Meal
 from telegram.ext import CallbackContext
@@ -21,7 +21,7 @@ def start(update: Update, context: CallbackContext) -> None:
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
         f"Давайте познакомимся!",
-        reply_markup=initial_keyboard(),
+        reply_markup=utils.initial_keyboard(),
     )
 
 
@@ -50,11 +50,7 @@ def get_user_birth_date(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's age and asks for user's sex
     """
     context.user_data["birth_date"] = update.message.text
-    reply_keyboard = [["мужской", "женский"]]
-    update.message.reply_text(
-        "Укажите свой пол:",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Укажите свой пол:", reply_markup=utils.sex_keyboard())
     return "user_sex"
 
 
@@ -63,7 +59,7 @@ def get_user_sex(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's gender and asks for user's height
     """
     context.user_data["sex"] = update.message.text
-    update.message.reply_text("Введите ваш рост в сантиметрах (например, 180): ")
+    update.message.reply_text("Введите ваш рост в сантиметрах (например, 180): ", reply_markup=ReplyKeyboardRemove())
     return "user_height"
 
 
@@ -81,11 +77,9 @@ def get_user_weight(update: Update, context: CallbackContext) -> str:
     Handler that receives the user's weight and requests user's activity level
     """
     context.user_data["weight"] = update.message.text
-    reply_keyboard = [["нулевая", "слабая", "средняя", "высокая", "экстремальная"]]
     update.message.reply_text(
         "Какой у Вас уровень активности? <добавить пояснения>",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+        reply_markup=utils.activity_keyboard())
     return "user_activity"
 
 
@@ -94,11 +88,7 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's activity level and asks for the user's goal
     """
     context.user_data["activity"] = update.message.text
-    reply_keyboard = [["похудение", "поддержание формы", "набор массы"]]
-    update.message.reply_text(
-        "Какая у вас цель? <добавить пояснения>",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Какая у вас цель? <добавить пояснения>", reply_markup=utils.goal_keyboard())
     return "user_goal"
 
 
@@ -136,7 +126,7 @@ def existing_user(update: Update, context: CallbackContext) -> str:
     user_name = ud.get_user_object(user_id=update.message.chat.id)["user_name"]
     update.message.reply_text(
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
-        reply_markup=existing_user_keyboard(),
+        reply_markup=utils.existing_user_keyboard(),
     )
     return "main_state"
 
@@ -153,15 +143,7 @@ def update_existing_user_data(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting what data the user wants to change
     """
-    reply_keyboard = [
-        ["Имя", "Возраст", "Пол"],
-        ["Вес", "Рост"],
-        ["Уровень активности", "Цель", "Вернуться в основное меню"],
-    ]
-    update.message.reply_text(
-        "Какую информацию ты хочешь изменить?",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Какую информацию ты хочешь изменить?", reply_markup=utils.update_user_data_keyboard())
     return "update_existing_user_data"
 
 
@@ -203,11 +185,7 @@ def update_exiting_user_age(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_age(update.effective_chat.id, int(user_enter))
-    reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -215,11 +193,7 @@ def pre_update_exiting_user_sex(update: Update, context: CallbackContext) -> str
     """
     Handler requesting a changed user's sex
     """
-    reply_keyboard = [["Мужской", "Женский"]]
-    update.message.reply_text(
-        "Укажите новый пол:",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Укажите новый пол:", reply_markup=utils.sex_keyboard())
     return "update_exiting_user_sex"
 
 
@@ -229,13 +203,7 @@ def update_exiting_user_sex(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_sex(update.effective_chat.id, user_enter)
-    reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -253,13 +221,7 @@ def update_exiting_user_height(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_height(update.effective_chat.id, float(user_enter))
-    reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -277,13 +239,7 @@ def update_exiting_user_weight(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_weight(update.effective_chat.id, float(user_enter))
-    reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -291,11 +247,7 @@ def pre_update_exiting_user_activity(update: Update, context: CallbackContext) -
     """
     Handler requesting changed user activity
     """
-    reply_keyboard = [["Нулевая", "Слабая", "Средняя", "Высокая", "Экстремальная"]]
-    update.message.reply_text(
-        "Укажите новый уровень активности",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Укажите новый уровень активности", reply_markup=utils.activity_keyboard())
     return "update_exiting_user_activity"
 
 
@@ -306,12 +258,7 @@ def update_exiting_user_activity(update: Update, context: CallbackContext) -> st
     user_enter = update.message.text
     ud.update_user_activity(update.effective_chat.id, user_enter)
     reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -319,11 +266,7 @@ def pre_update_exiting_user_goal(update: Update, context: CallbackContext) -> st
     """
     Handler requesting a modified user goal
     """
-    reply_keyboard = [["Похудение", "Поддержание формы", "Набор массы"]]
-    update.message.reply_text(
-        "Укажите новую цель",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),
-    )
+    update.message.reply_text("Укажите новую цель", reply_markup=utils.goal_keyboard())
     return "update_exiting_user_goal"
 
 
@@ -333,13 +276,7 @@ def update_exiting_user_goal(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_goal(update.effective_chat.id, user_enter)
-    reply_keyboard = [["Пересчитать норму каллорий"]]
-    update.message.reply_text(
-        "Изменения внесены",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_exiting_user_norm"
 
 
@@ -515,17 +452,7 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the period for which you want to display statistics
     """
-    reply_keyboard = [
-        ["За текущий день"],
-        ["За последние 7 дней"],
-        ["За последний месяц"],
-    ]
-    update.message.reply_text(
-        "Выберите за какой промежуток времени получить статистику",
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
+    update.message.reply_text("Выберите, за какой промежуток времени получить статистику", utils.get_statistic_keyboard())
     return "get_statistic_for"
 
 
