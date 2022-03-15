@@ -8,6 +8,9 @@ def add_learned_dish_note(
     learned_dish_average_fats: float,
     learned_dish_average_carbohydrates: float,
 ) -> None:
+    """
+    Adds one dish entry to learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -16,21 +19,26 @@ def add_learned_dish_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO learned_dish (learned_dish_dish, learned_dish_average_calories, learned_dish_average_proteins, learned_dish_average_fats, learned_dish_average_carbohydrates) "
-        f"VALUES ('{learned_dish_dish}', {learned_dish_average_calories}, {learned_dish_average_proteins}, {learned_dish_average_fats}, {learned_dish_average_carbohydrates})"
+        f"INSERT INTO learned_dish (learned_dish_dish, learned_dish_average_calories, learned_dish_average_proteins,"
+        f" learned_dish_average_fats, learned_dish_average_carbohydrates) "
+        f"VALUES ('{learned_dish_dish}', {learned_dish_average_calories}, {learned_dish_average_proteins},"
+        f" {learned_dish_average_fats}, {learned_dish_average_carbohydrates})"
     )
     try:
         cursor.execute(sql)
         con.commit()
         print("learned_dish added")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of learned_dish adding")
+        print(f"error of learned_dish adding error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def delete_learned_dish_note(learned_dish_dish: str) -> None:
+    """
+    Deletes one dish entry in learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -44,14 +52,17 @@ def delete_learned_dish_note(learned_dish_dish: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("learned_dish_note deleted")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of learned_dish_note deleting")
+        print(f"error of learned_dish_note deleting error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def get_learned_dish_note(learned_dish_dish: str) -> dict:
+    """
+    Returns all data about a dish from learned_dish database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -74,8 +85,8 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
             learned_dish_average_carbohydrates=database_result[0][4],
         )
         print("record received")
-    except:
-        print("error of record receiving")
+    except pymysql.Error as e:
+        print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 

@@ -15,7 +15,9 @@ def add_note(
     user_fat_norm: float,
     user_carbohydrate_norm: float,
 ) -> None:
-
+    """
+    Adds one user entry to user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -42,6 +44,9 @@ def add_note(
 
 
 def delete_note_with_id(user_id: int) -> None:
+    """
+    Deletes one user entry from user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -63,6 +68,9 @@ def delete_note_with_id(user_id: int) -> None:
 
 
 def update_user_name(user_id: int, new_user_name: str) -> None:
+    """
+    Updates the name of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -84,6 +92,9 @@ def update_user_name(user_id: int, new_user_name: str) -> None:
 
 
 def update_user_age(user_id: int, new_user_age: int) -> None:
+    """
+    Updates the age of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -105,6 +116,9 @@ def update_user_age(user_id: int, new_user_age: int) -> None:
 
 
 def update_user_sex(user_id: int, new_user_sex: str) -> None:
+    """
+    Updates the sex of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -126,6 +140,9 @@ def update_user_sex(user_id: int, new_user_sex: str) -> None:
 
 
 def update_user_height(user_id: int, user_height: float) -> None:
+    """
+    Updates the height of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -147,6 +164,9 @@ def update_user_height(user_id: int, user_height: float) -> None:
 
 
 def update_user_weight(user_id: int, user_weight: float) -> None:
+    """
+    Updates the weight of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -168,6 +188,9 @@ def update_user_weight(user_id: int, user_weight: float) -> None:
 
 
 def update_user_activity(user_id: int, user_activity: str) -> None:
+    """
+    Updates the activity of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -189,6 +212,9 @@ def update_user_activity(user_id: int, user_activity: str) -> None:
 
 
 def update_user_goal(user_id: int, user_goal: str) -> None:
+    """
+    Updates the goal of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -210,6 +236,9 @@ def update_user_goal(user_id: int, user_goal: str) -> None:
 
 
 def update_user_calorie_norm(user_id: int, user_calorie_norm: float) -> None:
+    """
+    Updates the calorie norm of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -235,6 +264,9 @@ def update_user_calorie_norm(user_id: int, user_calorie_norm: float) -> None:
 
 
 def update_user_protein_norm(user_id: int, user_protein_norm: float) -> None:
+    """
+    Updates the protein norm of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -260,6 +292,9 @@ def update_user_protein_norm(user_id: int, user_protein_norm: float) -> None:
 
 
 def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
+    """
+    Updates the fat norm of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -281,6 +316,9 @@ def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
 
 
 def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -> None:
+    """
+    Updates the carbohydrate norm of the user in user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -304,6 +342,9 @@ def update_user_carbohydrate_norm(user_id: int, user_carbohydrate_norm: float) -
 
 
 def get_user_object(user_id: int) -> dict:
+    """
+    Returns all data about user from user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -342,6 +383,9 @@ def get_user_object(user_id: int) -> dict:
 
 
 def get_all_user_info() -> dict:
+    """
+    Returns all data about all users from user database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",

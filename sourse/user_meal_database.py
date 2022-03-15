@@ -14,6 +14,9 @@ def add_meal_note(
     meal_date: str,
     meal_time: str,
 ) -> None:
+    """
+    Adds one meal entry to meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -22,21 +25,26 @@ def add_meal_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
-        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
+        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins,"
+        f" meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
+        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins},"
+        f" {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
     )
     try:
         cursor.execute(sql)
         con.commit()
         print("meal_note added")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal adding")
+        print(f"error of meal adding error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def delete_all_meal_notes(user_id: int) -> None:
+    """
+    Deletes all meal entries for a single user from the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -50,14 +58,17 @@ def delete_all_meal_notes(user_id: int) -> None:
         cursor.execute(sql)
         con.commit()
         print("all user's notes deleted")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of all user's notes deleting")
+        print(f"error of all user's notes deleting error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def delete_meal_note(user_id: int, meal_id: int) -> None:
+    """
+    Deletes one meal entry for a single user from the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -71,14 +82,17 @@ def delete_meal_note(user_id: int, meal_id: int) -> None:
         cursor.execute(sql)
         con.commit()
         print("user's note deleted")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of user's note deleting")
+        print(f"error of user's note deleting error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def get_number_of_user_meals(user_id: int) -> int:
+    """
+    Returns the number of meal entries for single user in the meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -93,8 +107,8 @@ def get_number_of_user_meals(user_id: int) -> int:
         cursor.execute(sql)
         result = cursor.fetchall()[0][0]
         print("number of entries received")
-    except:
-        print("error getting record count")
+    except pymysql.Error as e:
+        print(f"error getting record count error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -102,6 +116,9 @@ def get_number_of_user_meals(user_id: int) -> int:
 
 
 def update_meal_dish(user_id: int, meal_id: int, meal_dish: str) -> None:
+    """
+    Updates the name of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -115,14 +132,17 @@ def update_meal_dish(user_id: int, meal_id: int, meal_dish: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("meal_dish updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_dish updating")
+        print(f"error of meal_dish updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
+    """
+    Updates the mass of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -136,9 +156,9 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
         cursor.execute(sql)
         con.commit()
         print("meal_mass updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_mass updating")
+        print(f"error of meal_mass updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -146,6 +166,9 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
 def update_meal_average_calories(
     user_id: int, meal_id: int, meal_average_calories: int
 ) -> None:
+    """
+    Updates average calories of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -159,9 +182,9 @@ def update_meal_average_calories(
         cursor.execute(sql)
         con.commit()
         print("meal_average_calories updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_average_calories updating")
+        print(f"error of meal_average_calories updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -169,6 +192,9 @@ def update_meal_average_calories(
 def update_meal_average_proteins(
     user_id: int, meal_id: int, meal_average_proteins: int
 ) -> None:
+    """
+    Updates average proteins of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -182,9 +208,9 @@ def update_meal_average_proteins(
         cursor.execute(sql)
         con.commit()
         print("meal_average_proteins updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_average_proteins updating")
+        print(f"error of meal_average_proteins updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -192,6 +218,9 @@ def update_meal_average_proteins(
 def update_meal_average_fats(
     user_id: int, meal_id: int, meal_average_fats: int
 ) -> None:
+    """
+    Updates average fats of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -205,9 +234,9 @@ def update_meal_average_fats(
         cursor.execute(sql)
         con.commit()
         print("meal_average_fats updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_average_fats updating")
+        print(f"error of meal_average_fats updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -215,6 +244,9 @@ def update_meal_average_fats(
 def update_meal_average_carbohydrates(
     user_id: int, meal_id: int, meal_average_carbohydrates: int
 ) -> None:
+    """
+    Updates average carbohydrates of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -228,14 +260,17 @@ def update_meal_average_carbohydrates(
         cursor.execute(sql)
         con.commit()
         print("meal_average_carbohydrates updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_average_carbohydrates updating")
+        print(f"error of meal_average_carbohydrates updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
+    """
+    Updates date of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -249,14 +284,17 @@ def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("meal_date updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_date updating")
+        print(f"error of meal_date updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def update_meal_time(user_id: int, meal_id: int, meal_time: str) -> None:
+    """
+    Updates time of the meal of single user in meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -270,14 +308,17 @@ def update_meal_time(user_id: int, meal_id: int, meal_time: str) -> None:
         cursor.execute(sql)
         con.commit()
         print("meal_time updated")
-    except:
+    except pymysql.Error as e:
         con.rollback()
-        print("error of meal_time updating")
+        print(f"error of meal_time updating error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
 
 def get_meal_object(user_id: int, meal_id: int) -> dict:
+    """
+    Returns all data about meal of single user from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -305,8 +346,8 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
             meal_time=database_result[0][9],
         )
         print("record received")
-    except:
-        print("error of record receiving")
+    except pymysql.Error as e:
+        print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -314,6 +355,9 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
 
 
 def get_all_meals(user_id: int) -> dict:
+    """
+    Returns all data about all meals of single user from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -344,8 +388,8 @@ def get_all_meals(user_id: int) -> dict:
             for i in range(len(database_result))
         }
         print("record received")
-    except:
-        print("error of record receiving")
+    except pymysql.Error as e:
+        print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -353,11 +397,17 @@ def get_all_meals(user_id: int) -> dict:
 
 
 def generate_meal_id(user_id: int) -> int:
+    """
+    Returns unique generated id for new meal of single user
+    """
     meal_id = get_number_of_user_meals(user_id) + 1
     return meal_id
 
 
 def get_user_meal_for_day(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for 1 day from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -388,8 +438,8 @@ def get_user_meal_for_day(user_id: int) -> dict:
             for i in range(len(database_result))
         }
         print("time successfully taken")
-    except:
-        print("timing error")
+    except pymysql.Error as e:
+        print(f"timing error error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -397,6 +447,9 @@ def get_user_meal_for_day(user_id: int) -> dict:
 
 
 def get_user_meal_for_week(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for last 7 days from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -431,8 +484,8 @@ def get_user_meal_for_week(user_id: int) -> dict:
             for i in range(len(database_result))
         }
         print("time successfully taken")
-    except:
-        print("timing error")
+    except pymysql.Error as e:
+        print(f"timing error error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -440,6 +493,9 @@ def get_user_meal_for_week(user_id: int) -> dict:
 
 
 def get_user_meal_for_month(user_id: int) -> dict:
+    """
+    Returns all data about a meal of single user for last 31 days from meal database
+    """
     con = pymysql.connect(
         host="localhost",
         user="foodbot",
@@ -474,8 +530,8 @@ def get_user_meal_for_month(user_id: int) -> dict:
             for i in range(len(database_result))
         }
         print("time successfully taken")
-    except:
-        print("timing error")
+    except pymysql.Error as e:
+        print(f"timing error error pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 

@@ -3,6 +3,11 @@ import datetime
 
 
 class Meal:
+    """
+    Auxiliary class that stores information necessary for
+    issuing to the user and adding to the meal database
+    """
+
     def __init__(
         self,
         user_id: int,
@@ -28,6 +33,9 @@ class Meal:
         self.time = get_current_time() if (time is None) else time
 
     def meal_to_database(self) -> None:
+        """
+        Adds a meal class object to the meal database
+        """
         umd.add_meal_note(
             self.user_id,
             self.meal_id,
@@ -42,6 +50,9 @@ class Meal:
         )
 
     def get_short_meal_info(self) -> str:
+        """
+        Returns message with a summary of the nutritional value of a meal
+        """
         return (
             f"Ваше блюдо '{self.dish}' массой {self.meal_size} г. содержит:\n"
             f"{(self.average_calories/100) * self.meal_size} ккал,\n"
@@ -52,16 +63,25 @@ class Meal:
 
 
 def get_current_date() -> str:
+    """
+    Returns current date
+    """
     date = datetime.date.today()
     return str(date)
 
 
 def get_current_time() -> str:
+    """
+    Returns current time (accurate to the second)
+    """
     time = datetime.datetime.now().time()
     return str(time)[:8]
 
 
 def meal_from_dict(meal_data: dict) -> Meal:
+    """
+    Returns meal object created from meal database data
+    """
     meal = Meal(
         user_id=meal_data["user_id"],
         meal_id=meal_data["meal_id"],
@@ -78,6 +98,9 @@ def meal_from_dict(meal_data: dict) -> Meal:
 
 
 def calculate_calories_for_day(user_id: int) -> float:
+    """
+    Returns the number of calories consumed by the user for 1 day
+    """
     raw_info = umd.get_user_meal_for_day(user_id)
     calories_for_day = 0
     for i in range(len(raw_info)):
@@ -88,6 +111,9 @@ def calculate_calories_for_day(user_id: int) -> float:
 
 
 def calculate_proteins_for_day(user_id: int) -> float:
+    """
+    Returns the number of proteins consumed by the user in 1 day
+    """
     raw_info = umd.get_user_meal_for_day(user_id)
     proteins_for_day = 0
     for i in range(len(raw_info)):
@@ -98,6 +124,9 @@ def calculate_proteins_for_day(user_id: int) -> float:
 
 
 def calculate_fats_for_day(user_id: int) -> float:
+    """
+    Returns the number of fats consumed by the user in 1 day
+    """
     raw_info = umd.get_user_meal_for_day(user_id)
     fats_for_day = 0
     for i in range(len(raw_info)):
@@ -108,6 +137,9 @@ def calculate_fats_for_day(user_id: int) -> float:
 
 
 def calculate_carbohydrates_for_day(user_id: int) -> float:
+    """
+    Returns the number of carbohydrates consumed by the user in 1 day
+    """
     raw_info = umd.get_user_meal_for_day(user_id)
     carbohydrates_for_day = 0
     for i in range(len(raw_info)):
@@ -118,6 +150,9 @@ def calculate_carbohydrates_for_day(user_id: int) -> float:
 
 
 def calculate_calories_for_week(user_id: int) -> float:
+    """
+    Returns the number of calories consumed by the user for 7 days
+    """
     raw_info = umd.get_user_meal_for_week(user_id)
     calories_for_week = 0
     for i in range(len(raw_info)):
@@ -128,6 +163,9 @@ def calculate_calories_for_week(user_id: int) -> float:
 
 
 def calculate_proteins_for_week(user_id: int) -> float:
+    """
+    Returns the number of proteins consumed by the user in 7 days
+    """
     raw_info = umd.get_user_meal_for_week(user_id)
     proteins_for_week = 0
     for i in range(len(raw_info)):
@@ -138,6 +176,9 @@ def calculate_proteins_for_week(user_id: int) -> float:
 
 
 def calculate_fats_for_week(user_id: int) -> float:
+    """
+    Returns the number of fats consumed by the user in 7 days
+    """
     raw_info = umd.get_user_meal_for_week(user_id)
     fats_for_week = 0
     for i in range(len(raw_info)):
@@ -148,6 +189,9 @@ def calculate_fats_for_week(user_id: int) -> float:
 
 
 def calculate_carbohydrates_for_week(user_id: int) -> float:
+    """
+    Returns the number of carbohydrates consumed by the user in 7 days
+    """
     raw_info = umd.get_user_meal_for_week(user_id)
     carbohydrates_for_week = 0
     for i in range(len(raw_info)):
@@ -158,6 +202,9 @@ def calculate_carbohydrates_for_week(user_id: int) -> float:
 
 
 def calculate_calories_for_month(user_id: int) -> float:
+    """
+    Returns the number of calories consumed by the user for 31 days
+    """
     raw_info = umd.get_user_meal_for_month(user_id)
     calories_for_month = 0
     for i in range(len(raw_info)):
@@ -168,6 +215,9 @@ def calculate_calories_for_month(user_id: int) -> float:
 
 
 def calculate_proteins_for_month(user_id: int) -> float:
+    """
+    Returns the number of proteins consumed by the user in 31 days
+    """
     raw_info = umd.get_user_meal_for_month(user_id)
     proteins_for_month = 0
     for i in range(len(raw_info)):
@@ -178,6 +228,9 @@ def calculate_proteins_for_month(user_id: int) -> float:
 
 
 def calculate_fats_for_month(user_id: int) -> float:
+    """
+    Returns the number of fats consumed by the user in 31 days
+    """
     raw_info = umd.get_user_meal_for_month(user_id)
     fats_for_month = 0
     for i in range(len(raw_info)):
@@ -188,6 +241,9 @@ def calculate_fats_for_month(user_id: int) -> float:
 
 
 def calculate_carbohydrates_for_month(user_id: int) -> float:
+    """
+    Returns the number of carbohydrates consumed by the user in 31 days
+    """
     raw_info = umd.get_user_meal_for_month(user_id)
     carbohydrates_for_month = 0
     for i in range(len(raw_info)):
