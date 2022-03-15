@@ -279,6 +279,7 @@ def update_user_norm(update: Update, context: CallbackContext) -> str:
     ud.update_user_protein_norm(update.effective_chat.id, user.protein_norm)
     ud.update_user_fat_norm(update.effective_chat.id, user.fat_norm)
     ud.update_user_carb_norm(update.effective_chat.id, user.carb_norm)
+    update.message.reply_text(user.get_short_info())
     return go(update, context)
 
 
