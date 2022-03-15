@@ -110,7 +110,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     return ConversationHandler.END
 
 
-def existing_user(update: Update, context: CallbackContext) -> str:
+def go(update: Update, context: CallbackContext) -> str:
     """
     Handler waiting for user action
     """
@@ -119,7 +119,7 @@ def existing_user(update: Update, context: CallbackContext) -> str:
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
         reply_markup=utils.existing_user_keyboard(),
     )
-    return "main_state"
+    return "main_go"
 
 
 def get_cpfc_norm(update: Update, context: CallbackContext) -> None:
