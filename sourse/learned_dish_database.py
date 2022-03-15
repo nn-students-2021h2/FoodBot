@@ -73,9 +73,9 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
             learned_dish_average_fats=database_result[0][3],
             learned_dish_average_carbohydrates=database_result[0][4],
         )
-        print("learned_dish_database record received")
+        print("record received")
     except:
-        print("error of learned_dish_database record receiving")
+        print("error of record receiving")
     cursor.close()
     con.close()
 

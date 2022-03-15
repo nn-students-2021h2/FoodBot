@@ -10,7 +10,7 @@ def add_meal_note(
     meal_average_calories: float,
     meal_average_proteins: float,
     meal_average_fats: float,
-    meal_average_carbs: float,
+    meal_average_carbohydrates: float,
     meal_date: str,
     meal_time: str,
 ) -> None:
@@ -22,8 +22,8 @@ def add_meal_note(
     )
     cursor = con.cursor()
     sql = (
-        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbs, meal_date, meal_time) VALUES ({user_id},"
-        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbs}, '{meal_date}', '{meal_time}')"
+        f"INSERT INTO meal (user_id, meal_id, meal_dish, meal_size, meal_average_calories, meal_average_proteins, meal_average_fats, meal_average_carbohydrates, meal_date, meal_time) VALUES ({user_id},"
+        f" {meal_id}, '{meal_dish}', {meal_size}, {meal_average_calories}, {meal_average_proteins}, {meal_average_fats}, {meal_average_carbohydrates}, '{meal_date}', '{meal_time}')"
     )
     try:
         cursor.execute(sql)
@@ -212,8 +212,8 @@ def update_meal_average_fats(
     con.close()
 
 
-def update_meal_average_carbs(
-    user_id: int, meal_id: int, meal_average_carbs: int
+def update_meal_average_carbohydrates(
+    user_id: int, meal_id: int, meal_average_carbohydrates: int
 ) -> None:
     con = pymysql.connect(
         host="localhost",
@@ -223,14 +223,14 @@ def update_meal_average_carbs(
     )
 
     cursor = con.cursor()
-    sql = f"UPDATE meal SET meal_average_carbs={meal_average_carbs} WHERE user_id={user_id} AND meal_id={meal_id}"
+    sql = f"UPDATE meal SET meal_average_carbohydrates={meal_average_carbohydrates} WHERE user_id={user_id} AND meal_id={meal_id}"
     try:
         cursor.execute(sql)
         con.commit()
-        print("meal_average_carbs updated")
+        print("meal_average_carbohydrates updated")
     except:
         con.rollback()
-        print("error of meal_average_carbs updating")
+        print("error of meal_average_carbohydrates updating")
     cursor.close()
     con.close()
 
@@ -300,7 +300,7 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
             meal_average_calories=database_result[0][4],
             meal_average_proteins=database_result[0][5],
             meal_average_fats=database_result[0][6],
-            meal_average_carbs=database_result[0][7],
+            meal_average_carbohydrates=database_result[0][7],
             meal_date=database_result[0][8],
             meal_time=database_result[0][9],
         )
@@ -337,7 +337,7 @@ def get_all_meals(user_id: int) -> dict:
                 meal_average_calories=database_result[0][4],
                 meal_average_proteins=database_result[0][5],
                 meal_average_fats=database_result[0][6],
-                meal_average_carbs=database_result[0][7],
+                meal_average_carbohydrates=database_result[0][7],
                 meal_date=database_result[0][8],
                 meal_time=database_result[0][9],
             )
@@ -381,7 +381,7 @@ def get_user_meal_for_day(user_id: int) -> dict:
                 meal_average_calories=database_result[0][4],
                 meal_average_proteins=database_result[0][5],
                 meal_average_fats=database_result[0][6],
-                meal_average_carbs=database_result[0][7],
+                meal_average_carbohydrates=database_result[0][7],
                 meal_date=database_result[0][8],
                 meal_time=database_result[0][9],
             )
@@ -424,7 +424,7 @@ def get_user_meal_for_week(user_id: int) -> dict:
                 meal_average_calories=database_result[i][4],
                 meal_average_proteins=database_result[i][5],
                 meal_average_fats=database_result[i][6],
-                meal_average_carbs=database_result[i][7],
+                meal_average_carbohydrates=database_result[i][7],
                 meal_date=database_result[i][8],
                 meal_time=database_result[i][9],
             )
@@ -467,7 +467,7 @@ def get_user_meal_for_month(user_id: int) -> dict:
                 meal_average_calories=database_result[i][4],
                 meal_average_proteins=database_result[i][5],
                 meal_average_fats=database_result[i][6],
-                meal_average_carbs=database_result[i][7],
+                meal_average_carbohydrates=database_result[i][7],
                 meal_date=database_result[i][8],
                 meal_time=database_result[i][9],
             )
