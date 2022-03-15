@@ -20,7 +20,7 @@ class FoodBotFilters(UpdateFilter):
                       "update_user_data", "add_new_meal", "delete_last_meal_note", "return_to_menu",
                       "get_statistic_day", "get_statistic_week", "get_statistic_month", "update_name",
                       "update_age", "update_sex", "update_height", "update_weight", "update_activity",
-                      "update_goal", "nutrients_recount")
+                      "update_goal", "update_norm")
         correct_user_inputs = {
             "sex_types": ("мужской", "женский"),
             "activity_types": ("нулевая", "слабая", "средняя", "высокая", "экстремальная"),
@@ -44,7 +44,7 @@ class FoodBotFilters(UpdateFilter):
             "get_statistic_day": "за текущий день",
             "get_statistic_week": "за последние 7 дней",
             "get_statistic_month": "за последний месяц",
-            "nutrients_recount": "пересчитать норму кбжу"
+            "update_norm": "пересчитать норму кбжу"
         }
 
         if self.state in int_states:
@@ -173,8 +173,8 @@ class FoodBotFilters(UpdateFilter):
                     if self.user_response.lower() == correct_buttons["get_statistic_month"]:
                         return True
 
-                elif self.state == "nutrients_recount":
-                    if self.user_response.lower() == correct_buttons["nutrients_recount"]:
+                elif self.state == "update_norm":
+                    if self.user_response.lower() == correct_buttons["update_norm"]:
                         return True
 
                 elif self.state == "update_name":
