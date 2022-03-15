@@ -12,7 +12,6 @@ from telegram.ext import (
     Filters,
 )
 from utils import send_every_day_info
-from foodbot_filters import FoodBotFilters
 
 
 def main():
@@ -26,36 +25,35 @@ def main():
 
     bot = Updater(token=token["TOKEN"], use_context=True)
     dispatcher = bot.dispatcher
+    dispatcher.add_handler(CommandHandler("start", handlers.start))
     dispatcher.add_handler(
         ConversationHandler(
-            entry_points=[CommandHandler("start", handlers.start)],
+            entry_points=[
+                MessageHandler(Filters.regex("Познакомиться"), handlers.acquaintance)
+            ],
             states={
                 "user_name": [MessageHandler(Filters.text, handlers.get_user_name)],
                 "user_birth_date": [
-                    MessageHandler(
-                        FoodBotFilters("user_age"), handlers.get_user_birth_date
-                    )
+                    MessageHandler(Filters.text, handlers.get_user_birth_date)
                 ],
                 "user_sex": [
-                    MessageHandler(FoodBotFilters("user_sex"), handlers.get_user_sex)
-                ],
-                "user_height": [
                     MessageHandler(
-                        FoodBotFilters("user_height"), handlers.get_user_height
+                        Filters.regex("мужской|женский"), handlers.get_user_sex
                     )
                 ],
-                "user_weight": [
-                    MessageHandler(
-                        FoodBotFilters("user_weight"), handlers.get_user_weight
-                    )
-                ],
+                "user_height": [MessageHandler(Filters.text, handlers.get_user_height)],
+                "user_weight": [MessageHandler(Filters.text, handlers.get_user_weight)],
                 "user_activity": [
                     MessageHandler(
-                        FoodBotFilters("user_activity"), handlers.get_user_activity
+                        Filters.regex("нулевая|слабая|средняя|высокая|экстремальная"),
+                        handlers.get_user_activity,
                     )
                 ],
                 "user_goal": [
-                    MessageHandler(FoodBotFilters("user_goal"), handlers.get_user_goal)
+                    MessageHandler(
+                        Filters.regex("похудение|поддержание формы|набор массы"),
+                        handlers.get_user_goal,
+                    )
                 ],
             },
             fallbacks=[],
@@ -63,131 +61,109 @@ def main():
     )
     dispatcher.add_handler(
         ConversationHandler(
-            entry_points=[CommandHandler("go", handlers.go)],
+            entry_points=[
+                MessageHandler(Filters.regex("Go"), handlers.existing_user),
+                MessageHandler(Filters.regex("Начнем"), handlers.existing_user),
+            ],
             states={
-                "main_go": [
+                "main_state": [
+                    MessageHandler(Filters.regex("Продолжить"), handlers.existing_user),
                     MessageHandler(
-                        FoodBotFilters("get_nutrients_norm"),
-                        handlers.get_nutrients_norm,
+                        Filters.regex("Вспомнить свою норму КБЖУ"),
+                        handlers.get_cpfc_norm,
                     ),
                     MessageHandler(
-                        FoodBotFilters("get_statistic"), handlers.get_statistic
+                        Filters.regex("Получить статистику"), handlers.get_statistic
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_user_data"), handlers.update_user_data
+                        Filters.regex("Изменить персональные данные"),
+                        handlers.update_existing_user_data,
                     ),
                     MessageHandler(
-                        FoodBotFilters("add_new_meal"), handlers.add_new_meal
+                        Filters.regex("Внести прием пищи"), handlers.add_new_meal
                     ),
                     MessageHandler(
-                        FoodBotFilters("delete_last_meal_note"),
+                        Filters.regex("Удалить запись о последнем приеме пищи"),
                         handlers.delete_last_meal_note,
                     ),
                 ],
-                "update_user_data": [
+                "update_existing_user_data": [
                     MessageHandler(
-                        FoodBotFilters("update_name"), handlers.ask_for_new_user_name
+                        Filters.regex("Имя"), handlers.pre_update_exiting_user_name
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_age"), handlers.ask_for_new_user_age
+                        Filters.regex("Возраст"), handlers.pre_update_exiting_user_age
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_sex"), handlers.ask_for_new_user_sex
+                        Filters.regex("Пол"), handlers.pre_update_exiting_user_sex
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_height"),
-                        handlers.ask_for_new_user_height,
+                        Filters.regex("Рост"), handlers.pre_update_exiting_user_height
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_weight"),
-                        handlers.ask_for_new_user_weight,
+                        Filters.regex("Вес"), handlers.pre_update_exiting_user_weight
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_activity"),
-                        handlers.ask_for_new_user_activity,
+                        Filters.regex("Уровень активности"),
+                        handlers.pre_update_exiting_user_activity,
                     ),
                     MessageHandler(
-                        FoodBotFilters("update_goal"), handlers.ask_for_new_user_goal
+                        Filters.regex("Цель"), handlers.pre_update_exiting_user_goal
                     ),
-                    MessageHandler(FoodBotFilters("return_to_main_go"), handlers.go),
-                ],
-                "update_user_name": [
-                    MessageHandler(Filters.text, handlers.update_user_name)
-                ],
-                "update_user_age": [
-                    MessageHandler(FoodBotFilters("user_age"), handlers.update_user_age)
-                ],
-                "update_user_sex": [
-                    MessageHandler(FoodBotFilters("user_sex"), handlers.update_user_sex)
-                ],
-                "update_user_height": [
                     MessageHandler(
-                        FoodBotFilters("user_height"), handlers.update_user_height
-                    )
+                        Filters.regex("Вернуться в основное меню"),
+                        handlers.return_to_main_state,
+                    ),
                 ],
-                "update_user_weight": [
-                    MessageHandler(
-                        FoodBotFilters("user_weight"), handlers.update_user_weight
-                    )
+                "update_exiting_user_name": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_name)
                 ],
-                "update_user_activity": [
-                    MessageHandler(
-                        FoodBotFilters("user_activity"), handlers.update_user_activity
-                    )
+                "update_exiting_user_age": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_age)
                 ],
-                "update_user_goal": [
-                    MessageHandler(
-                        FoodBotFilters("user_goal"), handlers.update_user_goal
-                    )
+                "update_exiting_user_sex": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_sex)
                 ],
-                "update_user_norm": [
-                    MessageHandler(
-                        FoodBotFilters("main_state"), handlers.update_user_norm
-                    )
+                "update_exiting_user_height": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_height)
                 ],
-                "get_meal_name": [MessageHandler(Filters.text, handlers.get_meal_name)],
-                "get_meal_size": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_size"), handlers.get_meal_size
-                    )
+                "update_exiting_user_weight": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_weight)
                 ],
+                "update_exiting_user_activity": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_activity)
+                ],
+                "update_exiting_user_goal": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_goal)
+                ],
+                "update_exiting_user_norm": [
+                    MessageHandler(Filters.text, handlers.update_exiting_user_norm)
+                ],
+                "get_meal_dish": [MessageHandler(Filters.text, handlers.get_meal_dish)],
+                "get_meal_size": [MessageHandler(Filters.text, handlers.get_meal_size)],
                 "get_meal_size_alternative": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_size"),
-                        handlers.get_meal_size_alternative,
-                    )
+                    MessageHandler(Filters.text, handlers.get_meal_size_alternative)
                 ],
                 "get_meal_calories": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_calories"), handlers.get_meal_calories
-                    )
+                    MessageHandler(Filters.text, handlers.get_meal_calories)
                 ],
                 "get_meal_proteins": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_proteins"), handlers.get_meal_proteins
-                    )
+                    MessageHandler(Filters.text, handlers.get_meal_proteins)
                 ],
-                "get_meal_fats": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_fats"), handlers.get_meal_fats
-                    )
-                ],
-                "get_meal_carbs": [
-                    MessageHandler(
-                        FoodBotFilters("get_meal_carbs"), handlers.get_meal_carbs
-                    )
+                "get_meal_fats": [MessageHandler(Filters.text, handlers.get_meal_fats)],
+                "get_meal_carbohydrates": [
+                    MessageHandler(Filters.text, handlers.get_meal_carbohydrates)
                 ],
                 "get_statistic_for": [
                     MessageHandler(
-                        FoodBotFilters("get_statistic_day"),
-                        handlers.get_statistic_for_day,
+                        Filters.regex("За текущий день"), handlers.get_statistic_for_day
                     ),
                     MessageHandler(
-                        FoodBotFilters("get_statistic_week"),
+                        Filters.regex("За последние 7 дней"),
                         handlers.get_statistic_for_week,
                     ),
                     MessageHandler(
-                        FoodBotFilters("get_statistic_month"),
+                        Filters.regex("За последний месяц"),
                         handlers.get_statistic_for_month,
                     ),
                 ],
