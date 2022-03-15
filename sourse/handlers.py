@@ -1,7 +1,7 @@
 import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
-from telegram import ReplyKeyboardRemove, ReplyKeyboardMarkup, Update
+from telegram import ReplyKeyboardRemove, Update
 from telegram.ext import ConversationHandler
 import utils
 from user_class import User, user_from_dict
@@ -106,7 +106,14 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     user.count_norm()
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
-    update.message.reply_text("Для продолжения взаимодействия с ботом напишите 'Go'")
+    update.message.reply_text(f"{context.user_data['name'].capitalize()}, вот какую информацию о тебе я записал:\n\n"
+                              f"Твой возраст: {context.user_data['birth_date']}\n"
+                              f"Твой пол: {context.user_data['sex']}\n"
+                              f"Твой рост: {context.user_data['height']} см.\n"
+                              f"Твой вес: {context.user_data['weight']} кг.\n"
+                              f"Твой уровень активности: {context.user_data['activity']}\n"
+                              f"Твоя цель: {context.user_data['goal']}\n\n"
+                              f"Если что-то нужно изменить, используй кнопку в основном меню — пиши /go и мы начнем!")
     return ConversationHandler.END
 
 
@@ -324,14 +331,7 @@ def get_meal_size_from_database(update: Update, context: CallbackContext) -> str
     )
     meal.meal_to_database()
     update.message.reply_text(meal.get_short_meal_info())
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    return go(update, context)
 
 
 def get_meal_size(update: Update, context: CallbackContext) -> str:
@@ -401,14 +401,16 @@ def get_meal_carbs(update: Update, context: CallbackContext) -> str:
         float(context.user_data["meal_fats"]),
         float(context.user_data["meal_carbs"]),
     )
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    update.message.reply_text(f"Отлично, {user_name}! Вот что я записал:\n"
+                              f"Блюдо: {context.user_data['meal_name']}\n"
+                              f"Вес: {context.user_data['meal_size']} г/мл. \n"
+                              f"Калории: {context.user_data['meal_calories']} ккал. \n"
+                              f"Белки: {context.user_data['meal_proteins']} г. \n"
+                              f"Жиры: {context.user_data['meal_fats']} г. \n"
+                              f"Углеводы: {context.user_data['meal_carbs']} г. \n\n"
+                              f"Если ты заметил ошибки, ты можешь удалить прием пищи в основном меню "
+                              f"и внести его заново.")
+    return go(update, context)
 
 
 def get_statistic(update: Update, context: CallbackContext) -> str:
@@ -425,14 +427,7 @@ def get_statistic_for_day(update: Update, context: CallbackContext) -> str:
     """
     user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_day())
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    return go(update, context)
 
 
 def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
@@ -441,14 +436,7 @@ def get_statistic_for_week(update: Update, context: CallbackContext) -> str:
     """
     user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_week())
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    return go(update, context)
 
 
 def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
@@ -457,14 +445,7 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     """
     user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_meal_statistic_for_month())
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодействия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    return go(update, context)
 
 
 def delete_last_meal_note(update: Update, context: CallbackContext) -> None:
