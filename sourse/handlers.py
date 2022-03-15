@@ -324,12 +324,12 @@ def get_meal_name(update: Update, context: CallbackContext) -> str:
     dish_info = ldd.get_learned_dish_note(context.user_data["meal_name"].lower())
     update.message.reply_text("Введите размер съеденной порции (в граммах)")
     if dish_info:
-        return "get_meal_size_alternative"
+        return "get_meal_size_from_database"
     else:
         return "get_meal_size"
 
 
-def get_meal_size_alternative(update: Update, context: CallbackContext) -> str:
+def get_meal_size_from_database(update: Update, context: CallbackContext) -> str:
     """
     Handler receiving the name of the dish eaten and requesting the portion size
     (if the dish is in the learned_dish database)
