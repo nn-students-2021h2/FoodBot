@@ -68,7 +68,7 @@ def main():
                 "update_user_weight": [MessageHandler(FoodBotFilters("user_weight"), handlers.update_user_weight)],
                 "update_user_activity": [MessageHandler(FoodBotFilters("user_activity"), handlers.update_user_activity)],
                 "update_user_goal": [MessageHandler(FoodBotFilters("user_goal"), handlers.update_user_goal)],
-                "update_user_norm": [MessageHandler(FoodBotFilters("nutrients_recount"), handlers.update_user_norm)],
+                "update_user_norm": [MessageHandler(FoodBotFilters("update_norm"), handlers.update_user_norm)],
                 "get_meal_name": [MessageHandler(Filters.text, handlers.get_meal_name)],
                 "get_meal_size": [MessageHandler(FoodBotFilters("get_meal_size"), handlers.get_meal_size)],
                 "get_meal_size_from_database": [MessageHandler(FoodBotFilters("get_meal_size"), handlers.get_meal_size_from_database)],
