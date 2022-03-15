@@ -122,12 +122,13 @@ def go(update: Update, context: CallbackContext) -> str:
     return "main_go"
 
 
-def get_nutrients_norm(update: Update, context: CallbackContext) -> None:
+def get_nutrients_norm(update: Update, context: CallbackContext) -> str:
     """
     Handler that displays information about the user's daily calorie and nutrient intake
     """
     user = user_from_dict(ud.get_user_object(update.effective_chat.id))
     update.message.reply_text(user.get_short_info())
+    return go(update, context)
 
 
 def update_user_data(update: Update, context: CallbackContext) -> str:
@@ -152,14 +153,7 @@ def update_user_name(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_name(update.effective_chat.id, user_enter)
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    return go(update, context)
 
 
 def ask_for_new_user_age(update: Update, context: CallbackContext) -> str:
@@ -248,7 +242,6 @@ def update_user_activity(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_activity(update.effective_chat.id, user_enter)
-    reply_keyboard = [["Пересчитать норму каллорий"]]
     update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
@@ -280,29 +273,8 @@ def update_user_norm(update: Update, context: CallbackContext) -> str:
     ud.update_user_calorie_norm(update.effective_chat.id, user.calorie_norm)
     ud.update_user_protein_norm(update.effective_chat.id, user.protein_norm)
     ud.update_user_fat_norm(update.effective_chat.id, user.fat_norm)
-    ud.update_user_carbohydrate_norm(update.effective_chat.id, user.carbohydrate_norm)
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
-
-
-def return_to_main_state(update: Update, context: CallbackContext) -> str:
-    """
-    Handler that returns the dialog to the standard state
-    """
-    reply_keyboard = [["Продолжить"]]
-    update.message.reply_text(
-        'Для продолжения взаимодестаия с ботом нажмите "Продолжить"',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, resize_keyboard=True
-        ),
-    )
-    return "main_state"
+    ud.update_user_carb_norm(update.effective_chat.id, user.carb_norm)
+    return go(update, context)
 
 
 def add_new_meal(update: Update, context: CallbackContext) -> str:

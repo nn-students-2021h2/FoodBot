@@ -59,7 +59,7 @@ def main():
                     MessageHandler(FoodBotFilters("update_weight"), handlers.ask_for_new_user_weight),
                     MessageHandler(FoodBotFilters("update_activity"), handlers.ask_for_new_user_activity),
                     MessageHandler(FoodBotFilters("update_goal"), handlers.ask_for_new_user_goal),
-                    MessageHandler(FoodBotFilters("return_to_main_go"), handlers.return_to_main_state)
+                    MessageHandler(FoodBotFilters("return_to_main_go"), handlers.go)
                 ],
                 "update_user_name": [MessageHandler(Filters.text, handlers.update_user_name)],
                 "update_user_age": [MessageHandler(FoodBotFilters("user_age"), handlers.update_user_age)],
