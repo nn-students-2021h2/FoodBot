@@ -33,6 +33,7 @@ class FoodBotFilters(UpdateFilter):
             "update_user_data": "изменить персональные данные",
             "add_new_meal": "внести прием пищи",
             "delete_last_meal_note": "удалить запись о последнем приеме пищи",
+            "return_to_main_go": "вернуться в основное меню",
             "update_name": "имя",
             "update_age": "возраст",
             "update_sex": "пол",
@@ -202,6 +203,10 @@ class FoodBotFilters(UpdateFilter):
 
                 elif self.state == "update_goal":
                     if self.user_response.lower() == correct_buttons["update_goal"]:
+                        return True
+
+                elif self.state == "return_to_main_go":
+                    if self.user_response.lower() == correct_buttons["return_to_main_go"]:
                         return True
 
         return False

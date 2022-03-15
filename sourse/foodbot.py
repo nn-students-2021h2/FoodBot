@@ -51,7 +51,7 @@ def main():
                     MessageHandler(FoodBotFilters("update_user_data"), handlers.update_user_data),
                     MessageHandler(FoodBotFilters("add_new_meal"), handlers.add_new_meal),
                     MessageHandler(FoodBotFilters("delete_last_meal_note"), handlers.delete_last_meal_note)],
-                "update_existing_user_data": [
+                "update_user_data": [
                     MessageHandler(FoodBotFilters("update_name"), handlers.ask_for_new_user_name),
                     MessageHandler(FoodBotFilters("update_age"), handlers.ask_for_new_user_age),
                     MessageHandler(FoodBotFilters("update_sex"), handlers.ask_for_new_user_sex),
