@@ -4,14 +4,6 @@ from user_class import user_from_dict
 from user_database import get_user_object, get_all_user_info
 
 
-def initial_keyboard() -> ReplyKeyboardMarkup:
-    """
-    Returns the virtual keyboard for the first user initialization
-    """
-    keyboard = ReplyKeyboardMarkup([["Познакомиться"]], resize_keyboard=True)
-    return keyboard
-
-
 def existing_user_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for standard interaction with the bot

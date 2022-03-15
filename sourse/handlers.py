@@ -20,9 +20,7 @@ def start(update: Update, context: CallbackContext) -> str:
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
-        f"Давайте познакомимся!",
-        reply_markup=utils.initial_keyboard(),
-    )
+        f"Давайте познакомимся!")
     update.message.reply_text("Как к вам обращаться? Введите имя или псевдоним.")
     return "user_name"
 
@@ -107,7 +105,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
     update.message.reply_text(f"{context.user_data['name'].capitalize()}, вот какую информацию о тебе я записал:\n\n"
-                              f"Твой возраст: {context.user_data['birth_date']}\n"
+                              f"Твой возраст: {context.user_data['age']}\n"
                               f"Твой пол: {context.user_data['sex']}\n"
                               f"Твой рост: {context.user_data['height']} см.\n"
                               f"Твой вес: {context.user_data['weight']} кг.\n"
