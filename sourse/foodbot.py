@@ -25,12 +25,9 @@ def main():
 
     bot = Updater(token=token["TOKEN"], use_context=True)
     dispatcher = bot.dispatcher
-    dispatcher.add_handler(CommandHandler("start", handlers.start))
     dispatcher.add_handler(
         ConversationHandler(
-            entry_points=[
-                MessageHandler(Filters.regex("Познакомиться"), handlers.acquaintance)
-            ],
+            entry_points=[CommandHandler("start", handlers.start)],
             states={
                 "user_name": [MessageHandler(Filters.text, handlers.get_user_name)],
                 "user_birth_date": [

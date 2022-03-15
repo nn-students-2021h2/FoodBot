@@ -9,7 +9,7 @@ from meal_class import Meal
 from telegram.ext import CallbackContext
 
 
-def start(update: Update, context: CallbackContext) -> None:
+def start(update: Update, context: CallbackContext) -> str:
     """
     Handler that deletes all existing records about the user and starts the dating procedure
     """
@@ -23,16 +23,7 @@ def start(update: Update, context: CallbackContext) -> None:
         f"Давайте познакомимся!",
         reply_markup=utils.initial_keyboard(),
     )
-
-
-def acquaintance(update: Update, context: CallbackContext) -> str:
-    """
-    Handler requesting a username
-    """
-    update.message.reply_text(
-        "Как к Вам обращаться? Введите имя или псевдоним: ",
-        reply_markup=ReplyKeyboardRemove(),
-    )
+    update.message.reply_text("Как к вам обращаться? Введите имя или псевдоним.")
     return "user_name"
 
 
