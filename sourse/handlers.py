@@ -33,14 +33,14 @@ def get_user_name(update: Update, context: CallbackContext) -> str:
     """
     context.user_data["name"] = update.message.text
     update.message.reply_text(f"{update.message.text.capitalize()}, cколько Вам лет? ")
-    return "user_birth_date"
+    return "user_age"
 
 
-def get_user_birth_date(update: Update, context: CallbackContext) -> str:
+def get_user_age(update: Update, context: CallbackContext) -> str:
     """
     Handler that gets the user's age and asks for user's sex
     """
-    context.user_data["birth_date"] = update.message.text
+    context.user_data["age"] = update.message.text
     update.message.reply_text("Укажите свой пол:", reply_markup=utils.sex_keyboard())
     return "user_sex"
 
@@ -96,7 +96,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     user = User(
         user_id=update.message.chat.id,
         name=context.user_data["name"],
-        age=context.user_data["birth_date"],
+        age=context.user_data["age"],
         sex=context.user_data["sex"],
         height=context.user_data["height"],
         weight=context.user_data["weight"],

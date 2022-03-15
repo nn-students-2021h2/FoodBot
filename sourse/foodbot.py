@@ -30,8 +30,8 @@ def main():
             entry_points=[CommandHandler("start", handlers.start)],
             states={
                 "user_name": [MessageHandler(Filters.text, handlers.get_user_name)],
-                "user_birth_date": [
-                    MessageHandler(Filters.text, handlers.get_user_birth_date)
+                "user_age": [
+                    MessageHandler(Filters.text, handlers.get_user_age)
                 ],
                 "user_sex": [
                     MessageHandler(
