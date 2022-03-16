@@ -107,7 +107,7 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     update.message.reply_text(user.get_short_info())
     user.user_to_database()
     update.message.reply_text(f"{context.user_data['name'].capitalize()}, вот какую информацию о тебе я записал:\n\n"
-                              f"Твой возраст: {context.user_data['birth_date']}\n"
+                              f"Твой возраст: {context.user_data['age']}\n"
                               f"Твой пол: {context.user_data['sex']}\n"
                               f"Твой рост: {context.user_data['height']} см.\n"
                               f"Твой вес: {context.user_data['weight']} кг.\n"
@@ -308,7 +308,7 @@ def get_meal_name(update: Update, context: CallbackContext) -> str:
         return "get_meal_size"
 
 
-def get_meal_size_from_database(update: Update, context: CallbackContext) -> str:
+def get_meal_size_from_database(update: Update, context: CallbackContext):
     """
     Handler receiving the name of the dish eaten and requesting the portion size
     (if the dish is in the learned_dish database)
@@ -417,7 +417,8 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the period for which you want to display statistics
     """
-    update.message.reply_text("Выберите, за какой промежуток времени получить статистику", utils.get_statistic_keyboard())
+    update.message.reply_text("Выберите, за какой промежуток времени получить статистику",
+                              reply_markup=utils.get_statistic_keyboard())
     return "get_statistic_for"
 
 
