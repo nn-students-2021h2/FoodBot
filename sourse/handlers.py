@@ -20,9 +20,7 @@ def start(update: Update, context: CallbackContext) -> str:
     update.message.reply_text(
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
-        f"Давайте познакомимся!",
-        reply_markup=utils.initial_keyboard(),
-    )
+        f"Давайте познакомимся!")
     update.message.reply_text("Как к вам обращаться? Введите имя или псевдоним.")
     return "user_name"
 
@@ -126,7 +124,7 @@ def go(update: Update, context: CallbackContext) -> str:
         f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
         reply_markup=utils.existing_user_keyboard(),
     )
-    return "main_go"
+    return "menu"
 
 
 def get_nutrients_norm(update: Update, context: CallbackContext) -> str:
@@ -281,6 +279,7 @@ def update_user_norm(update: Update, context: CallbackContext) -> str:
     ud.update_user_protein_norm(update.effective_chat.id, user.protein_norm)
     ud.update_user_fat_norm(update.effective_chat.id, user.fat_norm)
     ud.update_user_carb_norm(update.effective_chat.id, user.carb_norm)
+    update.message.reply_text(user.get_short_info())
     return go(update, context)
 
 

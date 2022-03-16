@@ -65,17 +65,13 @@ class User:
             self.calorie_norm = round(
                 88.36 + 13.4 * self.weight + 4.8 * self.height - 5.7 * self.age
             )
-        self.calorie_norm *= activity_cf[self.activity]
+        self.calorie_norm *= activity_cf[self.activity.lower()]
 
         PROTEIN_IN_KCAL, CARB_IN_KCAL, FAT_IN_KCAL = 4, 4, 9
 
-        self.protein_norm = round(
-            self.calorie_norm * goal_cf[self.goal][0] / PROTEIN_IN_KCAL
-        )
-        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal][1] / FAT_IN_KCAL)
-        self.carb_norm = round(
-            self.calorie_norm * goal_cf[self.goal][2] / CARB_IN_KCAL
-        )
+        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][0] / PROTEIN_IN_KCAL)
+        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][1] / FAT_IN_KCAL)
+        self.carb_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][2] / CARB_IN_KCAL)
 
     def user_to_database(self) -> None:
         """
