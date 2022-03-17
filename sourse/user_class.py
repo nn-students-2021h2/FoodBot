@@ -110,7 +110,9 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_day(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_day(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_day(self.user_id))
-        calculated_carbs = round(mc.calculate_carbs_for_day(self.user_id))
+        calculated_carbs = round(
+            mc.calculate_carbs_for_day(self.user_id)
+        )
         calories_balance = round(self.calorie_norm - calculated_calories)
         proteins_balance = round(self.protein_norm - calculated_proteins)
         fats_balance = round(self.fat_norm - calculated_fats)

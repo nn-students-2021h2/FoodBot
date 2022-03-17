@@ -307,7 +307,7 @@ def get_meal_name(update: Update, context: CallbackContext) -> str:
         return "get_meal_size"
 
 
-def get_meal_size_from_database(update: Update, context: CallbackContext) -> str:
+def get_meal_size_from_database(update: Update, context: CallbackContext):
     """
     Handler receiving the name of the dish eaten and requesting the portion size
     (if the dish is in the learned_dish database)
@@ -416,7 +416,8 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the period for which you want to display statistics
     """
-    update.message.reply_text("Выберите, за какой промежуток времени получить статистику", utils.get_statistic_keyboard())
+    update.message.reply_text("Выберите, за какой промежуток времени получить статистику",
+                              reply_markup=utils.get_statistic_keyboard())
     return "get_statistic_for"
 
 

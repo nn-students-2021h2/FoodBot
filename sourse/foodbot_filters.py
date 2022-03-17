@@ -24,7 +24,7 @@ class FoodBotFilters(UpdateFilter):
         correct_user_inputs = {
             "sex_types": ("мужской", "женский"),
             "activity_types": ("нулевая", "слабая", "средняя", "высокая", "экстремальная"),
-            "goal_types": ("похудение", "поддержание формы", "набор веса")
+            "goal_types": ("похудение", "поддержание формы", "набор массы")
         }
 
         correct_buttons = {
@@ -41,6 +41,7 @@ class FoodBotFilters(UpdateFilter):
             "update_weight": "вес",
             "update_activity": "уровень активности",
             "update_goal": "цель",
+            "return_to_main_go": "вернуться в основное меню",
             "get_statistic_day": "за текущий день",
             "get_statistic_week": "за последние 7 дней",
             "get_statistic_month": "за последний месяц",

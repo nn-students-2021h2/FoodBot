@@ -59,7 +59,7 @@ def delete_learned_dish_note(learned_dish_dish: str) -> None:
     con.close()
 
 
-def get_learned_dish_note(learned_dish_dish: str) -> dict:
+def get_learned_dish_note(learned_dish_dish: str) -> dict | None:
     """
     Returns all data about a dish from learned_dish database
     """
@@ -82,8 +82,8 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
             learned_dish_average_calories=database_result[0][1],
             learned_dish_average_proteins=database_result[0][2],
             learned_dish_average_fats=database_result[0][3],
-            learned_dish_average_ccarbs=database_result[0][4],
-        )
+            learned_dish_average_carbs=database_result[0][4],
+        ) if database_result != () else None
         print("record received")
     except pymysql.Error as e:
         print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
@@ -94,6 +94,4 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict:
 
 
 if __name__ == "__main__":
-    delete_learned_dish_note(
-        "<built-in method lower of str object at 0x000001AB56086070>"
-    )
+    print(get_learned_dish_note("jkk"))
