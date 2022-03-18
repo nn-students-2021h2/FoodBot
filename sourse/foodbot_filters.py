@@ -1,3 +1,6 @@
+"""
+File containing the filter class needed to validate user input
+"""
 from telegram.ext import UpdateFilter
 
 nutrients_count = 0

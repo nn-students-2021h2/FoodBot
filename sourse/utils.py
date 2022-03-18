@@ -1,3 +1,6 @@
+"""
+File containing virtual keyboards and other auxiliary functions
+"""
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import CallbackContext
 from user_class import user_from_dict

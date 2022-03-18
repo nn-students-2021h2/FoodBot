@@ -1,3 +1,6 @@
+"""
+File containing the implementation of the meal class and its accompanying functions
+"""
 import user_meal_database as umd
 import datetime
 

@@ -1,3 +1,6 @@
+"""
+File containing the functions necessary to interact with the user database
+"""
 import pymysql
 
 

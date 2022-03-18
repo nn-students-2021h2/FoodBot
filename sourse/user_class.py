@@ -1,3 +1,6 @@
+"""
+File containing the implementation of the user class and its accompanying functions
+"""
 import meal_class as mc
 import user_database as ud
 

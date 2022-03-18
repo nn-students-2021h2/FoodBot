@@ -1,3 +1,6 @@
+"""
+File containing handlers for building a dialogue with the FoodBot
+"""
 import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
