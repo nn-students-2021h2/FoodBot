@@ -127,7 +127,7 @@ def go(update: Update, context: CallbackContext) -> str:
     return "menu"
 
 
-def get_nutrients_norm(update: Update, context: CallbackContext) -> str:
+def get_nutrients_norm(update: Update, context: CallbackContext):
     """
     Handler that displays information about the user's daily calorie and nutrient intake
     """

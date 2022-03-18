@@ -394,7 +394,7 @@ def get_all_user_info() -> dict:
     )
 
     cursor = con.cursor()
-    sql = f"SELECT * FROM user"
+    sql = "SELECT * FROM user"
 
     result = {}
     try:
@@ -427,4 +427,5 @@ def get_all_user_info() -> dict:
 
 
 if __name__ == "__main__":
-    print(get_all_user_info())
+    add_note(99999999999999, "John", 20, "мужской", 180, 70, "высокая", "набор массы", 2641.8, 231, 88, 363)
+    # delete_note_with_id(99)
