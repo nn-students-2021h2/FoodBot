@@ -24,7 +24,7 @@ def main():
         "properties": {"TOKEN": {"type": "string", "minLenght": 46, "maxLenght": 46}},
         "additionalProperties": False,
     }
-    token = json.load(open(Path(__file__).parent.parent.parent / "token.json"))
+    token = json.load(open(Path(__file__).parent.parent / "token.json"))
     validate(instance=token, schema=schema)
 
     bot = Updater(token=token["TOKEN"], use_context=True)
