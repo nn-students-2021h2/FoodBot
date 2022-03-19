@@ -566,9 +566,9 @@ if __name__ == "__main__":
     # print(get_user_meal_for_day(1983880200))
     # print(datetime.date.today()-datetime.timedelta(days=31))
     # print(len(get_user_meal_for_day(1983880200)))
-    print(f"За неделю ты зарегистрировал {len(get_user_meal_for_week(1983880200))} приемов пищи.")
+    print(f"количество блюд за неделю {len(get_user_meal_for_week(1983880200))}")
     for i, j in get_user_meal_for_week(1983880200).items():
         print(j)
-    print(f"За месяц ты зарегистрировал {len(get_user_meal_for_month(1983880200))} приемов пищи.")
+    print(f"количество блюд за месяц {len(get_user_meal_for_month(1983880200))}")
     for i, j in get_user_meal_for_month(1983880200).items():
         print(j)

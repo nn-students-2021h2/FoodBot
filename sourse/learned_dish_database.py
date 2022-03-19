@@ -1,8 +1,6 @@
 """
 File containing the functions necessary to interact with the learned dish database
 """
-from __future__ import annotations
-
 import pymysql
 
 

@@ -147,15 +147,15 @@ class User:
         fats_balance = round(((self.fat_norm * 7) - calculated_fats) / 7)
         carbs_balance = round(((self.carb_norm * 7) - calculated_carbs) / 7)
         return (
-            f"{self.name.title()}, за неделю ты употребил {calculated_calories} ккал, \n"
+            f"{self.name.title()}, за неделю вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
             f"{calculated_fats} г. жиров, \n"
             f"{calculated_carbs} г. углеводов. \n"
-            f"В среднем в день тебе не хватало: \n"
-            f"{calories_balance if calories_balance > 0 else 0} ккал, \n"
-            f"{proteins_balance if proteins_balance > 0 else 0} г. белков, \n"
-            f"{fats_balance if fats_balance > 0 else 0} г. жиров, \n"
-            f"{carbs_balance if carbs_balance > 0 else 0} г. углеводов.\n"
+            f"Для покрытия нормы в среднем в день вам не хватало: \n"
+            f"{calories_balance if calories_balance > 0 else 0} ккал. \n"
+            f"{proteins_balance if proteins_balance > 0 else 0} г. белков \n"
+            f"{fats_balance if fats_balance > 0 else 0} г. жиров \n"
+            f"{carbs_balance if carbs_balance > 0 else 0} г. углеводов\n"
         )
 
     def get_meal_statistic_for_month(self) -> str:
@@ -171,11 +171,11 @@ class User:
         fats_balance = round(((self.fat_norm * 31) - calculated_fats) / 31)
         carbs_balance = round(((self.carb_norm * 31) - calculated_carbs) / 31)
         return (
-            f"{self.name.title()}, за месяц ты употребил {calculated_calories} ккал. \n"
+            f"{self.name.title()}, за месяц вами было поглащено {calculated_calories} ккал. \n"
             f"{calculated_proteins} г. белков, \n"
             f"{calculated_fats} г. жиров, \n"
             f"{calculated_carbs} г. углеводов. \n"
-            f"В среднем в день тебе не хватало: \n"
+            f"Для покрытия нормы в среднем в день вам не хватало: \n"
             f"{calories_balance if calories_balance > 0 else 0} ккал. \n"
             f"{proteins_balance if proteins_balance > 0 else 0} г. белков \n"
             f"{fats_balance if fats_balance > 0 else 0} г. жиров \n"

@@ -55,27 +55,25 @@ class FoodBotFilters(UpdateFilter):
             try:
                 self.user_response = int(update.message.text)
             except TypeError:
-                update.message.reply_text("Я тебя не понимаю... Пожалуйста, введи целое число :)")
+                update.message.reply_text("Вижу непонятно что, а надо цифры...")
             except ValueError:
-                update.message.reply_text("Кажется, ты вводишь буквы или дробное число. "
-                                          "Пожалуйста, введи целое число.")
+                update.message.reply_text("Вижу буквы, а надо цифры...")
             else:
                 if self.state == "user_age":
                     try:
                         if self.user_response < 16 or self.user_response > 99:
                             raise ValueError
                     except ValueError:
-                        update.message.reply_text("Бот предназначен для пользователей от 16 до 99 лет. "
-                                                  "Если это опечатка, введи свой возраст еще раз.")
+                        update.message.reply_text("Неправильное значение возраста!")
                     else:
                         return True
 
                 elif self.state == "user_height":
                     try:
-                        if self.user_response < 100 or self.user_response > 300:
+                        if self.user_response not in range(100, 300):
                             raise ValueError
                     except ValueError:
-                        update.message.reply_text("Кажется, у тебя опечатка... Пожалуйста, введи свой рост еще раз.")
+                        update.message.reply_text("Неправильное значение роста!")
                     else:
                         return True
 
@@ -84,7 +82,7 @@ class FoodBotFilters(UpdateFilter):
                         if self.user_response > 1000:
                             raise ValueError
                     except ValueError:
-                        update.message.reply_text("Кажется, у тебя опечатка... Пожалуйста, введи свой вес еще раз.")
+                        update.message.reply_text("Неправильное значение веса!")
                     else:
                         return True
 
@@ -93,8 +91,7 @@ class FoodBotFilters(UpdateFilter):
                         if self.user_response > 1000:
                             raise ValueError
                     except ValueError:
-                        update.message.reply_text("Кажется, у тебя опечатка... "
-                                                  "Пожалуйста, введи размер порции еще раз.")
+                        update.message.reply_text("Неправильное значение массы!")
                     else:
                         return True
 
@@ -104,9 +101,7 @@ class FoodBotFilters(UpdateFilter):
                         if self.user_response > 1004:
                             raise ValueError
                     except ValueError:
-                        update.message.reply_text("По моим данным, самое калорийное блюдо мира — лапша пад-тай "
-                                                  "(1004 ккал/100г). Я ошибаюсь или у тебя опечатка? Попробуй ввести "
-                                                  "калорийность еще раз.")
+                        update.message.reply_text("Неправильное значение калорийности!")
                     else:
                         return True
 
@@ -118,8 +113,7 @@ class FoodBotFilters(UpdateFilter):
                     except ValueError:
                         nutrients_count -= self.user_response
                         update.message.reply_text("В 100 г продукта не может быть более 100 г нутриентов..."
-                                                  "Пожалуйста, проверь, что ты вводишь БЖУ правильно "
-                                                  "и попробуй еще раз.")
+                                                  "Пожалуйста, проверьте корректность вводимых данных")
                     else:
                         return True
 
@@ -128,27 +122,24 @@ class FoodBotFilters(UpdateFilter):
                 if not update.message.text:
                     raise ValueError
             except ValueError:
-                update.message.reply_text("Я получил пустую строку... Пожалуйста, попробуй еще раз.")
+                update.message.reply_text("Пустая строка?")
             else:
                 self.user_response = update.message.text
 
                 if self.state == "user_sex":
                     if self.user_response.lower() in correct_user_inputs["sex_types"]:
                         return True
-                    update.message.reply_text("Гендеров много, а полов всего два. "
-                                              "Какой пол у тебя: женский или мужской?")
+                    update.message.reply_text("Неправильное значение пола!")
 
                 elif self.state == "user_activity":
                     if self.user_response.lower() in correct_user_inputs["activity_types"]:
                         return True
-                    update.message.reply_text("Такого уровня активности я не знаю... "
-                                              "Выбери наиболее подходящий тебе уровень на клавиатуре.")
+                    update.message.reply_text("Неправильное значение активности!")
 
                 elif self.state == "user_goal":
                     if self.user_response.lower() in correct_user_inputs["goal_types"]:
                         return True
-                    update.message.reply_text("Такой цели я не знаю... "
-                                              "Выбери наиболее подходящую тебе цель на клавиатуре.")
+                    update.message.reply_text("Неправильное значение цели!")
 
                 elif self.state == "update_user_data":
                     if self.user_response.lower() == correct_buttons["update_user_data"]:
