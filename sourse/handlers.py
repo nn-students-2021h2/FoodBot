@@ -24,7 +24,7 @@ def start(update: Update, context: CallbackContext) -> str:
         f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
         f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
         f"Давайте познакомимся!")
-    update.message.reply_text("Как к вам обращаться? Введите имя или псевдоним.")
+    update.message.reply_text("Как к тебе обращаться? Введи имя или псевдоним.")
     return "user_name"
 
 
@@ -33,7 +33,7 @@ def get_user_name(update: Update, context: CallbackContext) -> str:
     Handler that takes a user's name and asks for user's age
     """
     context.user_data["name"] = update.message.text
-    update.message.reply_text(f"{update.message.text.capitalize()}, cколько Вам лет? ")
+    update.message.reply_text(f"{update.message.text.capitalize()}, cколько тебе лет? ")
     return "user_age"
 
 
@@ -42,7 +42,7 @@ def get_user_age(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's age and asks for user's sex
     """
     context.user_data["age"] = update.message.text
-    update.message.reply_text("Укажите свой пол:", reply_markup=utils.sex_keyboard())
+    update.message.reply_text("Укажи свой пол:", reply_markup=utils.sex_keyboard())
     return "user_sex"
 
 
@@ -51,7 +51,7 @@ def get_user_sex(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's gender and asks for user's height
     """
     context.user_data["sex"] = update.message.text
-    update.message.reply_text("Введите ваш рост в сантиметрах (например, 180): ", reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text("Введи свой рост в сантиметрах (целое число, например, 180): ", reply_markup=ReplyKeyboardRemove())
     return "user_height"
 
 
@@ -60,7 +60,7 @@ def get_user_height(update: Update, context: CallbackContext) -> str:
     Handler that receives the user's height and requests user's weight
     """
     context.user_data["height"] = update.message.text
-    update.message.reply_text("Введите ваш вес в килограммах (например, 74): ")
+    update.message.reply_text("Введи свой вес в килограммах (целое число, например, 74): ")
     return "user_weight"
 
 
@@ -70,7 +70,14 @@ def get_user_weight(update: Update, context: CallbackContext) -> str:
     """
     context.user_data["weight"] = update.message.text
     update.message.reply_text(
-        "Какой у Вас уровень активности? <добавить пояснения>",
+        "Какой у тебя уровень активности? Выбери подходящее описание из списка:\n\n"
+        "Нулевая — у меня сидячий образ жизни, я вообще не занимаюсь спортом.\n"
+        "Слабая — у меня сидячий образ жизни, но делаю небольшие тренировки "
+        "1-3 раза в неделю или регулярно хожу пешком.\n"
+        "Средняя — я занимаюсь спортом 3-4 раза в неделю по 30-60 минут.\n"
+        "Высокая — я занимаюсь спортом чаще 5 раз в неделю "
+        "или работаю в сфере строительства, сельского хозяйства и т.д.\n"
+        "Экстремальная — я тренируюсь несколько раз в день ежедневно или у меня длительные рабочие смены.",
         reply_markup=utils.activity_keyboard())
     return "user_activity"
 
@@ -80,7 +87,10 @@ def get_user_activity(update: Update, context: CallbackContext) -> str:
     Handler that gets the user's activity level and asks for the user's goal
     """
     context.user_data["activity"] = update.message.text
-    update.message.reply_text("Какая у вас цель? <добавить пояснения>", reply_markup=utils.goal_keyboard())
+    update.message.reply_text("Какая у тебя цель? Выбери подходящее описание из списка:\n\n"
+                              "Похудение — я хочу уменьшить процент жира в организме.\n"
+                              "Поддержание формы — я хочу поддерживать тело в текущем состоянии.\n"
+                              "Набор массы — я хочу нарастить мышечную массу.", reply_markup=utils.goal_keyboard())
     return "user_goal"
 
 
@@ -91,8 +101,8 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
     context.user_data["goal"] = update.message.text
     update.message.reply_text(
         f'Отлично, {context.user_data["name"].capitalize()}! '
-        f"Теперь я могу подсчитать вашу норму калорий и нутриентов. "
-        f"Дайте мне секунду..."
+        f"Теперь я могу подсчитать твою норму калорий и нутриентов. "
+        f"Дай мне секунду..."
     )
     user = User(
         user_id=update.message.chat.id,
@@ -114,7 +124,8 @@ def get_user_goal(update: Update, context: CallbackContext) -> int:
                               f"Твой вес: {context.user_data['weight']} кг.\n"
                               f"Твой уровень активности: {context.user_data['activity']}\n"
                               f"Твоя цель: {context.user_data['goal']}\n\n"
-                              f"Если что-то нужно изменить, используй кнопку в основном меню — пиши /go и мы начнем!")
+                              f"Если что-то нужно изменить, используй кнопку в основном меню. "
+                              f"Чтобы перейти в основное меню, пиши /go и мы начнем!")
     return ConversationHandler.END
 
 
@@ -124,7 +135,7 @@ def go(update: Update, context: CallbackContext) -> str:
     """
     user_name = ud.get_user_object(user_id=update.message.chat.id)["user_name"]
     update.message.reply_text(
-        f"{user_name}, я рад тебя видеть! Чем я могу тебе помочь?",
+        f"{user_name}, а вот и основное меню! Чем я могу тебе помочь?",
         reply_markup=utils.existing_user_keyboard(),
     )
     return "menu"
@@ -151,7 +162,7 @@ def ask_for_new_user_name(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting a changed username
     """
-    update.message.reply_text("Укажите новое имя")
+    update.message.reply_text("Укажи новое имя.")
     return "update_user_name"
 
 
@@ -168,7 +179,7 @@ def ask_for_new_user_age(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the user's changed age
     """
-    update.message.reply_text("Укажите новый возраст")
+    update.message.reply_text("Укажи новый возраст.")
     return "update_user_age"
 
 
@@ -178,7 +189,8 @@ def update_user_age(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_age(update.effective_chat.id, int(user_enter))
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Возраст изменен! Теперь нужно пересчитать норму КБЖУ. Нажми кнопку, пожалуйста!",
+                              reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -186,7 +198,7 @@ def ask_for_new_user_sex(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting a changed user's sex
     """
-    update.message.reply_text("Укажите новый пол:", reply_markup=utils.sex_keyboard())
+    update.message.reply_text("Укажи новый пол.", reply_markup=utils.sex_keyboard())
     return "update_user_sex"
 
 
@@ -196,7 +208,8 @@ def update_user_sex(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_sex(update.effective_chat.id, user_enter)
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Пол изменен! Теперь нужно пересчитать норму КБЖУ. Нажми кнопку, пожалуйста!",
+                              reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -204,7 +217,7 @@ def ask_for_new_user_height(update: Update, context: CallbackContext) -> str:
     """
     Handler that requests the user's height to be changed
     """
-    update.message.reply_text("Укажите новый рост")
+    update.message.reply_text("Укажи новый рост.")
     return "update_user_height"
 
 
@@ -214,7 +227,8 @@ def update_user_height(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_height(update.effective_chat.id, float(user_enter))
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Рост изменен! Теперь нужно пересчитать норму КБЖУ. Нажми кнопку, пожалуйста!",
+                              reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -222,7 +236,7 @@ def ask_for_new_user_weight(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the user's changed weight
     """
-    update.message.reply_text("Укажите новый вес")
+    update.message.reply_text("Укажи новый вес.")
     return "update_user_weight"
 
 
@@ -232,7 +246,8 @@ def update_user_weight(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_weight(update.effective_chat.id, float(user_enter))
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Вес изменен! Теперь нужно пересчитать норму КБЖУ. Нажми кнопку, пожалуйста!",
+                              reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -240,7 +255,7 @@ def ask_for_new_user_activity(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting changed user activity
     """
-    update.message.reply_text("Укажите новый уровень активности", reply_markup=utils.activity_keyboard())
+    update.message.reply_text("Укажи новый уровень активности.", reply_markup=utils.activity_keyboard())
     return "update_user_activity"
 
 
@@ -250,7 +265,8 @@ def update_user_activity(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_activity(update.effective_chat.id, user_enter)
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Уровень активности изменен! Теперь нужно пересчитать норму КБЖУ."
+                              "Нажми кнопку, пожалуйста!", reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -258,7 +274,7 @@ def ask_for_new_user_goal(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting a modified user goal
     """
-    update.message.reply_text("Укажите новую цель", reply_markup=utils.goal_keyboard())
+    update.message.reply_text("Укажи новую цель.", reply_markup=utils.goal_keyboard())
     return "update_user_goal"
 
 
@@ -268,7 +284,8 @@ def update_user_goal(update: Update, context: CallbackContext) -> str:
     """
     user_enter = update.message.text
     ud.update_user_goal(update.effective_chat.id, user_enter)
-    update.message.reply_text("Изменения внесены", reply_markup=utils.nutrients_norm_recount_keyboard())
+    update.message.reply_text("Цель изменена! Теперь нужно пересчитать норму КБЖУ. Нажми кнопку, пожалуйста!",
+                              reply_markup=utils.nutrients_norm_recount_keyboard())
     return "update_user_norm"
 
 
@@ -291,7 +308,7 @@ def add_new_meal(update: Update, context: CallbackContext) -> str:
     Handler requesting the name of the eaten dish
     """
     update.message.reply_text(
-        "Введите название съеденного блюда",
+        "Введи название блюда.",
         reply_markup=ReplyKeyboardRemove(),
     )
     return "get_meal_name"
@@ -303,7 +320,7 @@ def get_meal_name(update: Update, context: CallbackContext) -> str:
     """
     context.user_data["meal_name"] = update.message.text
     dish_info = ldd.get_learned_dish_note(context.user_data["meal_name"].lower())
-    update.message.reply_text("Введите размер съеденной порции (в граммах)")
+    update.message.reply_text("Введи размер съеденной порции (в граммах или миллилитрах).")
     if dish_info:
         return "get_meal_size_from_database"
     else:
@@ -341,7 +358,7 @@ def get_meal_size(update: Update, context: CallbackContext) -> str:
     Handler receiving the portion size and requesting the calorie content of the dish
     """
     context.user_data["meal_size"] = update.message.text
-    update.message.reply_text("Введите калорийность 100г этого блюда (в ккал)")
+    update.message.reply_text("Введи калорийность 100 гр блюда (в ккал).")
     return "get_meal_calories"
 
 
@@ -351,7 +368,7 @@ def get_meal_calories(update: Update, context: CallbackContext) -> str:
     """
     context.user_data["meal_calories"] = update.message.text
     update.message.reply_text(
-        "Введите количество белков в 100г этого блюда (в граммах)"
+        "Введи количество белков в 100 гр блюда (в граммах)."
     )
     return "get_meal_proteins"
 
@@ -361,7 +378,7 @@ def get_meal_proteins(update: Update, context: CallbackContext) -> str:
     Handler getting average protein and asking for average fat
     """
     context.user_data["meal_proteins"] = update.message.text
-    update.message.reply_text("Введите количество жиров в 100г этого блюда (в граммах)")
+    update.message.reply_text("Введи количество жиров в 100 гр блюда (в граммах).")
     return "get_meal_fats"
 
 
@@ -371,7 +388,7 @@ def get_meal_fats(update: Update, context: CallbackContext) -> str:
     """
     context.user_data["meal_fats"] = update.message.text
     update.message.reply_text(
-        "Введите количество углеводов в 100г этого блюда (в граммах)"
+        "Введите количество углеводов в 100 гр этого блюда (в граммах)."
     )
     return "get_meal_carbs"
 
@@ -403,7 +420,7 @@ def get_meal_carbs(update: Update, context: CallbackContext) -> str:
         float(context.user_data["meal_fats"]),
         float(context.user_data["meal_carbs"]),
     )
-    update.message.reply_text(f"Отлично, {user_name}! Вот что я записал:\n"
+    update.message.reply_text(f"{user_name}, вот что я записал:\n"
                               f"Блюдо: {context.user_data['meal_name']}\n"
                               f"Вес: {context.user_data['meal_size']} г/мл. \n"
                               f"Калории: {context.user_data['meal_calories']} ккал. \n"
@@ -419,7 +436,8 @@ def get_statistic(update: Update, context: CallbackContext) -> str:
     """
     Handler requesting the period for which you want to display statistics
     """
-    update.message.reply_text("Выберите, за какой промежуток времени получить статистику",
+    update.message.reply_text("За какой промежуток времени ты хочешь получить статистику? "
+                              "Используй клавиатуру для ответа.",
                               reply_markup=utils.get_statistic_keyboard())
     return "get_statistic_for"
 
@@ -451,14 +469,15 @@ def get_statistic_for_month(update: Update, context: CallbackContext) -> str:
     return go(update, context)
 
 
-def delete_last_meal_note(update: Update, context: CallbackContext) -> None:
+def delete_last_meal_note(update: Update, context: CallbackContext) -> str:
     """
     Handler that removes the user's last meal from the meal database
     """
     umd.delete_meal_note(
         update.effective_chat.id, umd.generate_meal_id(update.effective_chat.id) - 1
     )
-    update.message.reply_text("Последняя запись о приеме пищи успешно удалена")
+    update.message.reply_text("Запись о последнем приеме пищи успешно удалена!")
+    return go(update, context)
 
 
 if __name__ == "__main__":
