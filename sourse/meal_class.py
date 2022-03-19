@@ -108,7 +108,7 @@ def calculate_calories_for_day(user_id: int) -> float:
     calories_for_day = 0
     for i in range(len(raw_info)):
         calories_for_day += (
-            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_calories"] / 100) * raw_info[i]["meal_mass"]
         )
     return calories_for_day
 
@@ -121,7 +121,7 @@ def calculate_proteins_for_day(user_id: int) -> float:
     proteins_for_day = 0
     for i in range(len(raw_info)):
         proteins_for_day += (
-            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+                (raw_info[i]["meal_average_proteins"] / 100) * raw_info[i]["meal_mass"]
         )
     return proteins_for_day
 
@@ -134,7 +134,7 @@ def calculate_fats_for_day(user_id: int) -> float:
     fats_for_day = 0
     for i in range(len(raw_info)):
         fats_for_day += (
-            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_fats"] / 100) * raw_info[i]["meal_mass"]
         )
     return fats_for_day
 
@@ -147,7 +147,7 @@ def calculate_carbs_for_day(user_id: int) -> float:
     carbs_for_day = 0
     for i in range(len(raw_info)):
         carbs_for_day += (
-            raw_info[i]["meal_average_carbs"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_carbs"] / 100) * raw_info[i]["meal_mass"]
         )
     return carbs_for_day
 
@@ -160,7 +160,7 @@ def calculate_calories_for_week(user_id: int) -> float:
     calories_for_week = 0
     for i in range(len(raw_info)):
         calories_for_week += (
-            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_calories"] / 100) * raw_info[i]["meal_mass"]
         )
     return calories_for_week
 
@@ -173,7 +173,7 @@ def calculate_proteins_for_week(user_id: int) -> float:
     proteins_for_week = 0
     for i in range(len(raw_info)):
         proteins_for_week += (
-            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_proteins"] / 100) * raw_info[i]["meal_mass"]
         )
     return proteins_for_week
 
@@ -186,7 +186,7 @@ def calculate_fats_for_week(user_id: int) -> float:
     fats_for_week = 0
     for i in range(len(raw_info)):
         fats_for_week += (
-            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_fats"] / 100) * raw_info[i]["meal_mass"]
         )
     return fats_for_week
 
@@ -199,7 +199,7 @@ def calculate_carbs_for_week(user_id: int) -> float:
     carbs_for_week = 0
     for i in range(len(raw_info)):
         carbs_for_week += (
-            raw_info[i]["meal_average_carbs"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_carbs"] / 100) * raw_info[i]["meal_mass"]
         )
     return carbs_for_week
 
@@ -212,7 +212,7 @@ def calculate_calories_for_month(user_id: int) -> float:
     calories_for_month = 0
     for i in range(len(raw_info)):
         calories_for_month += (
-            raw_info[i]["meal_average_calories"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_calories"] / 100) * raw_info[i]["meal_mass"]
         )
     return calories_for_month
 
@@ -225,7 +225,7 @@ def calculate_proteins_for_month(user_id: int) -> float:
     proteins_for_month = 0
     for i in range(len(raw_info)):
         proteins_for_month += (
-            raw_info[i]["meal_average_proteins"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_proteins"] / 100) * raw_info[i]["meal_mass"]
         )
     return proteins_for_month
 
@@ -238,7 +238,7 @@ def calculate_fats_for_month(user_id: int) -> float:
     fats_for_month = 0
     for i in range(len(raw_info)):
         fats_for_month += (
-            raw_info[i]["meal_average_fats"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_fats"] / 100) * raw_info[i]["meal_mass"]
         )
     return fats_for_month
 
@@ -251,14 +251,12 @@ def calculate_carbs_for_month(user_id: int) -> float:
     carbs_for_month = 0
     for i in range(len(raw_info)):
         carbs_for_month += (
-            raw_info[i]["meal_average_carbs"] * raw_info[i]["meal_mass"] / 100
+            (raw_info[i]["meal_average_carbs"] / 100) * raw_info[i]["meal_mass"]
         )
     return carbs_for_month
 
 
 if __name__ == "__main__":
-    print(get_current_date())
-    print(get_current_time())
     # print(calculate_calories_for_week(1983880200))
     # print(calculate_calories_for_month(1983880200))
-    print(datetime.time(10, 50, 0, 0))
+    print(calculate_proteins_for_day(1983880200))

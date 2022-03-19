@@ -3,18 +3,17 @@ File containing the filter class needed to validate user input
 """
 from telegram.ext import UpdateFilter
 
-nutrients_count = 0
-
 
 class FoodBotFilters(UpdateFilter):
+
+    nutrients_count = 0
+    nutrients_flag = 0
 
     def __init__(self, state):
         self.user_response = None
         self.state = state
 
     def filter(self, update):
-
-        global nutrients_count
 
         int_states = ("user_age", "user_height", "user_weight", "get_meal_size", "get_meal_calories",
                       "get_meal_proteins", "get_meal_fats", "get_meal_carbs")
@@ -53,7 +52,7 @@ class FoodBotFilters(UpdateFilter):
 
         if self.state in int_states:
             try:
-                self.user_response = int(update.message.text)
+                self.user_response = float(update.message.text)
             except TypeError:
                 update.message.reply_text("Я тебя не понимаю... Пожалуйста, введи целое число :)")
             except ValueError:
@@ -81,7 +80,7 @@ class FoodBotFilters(UpdateFilter):
 
                 elif self.state == "user_weight":
                     try:
-                        if self.user_response > 1000:
+                        if self.user_response not in range(20, 1000):
                             raise ValueError
                     except ValueError:
                         update.message.reply_text("Кажется, у тебя опечатка... Пожалуйста, введи свой вес еще раз.")
@@ -90,7 +89,7 @@ class FoodBotFilters(UpdateFilter):
 
                 elif self.state == "get_meal_size":
                     try:
-                        if self.user_response > 1000:
+                        if self.user_response not in range(1, 2000):
                             raise ValueError
                     except ValueError:
                         update.message.reply_text("Кажется, у тебя опечатка... "
@@ -101,7 +100,7 @@ class FoodBotFilters(UpdateFilter):
                 elif self.state == "get_meal_calories":
                     try:
                         # pad-thai is the world's most calorific dish (1004 kcal)
-                        if self.user_response > 1004:
+                        if self.user_response not in range(1, 1004):
                             raise ValueError
                     except ValueError:
                         update.message.reply_text("По моим данным, самое калорийное блюдо мира — лапша пад-тай "
@@ -112,12 +111,17 @@ class FoodBotFilters(UpdateFilter):
 
                 elif self.state in ("get_meal_proteins", "get_meal_fats", "get_meal_carbs"):
                     try:
-                        nutrients_count += self.user_response
-                        if self.user_response >= 100 or nutrients_count > 100:
+                        if FoodBotFilters.nutrients_flag == 3:
+                            FoodBotFilters.nutrients_count = 0
+                            FoodBotFilters.nutrients_flag = 0
+                        FoodBotFilters.nutrients_count += self.user_response
+                        FoodBotFilters.nutrients_flag += 1
+                        if self.user_response >= 100 or self.nutrients_count > 100 or self.user_response <= 0.01:
                             raise ValueError
                     except ValueError:
-                        nutrients_count -= self.user_response
-                        update.message.reply_text("В 100 г продукта не может быть более 100 г нутриентов..."
+                        FoodBotFilters.nutrients_count -= self.user_response
+                        update.message.reply_text("В 100 г продукта не может быть более 100 г и меньше 0.01"
+                                                  " г нутриентов..."
                                                   "Пожалуйста, проверь, что ты вводишь БЖУ правильно "
                                                   "и попробуй еще раз.")
                     else:
