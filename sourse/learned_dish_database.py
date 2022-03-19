@@ -30,10 +30,10 @@ def add_learned_dish_note(
     try:
         cursor.execute(sql)
         con.commit()
-        print("learned_dish added")
+        print(f"SUCCESS of adding '{learned_dish_dish}' in learned_dish database")
     except pymysql.Error as e:
         con.rollback()
-        print(f"error of learned_dish adding error pymysql {e.args[0]}: {e.args[1]}")
+        print(f"ERROR of adding '{learned_dish_dish}' in learned_dish database - pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -54,10 +54,10 @@ def delete_learned_dish_note(learned_dish_dish: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print("learned_dish_note deleted")
+        print(f"SUCCESS of deleting '{learned_dish_dish}' from learned_dish database")
     except pymysql.Error as e:
         con.rollback()
-        print(f"error of learned_dish_note deleting error pymysql {e.args[0]}: {e.args[1]}")
+        print(f"ERROR of deleting '{learned_dish_dish}' from learned_dish database - pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -87,9 +87,9 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict | None:
             learned_dish_average_fats=database_result[0][3],
             learned_dish_average_carbs=database_result[0][4],
         ) if database_result != () else None
-        print("record received")
+        print(f"SUCCESS of getting '{learned_dish_dish}' from learned_dish database")
     except pymysql.Error as e:
-        print(f"error of record receiving error pymysql {e.args[0]}: {e.args[1]}")
+        print(f"ERROR of getting '{learned_dish_dish}' from learned_dish database - pymysql {e.args[0]}: {e.args[1]}")
     cursor.close()
     con.close()
 
@@ -97,4 +97,4 @@ def get_learned_dish_note(learned_dish_dish: str) -> dict | None:
 
 
 if __name__ == "__main__":
-    print(get_learned_dish_note("jkk"))
+    add_learned_dish_note('dfd', 2, 2, 3, 'df')
