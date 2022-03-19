@@ -1,3 +1,6 @@
+"""
+File that creates and launches the FoodBot
+"""
 import datetime
 import pytz
 import json

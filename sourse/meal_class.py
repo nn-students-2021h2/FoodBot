@@ -1,3 +1,6 @@
+"""
+File containing the implementation of the meal class and its accompanying functions
+"""
 import user_meal_database as umd
 import datetime
 
@@ -54,11 +57,11 @@ class Meal:
         Returns message with a summary of the nutritional value of a meal
         """
         return (
-            f"Ваше блюдо '{self.dish}' массой {self.meal_size} г. содержит:\n"
-            f"{(self.average_calories/100) * self.meal_size} ккал,\n"
-            f"{(self.average_proteins/100) * self.meal_size} г. белков,\n"
-            f"{(self.average_fats/100) * self.meal_size} г. жиров,\n"
-            f"{(self.average_carbs/100) * self.meal_size} г. углеводов"
+            f"Ваше блюдо '{self.dish}' массой {round(self.meal_size)} г. содержит:\n"
+            f"{round((self.average_calories/100) * self.meal_size)} ккал,\n"
+            f"{round((self.average_proteins/100) * self.meal_size)} г. белков,\n"
+            f"{round((self.average_fats/100) * self.meal_size)} г. жиров,\n"
+            f"{round((self.average_carbs/100) * self.meal_size)} г. углеводов"
         )
 
 

@@ -1,3 +1,6 @@
+"""
+File containing handlers for building a dialogue with the FoodBot
+"""
 import user_database as ud
 import user_meal_database as umd
 import learned_dish_database as ldd
@@ -127,7 +130,7 @@ def go(update: Update, context: CallbackContext) -> str:
     return "menu"
 
 
-def get_nutrients_norm(update: Update, context: CallbackContext) -> str:
+def get_nutrients_norm(update: Update, context: CallbackContext):
     """
     Handler that displays information about the user's daily calorie and nutrient intake
     """

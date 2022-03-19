@@ -1,3 +1,6 @@
+"""
+File containing the implementation of the user class and its accompanying functions
+"""
 import meal_class as mc
 import user_database as ud
 
@@ -67,11 +70,11 @@ class User:
             )
         self.calorie_norm *= activity_cf[self.activity.lower()]
 
-        PROTEIN_IN_KCAL, CARB_IN_KCAL, FAT_IN_KCAL = 4, 4, 9
+        protein_in_kcal, carb_in_kcal, fat_in_kcal = 4, 4, 9
 
-        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][0] / PROTEIN_IN_KCAL)
-        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][1] / FAT_IN_KCAL)
-        self.carb_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][2] / CARB_IN_KCAL)
+        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][0] / protein_in_kcal)
+        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][1] / fat_in_kcal)
+        self.carb_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][2] / carb_in_kcal)
 
     def user_to_database(self) -> None:
         """
@@ -97,10 +100,10 @@ class User:
         Returns a message with a summary of daily calories and nutrients
         """
         return (
-            f"{self.name.title()}, ваша дневная норма калорий — {self.calorie_norm} ккал. \n"
-            f"Белки: {self.protein_norm} г. \n"
-            f"Жиры: {self.fat_norm} г. \n"
-            f"Углеводы: {self.carb_norm} г."
+            f"{self.name.title()}, ваша дневная норма калорий — {round(self.calorie_norm)} ккал. \n"
+            f"Белки: {round(self.protein_norm)} г. \n"
+            f"Жиры: {round(self.fat_norm)} г. \n"
+            f"Углеводы: {round(self.carb_norm)} г."
         )
 
     def get_meal_statistic_for_day(self) -> str:
