@@ -36,7 +36,8 @@ def activity_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for activity types
     """
-    keyboard = ReplyKeyboardMarkup([["нулевая", "слабая", "средняя", "высокая", "экстремальная"]], one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup([["нулевая"], ["слабая"], ["средняя"], ["высокая"], ["экстремальная"]],
+                                   one_time_keyboard=True)
     return keyboard
 
 
@@ -44,7 +45,7 @@ def goal_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for goal types
     """
-    keyboard = ReplyKeyboardMarkup([["похудение", "поддержание формы", "набор массы"]], one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup([["похудение"], ["поддержание формы"], ["набор массы"]], one_time_keyboard=True)
     return keyboard
 
 
