@@ -20,6 +20,10 @@ def start(update: Update, context: CallbackContext) -> str:
     print("Удаляю имеющуюся запись")
     ud.delete_note_with_id(update.effective_chat.id)
     umd.delete_all_meal_notes(update.effective_chat.id)
+    update.message.reply_text(
+        f"{update.message.chat.first_name}, Вас приветствует Foodbot. "
+        f"Прежде чем начать работу, мне нужно узнать кое-что о вас. "
+        f"Давайте познакомимся!")
     update.message.reply_text("Как к тебе обращаться? Введи имя или псевдоним.")
     return "user_name"
 
