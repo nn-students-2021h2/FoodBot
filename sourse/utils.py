@@ -36,8 +36,10 @@ def activity_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for activity types
     """
-    keyboard = ReplyKeyboardMarkup([["нулевая"], ["слабая"], ["средняя"], ["высокая"], ["экстремальная"]],
-                                   one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(
+        [["нулевая"], ["слабая"], ["средняя"], ["высокая"], ["экстремальная"]],
+        one_time_keyboard=True,
+    )
     return keyboard
 
 
@@ -45,7 +47,9 @@ def goal_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for goal types
     """
-    keyboard = ReplyKeyboardMarkup([["похудение"], ["поддержание формы"], ["набор массы"]], one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(
+        [["похудение"], ["поддержание формы"], ["набор массы"]], one_time_keyboard=True
+    )
     return keyboard
 
 
@@ -53,11 +57,14 @@ def update_user_data_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for fields which need to be changed
     """
-    keyboard = ReplyKeyboardMarkup([
-        ["Имя", "Возраст", "Пол"],
-        ["Вес", "Рост"],
-        ["Уровень активности", "Цель", "Вернуться в основное меню"]
-    ], one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(
+        [
+            ["Имя", "Возраст", "Пол"],
+            ["Вес", "Рост"],
+            ["Уровень активности", "Цель", "Вернуться в основное меню"],
+        ],
+        one_time_keyboard=True,
+    )
     return keyboard
 
 
@@ -73,11 +80,15 @@ def get_statistic_keyboard() -> ReplyKeyboardMarkup:
     """
     Returns the virtual keyboard for time spans which get statistics for
     """
-    keyboard = ReplyKeyboardMarkup([
-        ["За текущий день"],
-        ["За последние 7 дней"],
-        ["За последний месяц"],
-    ], one_time_keyboard=True, resize_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(
+        [
+            ["За текущий день"],
+            ["За последние 7 дней"],
+            ["За последний месяц"],
+        ],
+        one_time_keyboard=True,
+        resize_keyboard=True,
+    )
     return keyboard
 
 

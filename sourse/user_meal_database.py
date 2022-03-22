@@ -36,11 +36,15 @@ def add_meal_note(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of adding '{meal_name}' by user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of adding '{meal_name}' by user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of adding '{meal_name}' by user_id = '{user_id} ' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of adding '{meal_name}' by user_id = '{user_id} ' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -61,11 +65,15 @@ def delete_all_meal_notes(user_id: int) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of deleting all notes with user_id = '{user_id}' from user_meal database")
+        print(
+            f"SUCCESS of deleting all notes with user_id = '{user_id}' from user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of deleting all notes with user_id = '{user_id}' from user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of deleting all notes with user_id = '{user_id}' from user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -86,11 +94,15 @@ def delete_meal_note(user_id: int, meal_id: int) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of deleting note with user_id = '{user_id}' from user_meal database")
+        print(
+            f"SUCCESS of deleting note with user_id = '{user_id}' from user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of deleting note with user_id = '{user_id}' from user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of deleting note with user_id = '{user_id}' from user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -112,10 +124,14 @@ def get_number_of_user_meals(user_id: int) -> int:
     try:
         cursor.execute(sql)
         result = cursor.fetchall()[0][0]
-        print(f"SUCCESS of getting number_of_meals with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting number_of_meals with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting number_of_meals with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting number_of_meals with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -138,11 +154,15 @@ def update_meal_name(user_id: int, meal_id: int, meal_name: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_name with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_name with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_name with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_name with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -163,11 +183,15 @@ def update_meal_mass(user_id: int, meal_id: int, meal_mass: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_mass with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_mass with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_mass with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_mass with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -190,11 +214,15 @@ def update_meal_average_calories(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_average_calories with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_average_calories with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_average_calories with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_average_calories with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -217,11 +245,15 @@ def update_meal_average_proteins(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_average_proteins with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_average_proteins with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_average_proteins with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_average_proteins with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -244,11 +276,15 @@ def update_meal_average_fats(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_average_fats with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_average_fats with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_average_fats with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_average_fats with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -271,11 +307,15 @@ def update_meal_average_carbs(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_average_carbs with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_average_carbs with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_average_carbs with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_average_carbs with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -296,11 +336,15 @@ def update_meal_date(user_id: int, meal_id: int, meal_date: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_date with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_date with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_date with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_date with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -321,11 +365,15 @@ def update_meal_time(user_id: int, meal_id: int, meal_time: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating meal_time with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of updating meal_time with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating meal_time with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating meal_time with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -360,12 +408,16 @@ def get_meal_object(user_id: int, meal_id: int) -> dict:
             meal_date=database_result[0][8],
             meal_time=database_result[0][9],
         )
-        print(f"SUCCESS of getting meal_object with user_id = '{user_id}' and "
-              f"meal_id = '{meal_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting meal_object with user_id = '{user_id}' and "
+            f"meal_id = '{meal_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting meal_object with user_id = '{user_id}' and "
-              f"meal_id = '{meal_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting meal_object with user_id = '{user_id}' and "
+            f"meal_id = '{meal_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -405,10 +457,14 @@ def get_all_meals(user_id: int) -> dict:
             )
             for i in range(len(database_result))
         }
-        print(f"SUCCESS of getting all meal_objects with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting all meal_objects with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting all meal_objects with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting all meal_objects with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -456,10 +512,14 @@ def get_user_meal_for_day(user_id: int) -> dict:
             )
             for i in range(len(database_result))
         }
-        print(f"SUCCESS of getting user_meal_for_day with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting user_meal_for_day with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting user_meal_for_day with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting user_meal_for_day with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
     return result
@@ -502,10 +562,14 @@ def get_user_meal_for_week(user_id: int) -> dict:
             )
             for i in range(len(database_result))
         }
-        print(f"SUCCESS of getting user_meal_for_week with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting user_meal_for_week with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting user_meal_for_week with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting user_meal_for_week with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -549,10 +613,14 @@ def get_user_meal_for_month(user_id: int) -> dict:
             )
             for i in range(len(database_result))
         }
-        print(f"SUCCESS of getting user_meal_for_month with user_id = '{user_id}' in user_meal database")
+        print(
+            f"SUCCESS of getting user_meal_for_month with user_id = '{user_id}' in user_meal database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting user_meal_for_month with user_id = '{user_id}' in user_meal database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting user_meal_for_month with user_id = '{user_id}' in user_meal database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 

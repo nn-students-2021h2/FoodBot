@@ -1,8 +1,8 @@
 """
 File containing the implementation of the user class and its accompanying functions
 """
-import meal_class as mc
-import user_database as ud
+import sourse.meal_class as mc
+import sourse.user_database as ud
 
 
 class User:
@@ -72,9 +72,15 @@ class User:
 
         protein_in_kcal, carb_in_kcal, fat_in_kcal = 4, 4, 9
 
-        self.protein_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][0] / protein_in_kcal)
-        self.fat_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][1] / fat_in_kcal)
-        self.carb_norm = round(self.calorie_norm * goal_cf[self.goal.lower()][2] / carb_in_kcal)
+        self.protein_norm = round(
+            self.calorie_norm * goal_cf[self.goal.lower()][0] / protein_in_kcal
+        )
+        self.fat_norm = round(
+            self.calorie_norm * goal_cf[self.goal.lower()][1] / fat_in_kcal
+        )
+        self.carb_norm = round(
+            self.calorie_norm * goal_cf[self.goal.lower()][2] / carb_in_kcal
+        )
 
     def user_to_database(self) -> None:
         """
@@ -113,9 +119,7 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_day(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_day(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_day(self.user_id))
-        calculated_carbs = round(
-            mc.calculate_carbs_for_day(self.user_id)
-        )
+        calculated_carbs = round(mc.calculate_carbs_for_day(self.user_id))
         calories_balance = round(self.calorie_norm - calculated_calories)
         proteins_balance = round(self.protein_norm - calculated_proteins)
         fats_balance = round(self.fat_norm - calculated_fats)
@@ -139,9 +143,7 @@ class User:
         calculated_calories = round(mc.calculate_calories_for_week(self.user_id))
         calculated_proteins = round(mc.calculate_proteins_for_week(self.user_id))
         calculated_fats = round(mc.calculate_fats_for_week(self.user_id))
-        calculated_carbs = round(
-            mc.calculate_carbs_for_week(self.user_id)
-        )
+        calculated_carbs = round(mc.calculate_carbs_for_week(self.user_id))
         calories_balance = round(((self.calorie_norm * 7) - calculated_calories) / 7)
         proteins_balance = round(((self.protein_norm * 7) - calculated_proteins) / 7)
         fats_balance = round(((self.fat_norm * 7) - calculated_fats) / 7)

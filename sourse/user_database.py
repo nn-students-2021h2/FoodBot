@@ -38,11 +38,15 @@ def add_note(
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of adding user_note with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of adding user_note with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of adding user_note with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of adding user_note with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -63,11 +67,15 @@ def delete_note_with_id(user_id: int) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of deleting user_note with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of deleting user_note with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of deleting user_note with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of deleting user_note with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -88,11 +96,15 @@ def update_user_name(user_id: int, new_user_name: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_name with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_name with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_name with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_name with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -113,11 +125,15 @@ def update_user_age(user_id: int, new_user_age: int) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_age with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_age with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_age with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_age with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -138,11 +154,15 @@ def update_user_sex(user_id: int, new_user_sex: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_sex with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_sex with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_sex with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_sex with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -163,11 +183,15 @@ def update_user_height(user_id: int, user_height: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_height with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_height with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_height with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_height with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -188,11 +212,15 @@ def update_user_weight(user_id: int, user_weight: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_weight with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_weight with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_weight with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_weight with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -213,11 +241,15 @@ def update_user_activity(user_id: int, user_activity: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_activity with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_activity with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_activity with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_activity with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -238,11 +270,15 @@ def update_user_goal(user_id: int, user_goal: str) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_goal with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_goal with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_goal with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_goal with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -265,11 +301,15 @@ def update_user_calorie_norm(user_id: int, user_calorie_norm: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_calorie_norm with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_calorie_norm with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_calorie_norm with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_calorie_norm with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -292,11 +332,15 @@ def update_user_protein_norm(user_id: int, user_protein_norm: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_protein_norm with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_protein_norm with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_protein_norm with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_protein_norm with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -317,11 +361,15 @@ def update_user_fat_norm(user_id: int, user_fat_norm: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_fat_norm with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_fat_norm with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_fat_norm with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_fat_norm with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -342,11 +390,15 @@ def update_user_carb_norm(user_id: int, user_carb_norm: float) -> None:
     try:
         cursor.execute(sql)
         con.commit()
-        print(f"SUCCESS of updating user_carb_norm with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of updating user_carb_norm with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
         con.rollback()
-        print(f"ERROR of updating user_carb_norm with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of updating user_carb_norm with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -383,10 +435,14 @@ def get_user_object(user_id: int) -> dict:
             user_fat_norm=database_result[0][10],
             user_carb_norm=database_result[0][11],
         )
-        print(f"SUCCESS of getting user_object with user_id = '{user_id}' in user database")
+        print(
+            f"SUCCESS of getting user_object with user_id = '{user_id}' in user database"
+        )
     except pymysql.Error as e:
-        print(f"ERROR of getting user_object with user_id = '{user_id}' in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting user_object with user_id = '{user_id}' in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -430,8 +486,10 @@ def get_all_user_info() -> dict:
         }
         print(f"SUCCESS of getting all user_objects in user database")
     except pymysql.Error as e:
-        print(f"ERROR of getting all user_objects in user database - "
-              f"pymysql {e.args[0]}: {e.args[1]}")
+        print(
+            f"ERROR of getting all user_objects in user database - "
+            f"pymysql {e.args[0]}: {e.args[1]}"
+        )
     cursor.close()
     con.close()
 
@@ -439,5 +497,18 @@ def get_all_user_info() -> dict:
 
 
 if __name__ == "__main__":
-    add_note(99999999999999, "John", 20, "мужской", 180, 70, "высокая", "набор массы", 2641.8, 231, 88, 363)
+    add_note(
+        99999999999999,
+        "John",
+        20,
+        "мужской",
+        180,
+        70,
+        "высокая",
+        "набор массы",
+        2641.8,
+        231,
+        88,
+        363,
+    )
     # delete_note_with_id(99)
