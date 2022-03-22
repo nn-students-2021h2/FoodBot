@@ -1,11 +1,11 @@
 import unittest
-from user_class import User
+import sourse.user_class
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.correct_user = User(
+        self.correct_user = sourse.user_class.User(
             user_id=603485721,
             name="Daria",
             age=23,

@@ -1,8 +1,8 @@
 """
 File containing the implementation of the user class and its accompanying functions
 """
-import meal_class as mc
-import user_database as ud
+import sourse.meal_class as mc
+import sourse.user_database as ud
 
 
 class User:
